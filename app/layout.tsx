@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import { CartProvider } from "@/components/cart-provider";
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
@@ -16,7 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning={true} lang="en">
-      <body className={josefin.className}>{children}</body>
+      <body className={josefin.className}>
+        <CartProvider>
+          <Navbar />
+          {children}
+        </CartProvider>
+      </body>
     </html>
   );
 }

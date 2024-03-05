@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import parse from "html-react-parser";
+import AddToCart from "@/app/addToCart";
 const SingleProductPage = async ({ params: { productId } }: any) => {
   const res = await fetch(`https://rest.spod.com/articles/${productId}`, {
     method: "GET",
@@ -16,37 +17,17 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
 
   const singleProduct: Item = await res.json();
 
-  console.log("single: ", singleProduct.description);
   return (
-    <div className="lg:px-28 flex justify-start gap-14 items-center min-h-screen  px-4">
+    <div className="lg:px-28 mt-20 lg:mt-0 md:mt-10 flex lg:flex-row md:flex-row flex-col lg:justify-start justify-center gap-5 items.start min-h-screen  px-4">
       <Image
         alt="image"
-        className="w-1/3 border rounded-lg"
+        className="lg:w-1/3 md:w-1/2 w-full border rounded-lg"
         src={singleProduct.images[0].imageUrl}
         width={1000}
         height={1000}
       />
-      <section className="flex flex-col gap-5">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-bold">{singleProduct.title}</h1>
-          <p>{parse(singleProduct.description)}</p>
-          <span className="text-2xl text-primary">
-            ${singleProduct.variants[0].d2cPrice}
-          </span>
-
-          <h2>Choose A Size:</h2>
-          <div className="flex items-center gap-3">
-            {singleProduct.variants.map((variant) => (
-              <div
-                key={variant.id}
-                className="border cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all rounded-full flex items-center justify-center w-11 h-11"
-              >
-                <span>{variant.sizeName}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <Button>Add To Cart</Button>
+      <section className="flex flex-col">
+        <AddToCart singleProduct={singleProduct} />
       </section>
     </div>
   );

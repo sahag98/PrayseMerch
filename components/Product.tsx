@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import React from "react";
 
-type Variant = {
+export type Variant = {
   id: number;
   productTypeId: number;
   productTypeName: string;

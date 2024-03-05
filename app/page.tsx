@@ -18,12 +18,12 @@ export default async function Home() {
   const products = await res.json();
   console.log("products: ", products);
   return (
-    <main className="flex flex-col bg-[#f2f7ff] min-h-screen items-center lg:px-28 px-4">
+    <main className="flex flex-col bg-background min-h-screen items-center lg:px-28 px-4">
       <section className="flex justify-center">
         <div className="flex lg:flex-row flex-col lg:gap-0 gap-6 h-screen justify-center mt-10 lg:mt-0 relative items-center lg:justify-between">
           <section>
             <h1 className="lg:text-6xl text-5xl font-bold ">Prayse Merch</h1>
-            <p>Our limited time merch!</p>
+            <p>Check out our limited time merch!</p>
             <Button className="w-1/2 mt-3 bg-primary font-bold">
               Shop Now!
             </Button>
