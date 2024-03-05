@@ -60,7 +60,7 @@ const Navbar = () => {
                       src={item.image}
                       width={1000}
                       height={1000}
-                      className="w-14 border rounded-lg"
+                      className="w-14 lg:w-36 border rounded-lg"
                       alt={item.image}
                     />
                     <section>
