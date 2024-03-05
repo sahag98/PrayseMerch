@@ -18,7 +18,7 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
   const singleProduct: Item = await res.json();
 
   return (
-    <div className="lg:px-28 mt-20 lg:mt-0 md:mt-10 flex lg:flex-row md:flex-row flex-col lg:justify-start lg:items-center justify-center lg:gap-10 gap-5 items.start min-h-screen  px-4">
+    <div className="lg:px-28 mt-20 lg:mt-0 md:mt-10 flex lg:flex-row md:flex-row flex-col lg:justify-start lg:items-center md:justify-start justify-center md:items-center lg:gap-10 gap-5 items-start min-h-screen  px-4">
       <Image
         alt="image"
         className="lg:w-1/3 md:w-1/2 w-full border rounded-lg"

@@ -2,7 +2,7 @@
 
 import { ShoppingBasket, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "./cart-provider";
 import {
   Sheet,
@@ -22,7 +22,22 @@ import Image from "next/image";
 
 const Navbar = () => {
   const { cart } = useCart();
-  console.log(cart);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: any) => {
+      event.preventDefault();
+      if (cart.items.length == 0) {
+        return;
+      }
+      console.log("user is refreshing page");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   return (
     <div className="flex fixed top-0 w-full bg-secondary z-10 border-b items-center py-5 justify-between lg:px-28 px-4">
       <Link href={"/"}>Prayse</Link>
@@ -40,13 +55,22 @@ const Navbar = () => {
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Cart</SheetTitle>
-            <SheetDescription>Your cart items:</SheetDescription>
+            <SheetTitle className="text-xl">Cart</SheetTitle>
+            <SheetDescription className="text-lg">
+              Your cart items:
+            </SheetDescription>
           </SheetHeader>
 
           {cart.items.length == 0 ? (
-            <div className="h-full flex items-center justify-center">
-              <p>Your cart is Empty.</p>
+            <div className="h-full flex flex-col gap-8 items-center justify-center">
+              <Image
+                className="lg:w-40 w-3/4"
+                src={"/empty-cart.svg"}
+                width={896}
+                height={748}
+                alt="empty shopping cart"
+              />
+              <p className="text-xl">Your cart is Empty.</p>
             </div>
           ) : (
             <>
