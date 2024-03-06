@@ -20,8 +20,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus } from "lucide-react";
 import { Variant } from "@/components/Product";
-import { useCart } from "@/components/cart-provider";
-
+// import { useCart } from "@/components/cart-provider";
+import useCart from "@/hooks/use-cart";
 export type CartItem = {
   name: string;
   size: string;
@@ -40,8 +40,8 @@ const formSchema = z.object({
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(0);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
-
-  const { addToCart } = useCart();
+  const cart = useCart();
+  // const { addToCart } = useCart();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -92,7 +92,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
         customerPrice,
       };
 
-      addToCart(CartItem);
+      cart.addItem(CartItem);
       form.resetField("size");
       setQuantity(0);
 

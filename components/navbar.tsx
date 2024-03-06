@@ -1,9 +1,8 @@
 "use client";
 
-import { ShoppingBasket, ShoppingCart } from "lucide-react";
+import { ShoppingBasket, ShoppingCart, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { useCart } from "./cart-provider";
 import {
   Sheet,
   SheetClose,
@@ -17,35 +16,20 @@ import {
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import useCart from "@/hooks/use-cart";
 import { CartItem } from "@/app/addToCart";
 import Image from "next/image";
 
 const Navbar = () => {
-  const { cart } = useCart();
-
-  useEffect(() => {
-    const handleBeforeUnload = (event: any) => {
-      event.preventDefault();
-      if (cart.items.length == 0) {
-        return;
-      }
-      console.log("user is refreshing page");
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  const cart = useCart();
   return (
-    <div className="flex fixed top-0 w-full bg-secondary z-10 border-b items-center py-5 justify-between lg:px-28 px-4">
+    <div className="flex fixed top-0 w-full bg-secondary z-10 border-b items-center py-5 justify-between  lg:px-28 px-4">
       <Link href={"/"}>Prayse</Link>
 
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant={"ghost"}>
-            <div className="relative p-2">
+          <Button className="px-0 py-0" variant={"ghost"}>
+            <div className="relative p-2 ">
               <div className="absolute bg-primary p-1 w-5 h-5 flex items-center justify-center rounded-full text-background right-0 top-0">
                 <span className="">{cart.items.length}</span>
               </div>
@@ -53,7 +37,7 @@ const Navbar = () => {
             </div>
           </Button>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="w-[350px]">
           <SheetHeader>
             <SheetTitle className="text-xl">Cart</SheetTitle>
             <SheetDescription className="text-lg">
@@ -77,7 +61,7 @@ const Navbar = () => {
               <div className="grid gap-4 py-4">
                 {cart.items.map((item: CartItem, index: number) => (
                   <div
-                    className="flex items-center gap-2 justify-between"
+                    className="flex relative items-center gap-2 justify-between"
                     key={index}
                   >
                     <Image
@@ -94,6 +78,10 @@ const Navbar = () => {
                         <p className="text-sm">x {item.quantity}</p>
                       </div>
                     </section>
+                    <TrashIcon
+                      className="text-destructive w-5"
+                      onClick={() => cart.removeItem(item.sku)}
+                    />
                   </div>
                 ))}
               </div>
