@@ -16,7 +16,7 @@ export default async function Home() {
   });
 
   const products = await res.json();
-  console.log("products: ", products);
+
   return (
     <main className="flex flex-col bg-background min-h-screen items-center lg:px-28 px-4">
       <section className="flex justify-center">

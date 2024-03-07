@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import { CartProvider } from "@/components/cart-provider";
 
+import { Toaster } from "@/components/ui/toaster";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Prayse Merch",
   description: "Limited time prayse merch",
 };
+
+export const revalidate = 3600;
 
 export default function RootLayout({
   children,
@@ -19,10 +21,9 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body className={josefin.className}>
-        <CartProvider>
-          <Navbar />
-          {children}
-        </CartProvider>
+        <Navbar />
+        {children}
+        <Toaster />
       </body>
     </html>
   );

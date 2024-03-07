@@ -22,13 +22,17 @@ import { Minus, Plus } from "lucide-react";
 import { Variant } from "@/components/Product";
 // import { useCart } from "@/components/cart-provider";
 import useCart from "@/hooks/use-cart";
+import { ToastDemo } from "@/components/toast";
+import { useToast } from "@/components/ui/use-toast";
 export type CartItem = {
   name: string;
   size: string;
   sku: number;
   image: string;
   quantity: number;
-  customerPrice: {};
+  customerPrice: {
+    amount: number;
+  };
 };
 
 const formSchema = z.object({
@@ -41,7 +45,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(0);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
   const cart = useCart();
-  // const { addToCart } = useCart();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -91,11 +95,17 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
         quantity,
         customerPrice,
       };
-
+      // toast({
+      //   title: "Item Added to Cart",
+      // });
       cart.addItem(CartItem);
+      cart.openCart();
       form.resetField("size");
       setQuantity(0);
-
+      // toast({
+      //   title: "Item Added.",
+      //   description:"Item Added.",
+      // })}
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
     }
