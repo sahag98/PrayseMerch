@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import parse from "html-react-parser";
 import AddToCart from "@/app/addToCart";
+import SizeChart from "@/components/sizeChart";
 const SingleProductPage = async ({ params: { productId } }: any) => {
   const res = await fetch(`https://rest.spod.com/articles/${productId}`, {
     method: "GET",
@@ -28,6 +29,8 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
       />
       <section className="flex flex-col">
         <AddToCart singleProduct={singleProduct} />
+
+        <SizeChart variants={singleProduct.variants} />
       </section>
     </div>
   );

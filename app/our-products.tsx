@@ -11,7 +11,6 @@ export type Item = {
   images: any[];
 };
 const OurProducts = ({ products }: { products: any }) => {
-  console.log(products.items[0].images[0].imageUrl);
   return (
     <div className="pb-10">
       <h2 className="text-3xl font-semibold text-center mb-5">Our Products</h2>

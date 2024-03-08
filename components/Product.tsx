@@ -22,7 +22,6 @@ export type Variant = {
 };
 
 const Product = ({ item }: { item: Item }) => {
-  console.log("item: ", item);
   const itemImage = item.images[0];
 
   const variants = item.variants;
