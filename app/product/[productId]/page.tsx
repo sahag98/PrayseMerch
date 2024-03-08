@@ -2,7 +2,16 @@ import { Item } from "@/app/our-products";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-import parse from "html-react-parser";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
 import AddToCart from "@/app/addToCart";
 import SizeChart from "@/components/sizeChart";
 const SingleProductPage = async ({ params: { productId } }: any) => {
@@ -18,20 +27,37 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
 
   const singleProduct: Item = await res.json();
 
-  return (
-    <div className="lg:px-28 mt-20 lg:mt-0 md:mt-10 flex lg:flex-row md:flex-row flex-col lg:justify-start lg:items-center md:justify-start justify-center md:items-center lg:gap-10 gap-5 items-start min-h-screen  px-4">
-      <Image
-        alt="image"
-        className="lg:w-1/3 md:w-1/2 w-full border rounded-lg"
-        src={singleProduct.images[0].imageUrl}
-        width={1000}
-        height={1000}
-      />
-      <section className="flex flex-col">
-        <AddToCart singleProduct={singleProduct} />
+  console.log("single product: ", singleProduct);
 
-        <SizeChart variants={singleProduct.variants} />
-      </section>
+  return (
+    <div className="lg:px-28 mt-28 lg:mt-36 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-10 gap-5 items-start px-4 ">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+
+          <BreadcrumbItem>
+            <BreadcrumbPage>{singleProduct.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      <div className="flex lg:flex-row flex-col gap-5">
+        <Image
+          alt="image"
+          className="lg:w-1/3 bg-background z-20 md:w-1/2 w-full hover:scale-110 transition-all border rounded-lg"
+          src={singleProduct.images[0].imageUrl}
+          width={1000}
+          height={1000}
+        />
+        <section className="flex flex-col gap-0">
+          <AddToCart singleProduct={singleProduct} />
+
+          <SizeChart variants={singleProduct.variants} />
+        </section>
+      </div>
     </div>
   );
 };

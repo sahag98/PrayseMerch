@@ -23,10 +23,10 @@ import Cart from "./cart";
 
 const Navbar = () => {
   return (
-    <div className="flex fixed top-0 w-full bg-secondary z-10 border-b items-center py-1 justify-between  lg:px-28 px-4">
+    <div className="flex fixed top-0 w-full bg-secondary z-30 border-b items-center py-2 justify-between  lg:px-28 px-4">
       <Link className="flex  items-center gap-3" href={"/"}>
         <Image
-          className="w-16 "
+          className="w-14 "
           src={"/prayseLogo.png"}
           width={500}
           height={500}

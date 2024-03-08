@@ -100,7 +100,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
       // });
       cart.addItem(CartItem);
       cart.openCart();
-      form.resetField("size");
+
       setQuantity(0);
       // toast({
       //   title: "Item Added.",
@@ -114,10 +114,10 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   return (
     <div>
       <div className="flex flex-col gap-0">
-        <h1 className="text-xl font-bold">{singleProduct.title}</h1>
+        <h1 className="text-2xl font-bold">{singleProduct.title}</h1>
 
-        <p>{parse(singleProduct.description)}</p>
-        <span className="text-2xl text-primary">
+        <p className="w-full lg:w-full">{parse(singleProduct.description)}</p>
+        <span className="text-2xl font-medium text-primary">
           ${singleProduct.variants[0].d2cPrice}
         </span>
 
@@ -128,7 +128,9 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               name="size"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Choose A Size:</FormLabel>
+                  <FormLabel className="font-semibold">
+                    Choose A Size:
+                  </FormLabel>
                   <div className="flex items-center gap-5">
                     <FormControl>
                       <RadioGroup
@@ -168,9 +170,9 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               )}
             />
 
-            <div className="flex flex-col gap-3">
-              <p>Quantity</p>
-              <section className="flex items-center gap-3">
+            <div className="flex flex-col gap-1">
+              <p className="font-semibold">Quantity:</p>
+              <section className="flex items-center gap-2">
                 <FormControl
                   onClick={() => {
                     if (quantity == 0) {
@@ -207,7 +209,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               )}
             </div>
 
-            <Button className="w-44" type="submit">
+            <Button className="lg:w-44 md:w-52 w-full" type="submit">
               Add To Cart
             </Button>
           </form>

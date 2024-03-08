@@ -28,7 +28,7 @@ const Product = ({ item }: { item: Item }) => {
   return (
     <Link href={`/product/${item.id}`}>
       <div
-        className="flex flex-col gap-3 items-center rounded-lg bg-secondary justify-center border hover:scale-105 cursor-pointer duration-500 transition-all"
+        className="flex flex-col gap-3 items-center rounded-lg bg-background justify-center border hover:scale-105 cursor-pointer duration-500 transition-all"
         key={item.id}
       >
         <Image
@@ -40,7 +40,7 @@ const Product = ({ item }: { item: Item }) => {
         />
         <h3 className="font-semibold">{item.title}</h3>
         <span className="text-2xl text-secondary-foreground font-semibold">
-          $18
+          ${item.variants[0].d2cPrice}
         </span>
         {/* <ul>
         {variants.map((variant: Variant) => (

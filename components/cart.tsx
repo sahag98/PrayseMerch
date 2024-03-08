@@ -10,6 +10,8 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { Button } from "./ui/button";
+import { Separator } from "@/components/ui/separator";
+
 import { ShoppingCart, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { CartItem } from "@/app/addToCart";
@@ -20,7 +22,6 @@ const Cart = () => {
   const isCartOpen = useCart((state) => state.isCartOpen);
 
   const cartProducts = useCart((state) => state.items);
-  // const product = usePreviewModal((state) => state.data);
 
   const checkout = async () => {
     const response = await axios.post("/api/checkout", {
@@ -43,7 +44,7 @@ const Cart = () => {
       </SheetTrigger>
       <SheetContent className="lg:w-[400px] w-[350px] sm:w-[540px]">
         <SheetHeader>
-          <SheetTitle className="text-xl">Cart</SheetTitle>
+          <SheetTitle className="text-xl">Shopping Cart</SheetTitle>
           <SheetDescription className="text-lg">
             Your cart items:
           </SheetDescription>
@@ -64,34 +65,55 @@ const Cart = () => {
           <>
             <div className="grid gap-4 py-4">
               {cart.items.map((item: CartItem, index: number) => (
-                <div
-                  className="flex relative items-center gap-2 justify-between"
-                  key={index}
-                >
-                  <Image
-                    src={item.image}
-                    width={1000}
-                    height={1000}
-                    className="w-14 lg:w-28 border rounded-lg"
-                    alt={item.image}
-                  />
-                  <section>
-                    <p className="text-sm">{item.name}</p>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm">Size: {item.size}</span>
-                      <p className="text-sm">x {item.quantity}</p>
+                <>
+                  <div
+                    className="flex relative items-center justify-between"
+                    key={index}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={item.image}
+                        width={1000}
+                        height={1000}
+                        className="w-14 lg:w-20 border rounded-lg"
+                        alt={item.image}
+                      />
+                      <section className="space-y-1">
+                        <p className="text-sm">{item.name}</p>
+                        <div className="flex items-center w-fit text-secondary-foreground rounded-md px-2 py-1 bg-secondary gap-3">
+                          <span className="text-sm">Size: {item.size}</span>
+                          <p className="text-sm">x {item.quantity}</p>
+                        </div>
+                      </section>
                     </div>
-                  </section>
-                  <TrashIcon
-                    className="text-destructive w-5"
-                    onClick={() => cart.removeItem(item.sku)}
-                  />
-                </div>
+                    <TrashIcon
+                      className="text-destructive cursor-pointer w-5"
+                      onClick={() => cart.removeItem(item.sku)}
+                    />
+                  </div>
+                  <Separator />
+                </>
               ))}
             </div>
             <SheetFooter className="mb-20">
+              <Button
+                onClick={() => {
+                  cart.removeAll();
+                  cart.closeCart();
+                }}
+                variant={"outline"}
+                className="border-destructive"
+                type="submit"
+              >
+                Empty Cart
+              </Button>
               <SheetClose asChild>
-                <Button type="submit">Proceed to Checkout</Button>
+                <Button
+                  onClick={() => console.log("checking out")}
+                  type="submit"
+                >
+                  Proceed to Checkout
+                </Button>
               </SheetClose>
             </SheetFooter>
           </>

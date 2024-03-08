@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       enabled: true,
     },
     success_url: "http://localhost:3000/success",
-    cancel_url: "http://localhost:3000/cancel",
+    cancel_url: "http://localhost:3000/",
   });
 
   return NextResponse.json(
