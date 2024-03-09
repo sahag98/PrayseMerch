@@ -11,8 +11,6 @@ export async function POST(req: Request) {
     return new NextResponse("Products are required", { status: 400 });
   }
 
-  console.log("items to checkout: ", products[0].customerPrice.amount);
-
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
   products.forEach((product: CartItem) => {

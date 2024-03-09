@@ -44,6 +44,7 @@ const formSchema = z.object({
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(0);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
+  const [stockAmount, setStockAmount] = useState();
   const cart = useCart();
   const { toast } = useToast();
 
@@ -111,16 +112,32 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
     }
   }
 
+  const onRadioChange = (value: any) => {
+    singleProduct.variants.map((variant) => {
+      if (variant.sizeName === value) {
+        console.log("correct size: ", variant.sizeName + value);
+        setStockAmount(variant.stock);
+      }
+    });
+    console.log("variants: ", singleProduct.variants);
+    // console.log("size: ", value);
+  };
+
   return (
     <div>
       <div className="flex flex-col gap-0">
         <h1 className="text-2xl font-bold">{singleProduct.title}</h1>
 
-        <p className="w-full lg:w-full">{parse(singleProduct.description)}</p>
-        <span className="text-2xl font-medium text-primary">
-          ${singleProduct.variants[0].d2cPrice}
-        </span>
-
+        <p className="w-full lg:w-2/3">{parse(singleProduct.description)}</p>
+        <section className="flex items-center justify-between lg:justify-normal gap-2">
+          <span className="text-2xl font-medium text-primary">
+            ${singleProduct.variants[0].d2cPrice}
+          </span>
+          <span className="underline underline-offset-2">
+            Available in Stock:{" "}
+            {stockAmount ? stockAmount : singleProduct.variants[1].stock}
+          </span>
+        </section>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -139,25 +156,25 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                         className="flex items-center  gap-3"
                       >
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl>
+                          <FormControl onClick={() => onRadioChange("S")}>
                             <RadioGroupItem value="S" />
                           </FormControl>
                           <FormLabel className="font-normal">S</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl>
+                          <FormControl onClick={() => onRadioChange("M")}>
                             <RadioGroupItem value="M" />
                           </FormControl>
                           <FormLabel className="font-normal">M</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl>
+                          <FormControl onClick={() => onRadioChange("L")}>
                             <RadioGroupItem value="L" />
                           </FormControl>
                           <FormLabel className="font-normal">L</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl>
+                          <FormControl onClick={() => onRadioChange("XL")}>
                             <RadioGroupItem value="XL" />
                           </FormControl>
                           <FormLabel className="font-normal">XL</FormLabel>

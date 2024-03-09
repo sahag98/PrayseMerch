@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 
 import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/footer";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +24,8 @@ export default function RootLayout({
       <body className={josefin.className}>
         <Navbar />
         {children}
+
+        <Footer />
         <Toaster />
       </body>
     </html>

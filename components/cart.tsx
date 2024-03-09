@@ -95,6 +95,16 @@ const Cart = () => {
                 </>
               ))}
             </div>
+            <Button
+              onClick={() => {
+                cart.closeCart();
+              }}
+              variant={"secondary"}
+              className="w-full mb-5"
+              type="submit"
+            >
+              Continue Shopping
+            </Button>
             <SheetFooter className="mb-20">
               <Button
                 onClick={() => {
@@ -107,11 +117,9 @@ const Cart = () => {
               >
                 Empty Cart
               </Button>
+
               <SheetClose asChild>
-                <Button
-                  onClick={() => console.log("checking out")}
-                  type="submit"
-                >
+                <Button onClick={() => console.log("checkout")} type="submit">
                   Proceed to Checkout
                 </Button>
               </SheetClose>

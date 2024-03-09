@@ -27,8 +27,6 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
 
   const singleProduct: Item = await res.json();
 
-  console.log("single product: ", singleProduct);
-
   return (
     <div className="lg:px-28 mt-28 lg:mt-36 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-10 gap-5 items-start px-4 ">
       <Breadcrumb>
