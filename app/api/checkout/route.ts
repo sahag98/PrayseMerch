@@ -6,7 +6,7 @@ import { CartItem } from "@/app/addToCart";
 
 export async function POST(req: Request) {
   const { products } = await req.json();
-
+  console.log("products from api: ", products);
   if (!products || products.length === 0) {
     return new NextResponse("Products are required", { status: 400 });
   }

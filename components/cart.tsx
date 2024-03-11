@@ -27,7 +27,9 @@ const Cart = () => {
     const response = await axios.post("/api/checkout", {
       products: cartProducts,
     });
+    console.log("response from checkout: ", response);
     cart.removeAll();
+
     window.location = response.data.url;
   };
   return (
@@ -64,11 +66,11 @@ const Cart = () => {
         ) : (
           <>
             <div className="grid gap-4 py-4">
-              {cart.items.map((item: CartItem, index: number) => (
+              {cartProducts.map((item: CartItem, index: number) => (
                 <>
                   <div
                     className="flex relative items-center justify-between"
-                    key={index}
+                    key={item.id}
                   >
                     <div className="flex items-center gap-2">
                       <Image
@@ -95,6 +97,8 @@ const Cart = () => {
                 </>
               ))}
             </div>
+
+            <span>Total: ${cart.calculateTotal()}</span>
             <Button
               onClick={() => {
                 cart.closeCart();
@@ -105,25 +109,24 @@ const Cart = () => {
             >
               Continue Shopping
             </Button>
-            <SheetFooter className="mb-20">
-              <Button
-                onClick={() => {
-                  cart.removeAll();
-                  cart.closeCart();
-                }}
-                variant={"outline"}
-                className="border-destructive"
-                type="submit"
-              >
-                Empty Cart
-              </Button>
-
+            <SheetFooter className="mb-2">
               <SheetClose asChild>
-                <Button onClick={() => console.log("checkout")} type="submit">
+                <Button onClick={checkout} type="submit">
                   Proceed to Checkout
                 </Button>
               </SheetClose>
             </SheetFooter>
+            <Button
+              onClick={() => {
+                cart.removeAll();
+                cart.closeCart();
+              }}
+              variant={"outline"}
+              className="border-destructive w-full mb-5"
+              type="submit"
+            >
+              Empty Cart
+            </Button>
           </>
         )}
       </SheetContent>

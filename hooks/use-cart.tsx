@@ -13,6 +13,7 @@ interface CartStore {
   closeCart: () => void;
   addItem: (data: CartItem) => void;
   removeItem: (id: number) => void;
+  calculateTotal: () => number;
   removeAll: () => void;
 }
 
@@ -30,7 +31,7 @@ const useCart = create(
         set({ isCartOpen: true });
       },
       addItem: (data: CartItem) => {
-        console.log("in add");
+        console.log("in add: ", data);
         const currentItems = get().items;
         const existingItemIndex = currentItems.findIndex(
           (item) => item.sku === data.sku
@@ -50,6 +51,14 @@ const useCart = create(
           // Item doesn't exist, so add it to the cart
           set({ items: [...currentItems, data] });
         }
+      },
+      calculateTotal: () => {
+        const items = get().items;
+        const total = items.reduce((acc, item) => {
+          return acc + item.customerPrice.amount * item.quantity;
+        }, 0);
+
+        return total;
       },
       removeItem: (sku: number) => {
         set({

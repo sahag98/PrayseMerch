@@ -7,6 +7,8 @@ import { Item } from "./our-products";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+// @ts-ignore: Unreachable code error
+import { v4 as uuidv4 } from "uuid";
 import {
   Form,
   FormControl,
@@ -25,6 +27,7 @@ import useCart from "@/hooks/use-cart";
 import { ToastDemo } from "@/components/toast";
 import { useToast } from "@/components/ui/use-toast";
 export type CartItem = {
+  id: number;
   name: string;
   size: string;
   sku: number;
@@ -62,7 +65,6 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
     singleProduct.variants.map((variant: Variant) => {
       // console.log(variant.sizeName, formValues.size);
       if (variant.sizeName == formValues.size) {
-        console.log(variant.sizeName, formValues.size, variant.deprecatedSku);
         sku = variant.deprecatedSku;
       }
     });
@@ -72,6 +74,8 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const id = uuidv4();
+    console.log("id: ", id);
     if (quantity == 0) {
       setQuantityErrorMsg(true);
       return;
@@ -85,10 +89,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
       }
 
       const customerPrice = {
-        amount: singleProduct.variants[0].d2cPrice * quantity,
+        amount: singleProduct.variants[0].d2cPrice,
       };
 
       const CartItem: CartItem = {
+        id: uuidv4(),
         name: singleProduct.title,
         size: values.size,
         image: singleProduct.images[0].imageUrl,
@@ -115,11 +120,10 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const onRadioChange = (value: any) => {
     singleProduct.variants.map((variant) => {
       if (variant.sizeName === value) {
-        console.log("correct size: ", variant.sizeName + value);
         setStockAmount(variant.stock);
       }
     });
-    console.log("variants: ", singleProduct.variants);
+
     // console.log("size: ", value);
   };
 

@@ -38,7 +38,7 @@ const SingleSizeChart = async ({ variant }: { variant: VariantProps }) => {
       />
       <Table className="mt-5">
         <TableHeader>
-          <h3 className="text-lg">Size Chart</h3>
+          {/* <h3 className="text-lg">Size Chart</h3> */}
           <TableRow>
             <TableHead className="w-[100px]">Size</TableHead>
             {size.sizes[0].measurements.map((m: any) => (
