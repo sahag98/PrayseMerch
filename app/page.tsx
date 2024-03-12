@@ -8,7 +8,6 @@ export default async function Home() {
   const res = await fetch("https://rest.spod.com/articles", {
     method: "GET",
     headers: {
-      Accept: "application/json",
       "Accept-encoding": "gzip, deflate",
       "Content-Type": "application/json",
       "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,

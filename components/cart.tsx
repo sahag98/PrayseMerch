@@ -17,21 +17,13 @@ import Image from "next/image";
 import { CartItem } from "@/app/addToCart";
 import useCart from "@/hooks/use-cart";
 import axios from "axios";
+import Link from "next/link";
 const Cart = () => {
   const cart = useCart();
   const isCartOpen = useCart((state) => state.isCartOpen);
 
   const cartProducts = useCart((state) => state.items);
 
-  const checkout = async () => {
-    const response = await axios.post("/api/checkout", {
-      products: cartProducts,
-    });
-    console.log("response from checkout: ", response);
-    cart.removeAll();
-
-    window.location = response.data.url;
-  };
   return (
     <Sheet open={isCartOpen} onOpenChange={cart.closeCart}>
       <SheetTrigger asChild>
@@ -44,7 +36,7 @@ const Cart = () => {
           </div>
         </Button>
       </SheetTrigger>
-      <SheetContent className="lg:w-[400px] w-[350px] sm:w-[540px]">
+      <SheetContent className="lg:w-[500px] px-3 w-[350px] sm:w-[540px]">
         <SheetHeader>
           <SheetTitle className="text-xl">Shopping Cart</SheetTitle>
           <SheetDescription className="text-lg">
@@ -65,13 +57,10 @@ const Cart = () => {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 py-4">
+            <div className="grid gap-4  py-4">
               {cartProducts.map((item: CartItem, index: number) => (
-                <>
-                  <div
-                    className="flex relative items-center justify-between"
-                    key={item.id}
-                  >
+                <div key={item.id}>
+                  <div className="flex relative items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Image
                         src={item.image}
@@ -94,12 +83,19 @@ const Cart = () => {
                     />
                   </div>
                   <Separator />
-                </>
+                </div>
               ))}
             </div>
-
-            <span>Total: ${cart.calculateTotal()}</span>
-            <Button
+            <section className="flex items-end gap-0 mb-5 flex-col">
+              <div className="flex items-center gap-2 justify-end">
+                <span className="text-lg">Total:</span>
+                <span className="text-2xl font-bold">
+                  ${cart.calculateTotal()}
+                </span>
+              </div>
+              <span className="font-medium">+ plus Shipping</span>
+            </section>
+            {/* <Button
               onClick={() => {
                 cart.closeCart();
               }}
@@ -108,12 +104,14 @@ const Cart = () => {
               type="submit"
             >
               Continue Shopping
-            </Button>
-            <SheetFooter className="mb-2">
+            </Button> */}
+            <SheetFooter className="mb-2 w-full">
               <SheetClose asChild>
-                <Button onClick={checkout} type="submit">
-                  Proceed to Checkout
-                </Button>
+                <Link className="w-full" href={"/"}>
+                  <Button className="w-full" type="submit">
+                    Proceed to Shipping
+                  </Button>
+                </Link>
               </SheetClose>
             </SheetFooter>
             <Button

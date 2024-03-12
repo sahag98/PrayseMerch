@@ -34,6 +34,10 @@ export async function POST(req: Request) {
     phone_number_collection: {
       enabled: true,
     },
+    automatic_tax: {
+      enabled: true,
+    },
+
     success_url: "http://localhost:3000/success",
     cancel_url: "http://localhost:3000/",
   });
