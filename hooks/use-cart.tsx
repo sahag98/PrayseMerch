@@ -13,7 +13,11 @@ interface CartStore {
   closeCart: () => void;
   addItem: (data: CartItem) => void;
   removeItem: (id: number) => void;
-  calculateTotal: () => number;
+  calculateTotal: () => {
+    subTotal: number;
+    salesTaxNum: number;
+    total: number;
+  };
   removeAll: () => void;
 }
 
@@ -54,11 +58,18 @@ const useCart = create(
       },
       calculateTotal: () => {
         const items = get().items;
-        const total = items.reduce((acc, item) => {
+        const sum = items.reduce((acc, item) => {
           return acc + item.customerPrice.amount * item.quantity;
         }, 0);
 
-        return total;
+        const salesTaxString = (sum * 0.075).toFixed(2);
+        const salesTaxNum = Number(salesTaxString);
+        const total = sum + salesTaxNum;
+        return {
+          subTotal: sum,
+          salesTaxNum,
+          total,
+        };
       },
       removeItem: (sku: number) => {
         set({

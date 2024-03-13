@@ -14,14 +14,13 @@ export async function POST(req: Request) {
       "Access-Control-Allow-Origin": "*",
       "Accept-encoding": "gzip, deflate",
       "Content-Type": "application/json",
-      "X-SPOD-ACCESS-TOKEN": process.env
-        .NEXT_PUBLIC_SPOD_ACCESS_TOKEN as string,
+      "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
     },
     body: JSON.stringify(requestBody),
   });
 
   const created = await createOrder.json();
-  console.log("order info: ", created);
+
   return NextResponse.json(
     { orderInfo: created },
     {

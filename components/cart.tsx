@@ -36,97 +36,96 @@ const Cart = () => {
           </div>
         </Button>
       </SheetTrigger>
-      <SheetContent className="lg:w-[500px] px-3 w-[350px] sm:w-[540px]">
-        <SheetHeader>
-          <SheetTitle className="text-xl">Shopping Cart</SheetTitle>
-          <SheetDescription className="text-lg">
-            Your cart items:
-          </SheetDescription>
-        </SheetHeader>
-
-        {cart.items.length == 0 ? (
-          <div className="h-full flex flex-col gap-8 items-center justify-center">
-            <Image
-              className="lg:w-40 w-3/4"
-              src={"/empty-cart.svg"}
-              width={896}
-              height={748}
-              alt="empty shopping cart"
-            />
-            <p className="text-xl">Your cart is Empty.</p>
-          </div>
-        ) : (
-          <>
-            <div className="grid gap-4  py-4">
-              {cartProducts.map((item: CartItem, index: number) => (
-                <div key={item.id}>
-                  <div className="flex relative items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src={item.image}
-                        width={1000}
-                        height={1000}
-                        className="w-14 lg:w-20 border rounded-lg"
-                        alt={item.image}
-                      />
-                      <section className="space-y-1">
-                        <p className="text-sm">{item.name}</p>
-                        <div className="flex items-center w-fit text-secondary-foreground rounded-md px-2 py-1 bg-secondary gap-3">
-                          <span className="text-sm">Size: {item.size}</span>
-                          <p className="text-sm">x {item.quantity}</p>
-                        </div>
-                      </section>
-                    </div>
-                    <TrashIcon
-                      className="text-destructive cursor-pointer w-5"
-                      onClick={() => cart.removeItem(item.sku)}
-                    />
-                  </div>
-                  <Separator />
-                </div>
-              ))}
+      <SheetContent className="px-3 flex flex-col justify-between h-screen md:w-2/3 lg:w-2/5">
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <SheetHeader>
+            <SheetTitle className="text-xl">Shopping Cart</SheetTitle>
+            <SheetDescription className="text-lg">
+              Your cart items:
+            </SheetDescription>
+          </SheetHeader>
+          {cart.items.length === 0 ? (
+            <div className="h-full flex flex-col gap-8 items-center justify-center">
+              <Image
+                className="lg:w-40 w-1/2"
+                src={"/empty-cart.svg"}
+                width={896}
+                height={748}
+                alt="empty shopping cart"
+              />
+              <p className="text-xl">Your cart is Empty.</p>
             </div>
-            <section className="flex items-end gap-0 mb-5 flex-col">
-              <div className="flex items-center gap-2 justify-end">
-                <span className="text-lg">Total:</span>
-                <span className="text-2xl font-bold">
-                  ${cart.calculateTotal()}
-                </span>
+          ) : (
+            <div className="flex-1 overflow-y-auto">
+              <div className="grid  overflow-hidden gap-4 py-4">
+                {cartProducts.map((item: CartItem, index: number) => (
+                  <div key={item.id}>
+                    <div className="flex relative items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src={item.image}
+                          width={1000}
+                          height={1000}
+                          className="w-14 lg:w-20 border rounded-lg"
+                          alt={item.image}
+                        />
+                        <section className="space-y-1 flex flex-col">
+                          <p className="text-sm">{item.name}</p>
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center w-fit text-secondary-foreground rounded-md px-2 py-1 bg-secondary gap-3">
+                              <span className="text-sm">Size: {item.size}</span>
+                              <p className="text-sm">x {item.quantity}</p>
+                            </div>
+                            <p className="text-sm font-medium">
+                              ${item.customerPrice.amount * item.quantity}
+                            </p>
+                          </div>
+                        </section>
+                      </div>
+                      <TrashIcon
+                        className="text-destructive cursor-pointer w-5"
+                        onClick={() => cart.removeItem(item.sku)}
+                      />
+                    </div>
+                    <Separator className="mt-3" />
+                  </div>
+                ))}
               </div>
-              <span className="font-medium">+ plus Shipping</span>
-            </section>
-            {/* <Button
-              onClick={() => {
-                cart.closeCart();
-              }}
-              variant={"secondary"}
-              className="w-full mb-5"
-              type="submit"
-            >
-              Continue Shopping
-            </Button> */}
-            <SheetFooter className="mb-2 w-full">
-              <SheetClose asChild>
-                <Link className="w-full" href={"/"}>
-                  <Button className="w-full" type="submit">
-                    Proceed to Shipping
-                  </Button>
-                </Link>
-              </SheetClose>
-            </SheetFooter>
-            <Button
-              onClick={() => {
-                cart.removeAll();
-                cart.closeCart();
-              }}
-              variant={"outline"}
-              className="border-destructive w-full mb-5"
-              type="submit"
-            >
-              Empty Cart
-            </Button>
-          </>
-        )}
+            </div>
+          )}
+        </div>
+        <section className="flex gap-2 border-t p-2 flex-col">
+          <div className="flex flex-col gap-1 items-end">
+            <div className="flex gap-5">
+              <span className="">Subtotal:</span>
+              <span className="font-bold">
+                ${cart.calculateTotal().subTotal.toFixed(2)}
+              </span>
+            </div>
+            <div className="flex gap-5 ">
+              <span className="text-left">Sales Tax:</span>
+              <span className="text-right font-bold">
+                ${cart.calculateTotal().salesTaxNum}
+              </span>
+            </div>
+            <div className="flex gap-2 items-end">
+              <span className="text-lg ">Total:</span>
+              <span className="text-2xl font-bold">
+                ${cart.calculateTotal().total}
+              </span>
+            </div>
+            <span>+ plus Shipping</span>
+          </div>
+          <SheetFooter className="w-full">
+            <SheetClose asChild>
+              <Link className="w-full" href={"/"}>
+                <Button className="w-full" type="submit">
+                  Proceed to Shipping
+                </Button>
+              </Link>
+            </SheetClose>
+          </SheetFooter>
+        </section>
       </SheetContent>
     </Sheet>
   );

@@ -5,7 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import { CartItem } from "../addToCart";
 import { TrashIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -49,7 +49,36 @@ const formSchema = z.object({
 const ShippingPage = () => {
   const cart = useCart();
   const cartProducts = useCart((state) => state.items);
+  const testTypes = [
+    {
+      id: 38,
+      description: "Tracking provided. Saturday delivery.",
+      name: "Standard",
+      price: {
+        amount: 4.77,
+      },
+    },
+    {
+      id: 16,
+      description: "Tracking provided. Saturday delivery.",
+      name: "Premium",
+      price: {
+        amount: 5.62,
+      },
+    },
 
+    {
+      id: 23,
+      description:
+        "Tracking provided. Delivery not available for AK, HI, PO Box and APO.",
+      name: "Express",
+      price: {
+        amount: 4.77,
+      },
+    },
+  ];
+  const [shippingTypes, setShippingTypes] = useState(testTypes);
+  const [selectedType, setSelectedType] = useState<any>({});
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,7 +98,8 @@ const ShippingPage = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>, e: any) {
+    e.preventDefault();
     console.log("trying to submit");
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -99,12 +129,12 @@ const ShippingPage = () => {
           lastName: values.last_name,
           street: values.street,
           city: values.city,
-          state: values.state || "N/A",
+          state: values.state,
           country: values.country,
           zipCode: values.zipCode,
         },
         customerPrice: {
-          amount: cartTotal,
+          amount: cartTotal.total,
           currency: "USD",
         },
       },
@@ -114,9 +144,29 @@ const ShippingPage = () => {
       customerTaxType: "SALESTAX",
     };
 
-    await axios.post("/api/shipping", {
+    const res = await axios.post("/api/shipping", {
       requestBody,
     });
+
+    console.log("res id: ", res.data.orderInfo);
+
+    //   const resp = await fetch("https://rest.spod.com/articles", {
+    //   method: "GET",
+    //   headers: {
+    //     "Accept-encoding": "gzip, deflate",
+    //     "Content-Type": "application/json",
+    //     "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
+    //   },
+    //   body:{
+    //     id: res.data.orderInfo,
+    //   }
+    // });
+
+    const resp = await axios.post("/api/shippingTypes", {
+      order_id: res.data.orderInfo.id,
+    });
+    console.log("shipping types: ", JSON.stringify(resp.data.shippingTypes));
+    setShippingTypes(resp.data.shippingTypes);
     // const response = await axios.post("/api/checkout", {
     //   products: cartProducts,
     // });
@@ -125,6 +175,8 @@ const ShippingPage = () => {
 
     // window.location = response.data.url;
   };
+
+  console.log(selectedType.price?.amount);
 
   return (
     <div className="lg:px-24 px-4 mt-28 lg:mt-36 md:mt-24">
@@ -177,11 +229,25 @@ const ShippingPage = () => {
                   ))}
                 </div>
                 <section className="flex items-end gap-0 mb-5 flex-col">
-                  <div className="flex items-center gap-2 justify-end">
-                    <span className="text-lg">Total:</span>
-                    <span className="text-2xl font-bold">
-                      ${cart.calculateTotal()}
-                    </span>
+                  <div className="flex flex-col items-center justify-end">
+                    <div className="flex gap-5">
+                      <span className="">Subtotal:</span>
+                      <span className="font-bold">
+                        ${cart.calculateTotal().subTotal}
+                      </span>
+                    </div>
+                    <div className="flex gap-5 ">
+                      <span className="text-left">Sales Tax:</span>
+                      <span className="text-right font-bold">
+                        ${cart.calculateTotal().salesTaxNum}
+                      </span>
+                    </div>
+                    <div className="flex items-end gap-5">
+                      <span className="text-lg">Total:</span>
+                      <span className="text-2xl font-bold">
+                        ${cart.calculateTotal().total}
+                      </span>
+                    </div>
                   </div>
                   <span className="font-medium">+ plus Shipping</span>
                 </section>
@@ -204,21 +270,111 @@ const ShippingPage = () => {
             Shipping Information (Required)
           </AccordionTrigger>
           <AccordionContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-2 lg:w-1/2 w-full"
-              >
-                <section className="flex items-center w-full gap-5">
+            {shippingTypes.length > 0 ? (
+              <div className="flex flex-col gap-2">
+                <h2 className="font-bold text-xl">Shipping Types:</h2>
+                <div className="flex lg:flex-row flex-col gap-5">
+                  {shippingTypes.map((type: any) => (
+                    <div
+                      onClick={() => setSelectedType(type)}
+                      className="border hover:cursor-pointer hover:bg-gray-100 transition-colors px-3 py-2 flex flex-col gap-1 rounded-md"
+                      key={type.id}
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-bold text-lg">{type.name}</span>
+                        <span>{type.description}</span>
+                      </div>
+                      <span className="text-primary text-lg">
+                        ${type.price.amount}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-2 lg:w-1/2 w-full"
+                >
+                  <section className="flex items-center w-full gap-5">
+                    <FormField
+                      control={form.control}
+                      name="first_name"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>First Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your first name"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="last_name"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Last Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your first name"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </section>
+                  <section className="flex items-center w-full gap-5">
+                    <FormField
+                      control={form.control}
+                      name="phone_number"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your phone number"
+                              {...field}
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter your email" {...field} />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </section>
                   <FormField
                     control={form.control}
-                    name="first_name"
+                    name="street"
                     render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>First Name</FormLabel>
+                      <FormItem>
+                        <FormLabel>Street Address</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Enter your first name"
+                            placeholder="Enter street address"
                             {...field}
                           />
                         </FormControl>
@@ -227,142 +383,111 @@ const ShippingPage = () => {
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="last_name"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Last Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your first name"
-                            {...field}
-                          />
-                        </FormControl>
+                  <section className="flex items-center w-full gap-5">
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>City</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter city" {...field} />
+                          </FormControl>
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </section>
-                <section className="flex items-center w-full gap-5">
-                  <FormField
-                    control={form.control}
-                    name="phone_number"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Phone Number</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your phone number"
-                            {...field}
-                          />
-                        </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="state"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>State</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter state" {...field} />
+                          </FormControl>
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter your email" {...field} />
-                        </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </section>
+                  <section className="flex items-center w-full gap-5">
+                    <FormField
+                      control={form.control}
+                      name="country"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Country</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter country" {...field} />
+                          </FormControl>
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </section>
-                <FormField
-                  control={form.control}
-                  name="street"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Street Address</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter street address" {...field} />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <section className="flex items-center w-full gap-5">
-                  <FormField
-                    control={form.control}
-                    name="city"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>City</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter city" {...field} />
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="state"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>State</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter state" {...field} />
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </section>
-                <section className="flex items-center w-full gap-5">
-                  <FormField
-                    control={form.control}
-                    name="country"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Country</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter country" {...field} />
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="zipCode"
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>ZipCode</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter zip code" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </section>
-                <Button className="w-full" type="submit">
-                  Checkout
-                </Button>
-              </form>
-            </Form>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="zipCode"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>ZipCode</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter zip code" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </section>
+                  <Button disabled className="w-full" type="submit">
+                    Check Available Shipping Types
+                  </Button>
+                </form>
+              </Form>
+            )}
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Is it animated?</AccordionTrigger>
+          <AccordionTrigger>Total</AccordionTrigger>
           <AccordionContent>
-            Yes. It&apos;s animated by default, but you can disable it if you
-            prefer.
+            <section className="flex items-end gap-0 mb-5 flex-col">
+              <div className="flex flex-col items-center justify-end">
+                <div className="flex gap-5">
+                  <span className="">Subtotal:</span>
+                  <span className="font-bold">
+                    ${cart.calculateTotal().subTotal}
+                  </span>
+                </div>
+                <div className="flex gap-5 ">
+                  <span className="text-left">Sales Tax:</span>
+                  <span className="text-right font-bold">
+                    ${cart.calculateTotal().salesTaxNum}
+                  </span>
+                </div>
+                {selectedType && (
+                  <div className="flex gap-5 ">
+                    <span className="text-left">
+                      Shipping Type: {selectedType.name}
+                    </span>
+                    <span className="text-left">
+                      ${selectedType.price?.amount}
+                    </span>
+                    <span className="text-right font-bold"></span>
+                  </div>
+                )}
+
+                <div className="flex items-end gap-5">
+                  <span className="text-lg">Total:</span>
+                  <span className="text-2xl font-bold">
+                    ${cart.calculateTotal().total}
+                  </span>
+                </div>
+              </div>
+              <span className="font-medium">+ plus Shipping</span>
+            </section>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
