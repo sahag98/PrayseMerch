@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-
+import Canvas from "../canvas";
 import OurProducts from "./our-products";
+
+import Hero from "@/components/Hero";
 
 export default async function Home() {
   const res = await fetch("https://rest.spod.com/articles", {
@@ -17,37 +19,12 @@ export default async function Home() {
   const products = await res.json();
 
   return (
-    <main className="flex flex-col bg-background min-h-screen items-center lg:px-28 px-4">
-      <section className="flex justify-center">
-        <div className="flex lg:flex-row flex-col lg:gap-0 gap-6 h-screen justify-center mt-10 lg:mt-0 relative items-center lg:justify-between">
-          <section>
-            <h1 className="lg:text-6xl text-5xl font-bold ">Prayse Merch</h1>
-            <p>Check out our limited time merch!</p>
-            <Button className="w-1/2 mt-3 bg-primary font-bold">
-              Shop Now!
-            </Button>
-          </section>
-          <section className="bg-secondary w-full lg:w-3/5 shadow-[0_8px_30px_rgb(0,0,0,0.12)] px-4 py-8 rounded-lg flex items-center">
-            <Image
-              src={"/prayse-white-shirt.png"}
-              width={1000}
-              height={1000}
-              className="w-1/2"
-              alt="prayse white shirt"
-            />
-            <Image
-              src={"/prayse-black-shirt.png"}
-              width={1000}
-              height={1000}
-              className="w-1/2"
-              alt="prayse black shirt"
-            />
-          </section>
-        </div>
-
-        <ChevronDown className="absolute text-primary w-9 h-9 bottom-7 animate-pulse" />
+    <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-36 px-4">
+      <section className="flex w-full  justify-center">
+        <Hero />
+        {/* <ChevronDown className="absolute text-primary w-8 h-8 bottom-2 animate-pulse" /> */}
       </section>
-      <OurProducts products={products} />
+      {/* <OurProducts products={products} /> */}
     </main>
   );
 }

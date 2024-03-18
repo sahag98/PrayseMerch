@@ -26,7 +26,7 @@ const Product = ({ item }: { item: Item }) => {
 
   const variants = item.variants;
   return (
-    <Link href={`/product/${item.id}`}>
+    <Link className="opacity-0" href={`/product/${item.id}`}>
       <div
         className="flex flex-col gap-3 items-center rounded-lg bg-background justify-center border hover:scale-105 cursor-pointer duration-500 transition-all"
         key={item.id}

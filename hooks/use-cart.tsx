@@ -9,7 +9,9 @@ import { CartItem } from "@/app/addToCart";
 interface CartStore {
   items: CartItem[];
   isCartOpen: boolean;
+  order_id: number;
   openCart: () => void;
+  setOrderId: (data: number) => void;
   closeCart: () => void;
   addItem: (data: CartItem) => void;
   removeItem: (id: number) => void;
@@ -25,6 +27,7 @@ const useCart = create(
   persist<CartStore>(
     (set, get) => ({
       items: [],
+      order_id: 0,
       isCartOpen: false,
       closeCart: () => {
         const isOpen = get().isCartOpen;
@@ -33,6 +36,9 @@ const useCart = create(
       openCart: () => {
         console.log("trying to open cart");
         set({ isCartOpen: true });
+      },
+      setOrderId: (data: number) => {
+        set({ order_id: data });
       },
       addItem: (data: CartItem) => {
         console.log("in add: ", data);

@@ -1,5 +1,4 @@
 import { Item } from "@/app/our-products";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 
@@ -14,6 +13,7 @@ import {
 
 import AddToCart from "@/app/addToCart";
 import SizeChart from "@/components/sizeChart";
+
 const SingleProductPage = async ({ params: { productId } }: any) => {
   const res = await fetch(`https://rest.spod.com/articles/${productId}`, {
     method: "GET",

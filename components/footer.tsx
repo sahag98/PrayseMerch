@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
   return (
-    <div className="w-full mt-20 py-2 h-60 lg:px-24  md:px-10 px-4 justify-center lg:justify-normal md:justify-normal border-t gap-5 lg:gap-10 flex flex-wrap lg:flex-row items-start">
+    <div className="w-full h-fit bg-secondary mt-20 py-5 lg:px-24  md:px-10 px-4 justify-center lg:justify-normal md:justify-normal border-t gap-5 lg:gap-10 flex flex-wrap lg:flex-row items-start">
       <section>
         <h4 className="font-bold mb-2 ">Social Media Links</h4>
         <ul className="space-y-2">
@@ -46,8 +46,11 @@ const Footer = () => {
           </Link>
         </ul>
       </section>
-      <Separator className="hidden lg:flex h-full" orientation="vertical" />
-      <Separator className=" lg:hidden " />
+      <Separator
+        className="hidden bg-gray-300 lg:flex h-full"
+        orientation="vertical"
+      />
+      <Separator className="lg:hidden bg-gray-300" />
 
       <section>
         <h4 className="font-bold mb-2">App Download Links</h4>
@@ -82,11 +85,14 @@ const Footer = () => {
           </Link>
         </ul>
       </section>
-      <Separator className="hidden lg:flex h-full" orientation="vertical" />
-      <Separator className="lg:hidden " />
-      <section className="pb-5">
+      <Separator
+        className="hidden bg-gray-300 lg:flex h-full"
+        orientation="vertical"
+      />
+      <Separator className="lg:hidden bg-gray-300 " />
+      <section className="flex flex-col items-center lg:items-start justify-center">
         <h4 className="font-bold mb-2">App Website</h4>
-        <ul className="space-y-2">
+        <ul>
           <Link
             className="flex gap-2 items-center"
             href={"https://www.prayse.app/"}
@@ -95,8 +101,11 @@ const Footer = () => {
             <span className="text-[13px]">www.prayse.app</span>
           </Link>
         </ul>
+        <p className="lg:hidden self-end text-center mt-5 text-[13px]">
+          @2024 PRAYSE ALL RIGHTS RESERVED.
+        </p>
       </section>
-      <p className="self-end text-center text-[13px]">
+      <p className="self-end hidden lg:flex text-center text-[13px]">
         @2024 PRAYSE ALL RIGHTS RESERVED.
       </p>
     </div>

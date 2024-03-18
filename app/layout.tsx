@@ -21,12 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning={true} lang="en">
-      <body className={josefin.className}>
+      <body suppressHydrationWarning={true} className={josefin.className}>
         <Navbar />
         {children}
 
-        <Footer />
-        <Toaster />
+        {/* <Footer />
+        <Toaster /> */}
       </body>
     </html>
   );

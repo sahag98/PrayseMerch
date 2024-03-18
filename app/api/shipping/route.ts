@@ -5,9 +5,8 @@ import { stripe } from "@/lib/stripe";
 import { CartItem } from "@/app/addToCart";
 
 export async function POST(req: Request) {
-  console.log("access: ", process.env.SPOD_ACCESS_TOKEN);
   const { requestBody } = await req.json();
-  console.log("body: ", JSON.stringify(requestBody, null, 2));
+
   const createOrder = await fetch("https://rest.spod.com/orders", {
     method: "POST",
     headers: {

@@ -5,7 +5,7 @@ import { stripe } from "@/lib/stripe";
 import { CartItem } from "@/app/addToCart";
 
 export async function POST(req: Request) {
-  const { products } = await req.json();
+  const { products, orderId, shippingFee, salesTax } = await req.json();
   console.log("products from api: ", products);
   if (!products || products.length === 0) {
     return new NextResponse("Products are required", { status: 400 });
@@ -14,6 +14,7 @@ export async function POST(req: Request) {
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
   products.forEach((product: CartItem) => {
+    const amount = (product.customerPrice.amount * 100).toFixed(0);
     line_items.push({
       quantity: product.quantity,
       price_data: {
@@ -22,10 +23,43 @@ export async function POST(req: Request) {
           name: product.name,
           images: [product.image],
         },
-        unit_amount: product.customerPrice.amount * 100,
+        unit_amount: parseInt(amount),
       },
     });
   });
+
+  if (shippingFee > 0) {
+    const shippingAmount = (shippingFee * 100).toFixed(0);
+    line_items.push({
+      quantity: 1,
+      price_data: {
+        currency: "USD",
+        product_data: {
+          name: "Shipping Fee",
+        },
+        unit_amount: parseInt(shippingAmount),
+      },
+    });
+  }
+
+  // Add sales tax as line item
+  if (salesTax > 0) {
+    const salesTaxAmount = (salesTax * 100).toFixed(0);
+    line_items.push({
+      quantity: 1,
+      price_data: {
+        currency: "USD",
+        product_data: {
+          name: "Sales Tax",
+        },
+        unit_amount: parseInt(salesTaxAmount),
+      },
+    });
+  }
+
+  // const intent = await stripe.paymentIntents.create({
+
+  // })
 
   const session = await stripe.checkout.sessions.create({
     line_items,
@@ -38,8 +72,8 @@ export async function POST(req: Request) {
       enabled: true,
     },
 
-    success_url: "http://localhost:3000/success",
-    cancel_url: "http://localhost:3000/",
+    success_url: `http://localhost:3000/success/${orderId}`,
+    cancel_url: `http://localhost:3000/cancel/${orderId}`,
   });
 
   return NextResponse.json(

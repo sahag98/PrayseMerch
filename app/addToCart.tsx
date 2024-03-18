@@ -123,8 +123,6 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
         setStockAmount(variant.stock);
       }
     });
-
-    // console.log("size: ", value);
   };
 
   return (

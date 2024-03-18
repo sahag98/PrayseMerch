@@ -5,23 +5,27 @@ import { stripe } from "@/lib/stripe";
 import { CartItem } from "@/app/addToCart";
 
 export async function POST(req: Request) {
-  const { order_id } = await req.json();
+  const { shippingBody, orderId } = await req.json();
 
-  const getShipping = await fetch(
-    `https://rest.spod.com/orders/${order_id}/shippingTypes`,
+  console.log("shipping body in POST: ", shippingBody, orderId);
+  const setType = await fetch(
+    `https://rest.spod.com/orders/${orderId}/shippingType`,
     {
-      method: "GET",
+      method: "POST",
       headers: {
+        "Access-Control-Allow-Origin": "*",
         "Accept-encoding": "gzip, deflate",
         "Content-Type": "application/json",
         "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
       },
+      body: JSON.stringify(shippingBody),
     }
   );
-  const types = await getShipping.json();
+
+  const shippingType = await setType.json();
 
   return NextResponse.json(
-    { shippingTypes: types },
+    { shippingType: shippingType },
     {
       status: 200,
     }
