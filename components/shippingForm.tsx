@@ -562,6 +562,7 @@ const ShippingForm = ({
 
           <div className="mt-auto space-y-2">
             <Button
+              disabled={true}
               onClick={() => console.log("click")}
               className="w-full"
               type="submit"
