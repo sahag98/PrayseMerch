@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning={true} lang="en">
       <body suppressHydrationWarning={true} className={josefin.className}>
-        <Navbar />
+        {/* <Navbar /> */}
         {children}
 
         {/* <Footer />

@@ -41,7 +41,7 @@ const CountdownTimer = ({ releaseDate }: any) => {
   return (
     <div
       id="countdown"
-      className="bg-secondary lg:w-fit w-full translate-x-[-1000px] mt-5 rounded-md px-4 py-3"
+      className="bg-secondary lg:w-fit w-full translate-x-[-1000px] mt-2 rounded-md px-4 py-3"
     >
       <h1 className="text-2xl lg:text-3xl  mb-2 font-bold text-primary">
         Release Countdown:
@@ -54,14 +54,14 @@ const CountdownTimer = ({ releaseDate }: any) => {
                 {days}
               </span>
             </div>
-            <span>days</span>
+            <span>Days</span>
           </div>
         )}
         <div className="flex flex-col gap-2 items-center justify-center">
           <div className="lg:w-24 lg:h-24 w-16 h-16  border border-primary rounded-md flex items-center justify-center p-4">
             <span className="text-primary font-semibold text-2xl">{hours}</span>
           </div>
-          <span>hours</span>
+          <span>Hours</span>
         </div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <div className="lg:w-24 lg:h-24 w-16 h-16  border border-primary rounded-md flex items-center justify-center p-4">
@@ -69,7 +69,7 @@ const CountdownTimer = ({ releaseDate }: any) => {
               {minutes}
             </span>
           </div>
-          <span>minutes</span>
+          <span>Minutes</span>
         </div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <div className="lg:w-24 lg:h-24 w-16 h-16  border border-primary rounded-md flex items-center justify-center p-4">
@@ -77,7 +77,7 @@ const CountdownTimer = ({ releaseDate }: any) => {
               {seconds}
             </span>
           </div>
-          <span>seconds</span>
+          <span>Seconds</span>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-36 px-4">
-      <section className="flex w-full  justify-center">
+      <section className="flex  w-full justify-center">
         <Hero />
         {/* <ChevronDown className="absolute text-primary w-8 h-8 bottom-2 animate-pulse" /> */}
       </section>
