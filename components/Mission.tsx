@@ -39,17 +39,17 @@ const Mission = () => {
         <div className="space-y-3">
           <p id="stagger" className="lg:w-3/4 opacity-0 w-full dark:font-light">
             Prayse&apos;s main mission has always been to elevate the importance
-            of prayer in a Christian's walk with God. One of our favorite
+            of prayer in a Christian&apos;s walk with God. One of our favorite
             chapter from the Bible is in the book of Philippians where we are
             told to always be in prayer and how through prayer, God will always
             provide peace both to our heart and mind.
           </p>
           <p id="stagger" className="lg:w-3/4 opacity-0 font-semibold w-full">
-            Philippians 4:6-7: "Be careful for nothing; but in every thing by
-            prayer and supplication with thanksgiving let your requests be made
-            known unto God. And the peace of God, which passeth all
+            Philippians 4:6-7: &quot;Be careful for nothing; but in every thing
+            by prayer and supplication with thanksgiving let your requests be
+            made known unto God. And the peace of God, which passeth all
             understanding, shall keep your hearts and minds through Christ
-            Jesus."
+            Jesus.&quot;
           </p>
           <p id="stagger" className="lg:w-3/4 opacity-0 dark:font-light w-full">
             Our prayer is that wearing our merch can create faith-based and
