@@ -1,5 +1,4 @@
 import { Item } from "@/app/our-products";
-import Image from "next/image";
 import React from "react";
 
 import {
@@ -15,16 +14,13 @@ import AddToCart from "@/app/addToCart";
 import SizeChart from "@/components/sizeChart";
 import AccordionBox from "@/components/Accordion";
 import ProductImages from "@/components/productImages";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: { productId: any };
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const res = await fetch(
     `https://rest.spod.com/articles/${params.productId}`,
     {
