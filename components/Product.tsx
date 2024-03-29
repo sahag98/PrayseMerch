@@ -28,7 +28,7 @@ const Product = ({ item }: { item: Item }) => {
   return (
     <Link className="opacity-0" href={`/product/${item.id}`}>
       <div
-        className="flex flex-col gap-3 items-center rounded-lg bg-background justify-center border hover:scale-105 cursor-pointer duration-500 transition-all"
+        className="flex flex-col gap-3 items-center bg-accent rounded-lg justify-center border hover:scale-105 cursor-pointer duration-500 transition-all"
         key={item.id}
       >
         <Image
@@ -42,14 +42,6 @@ const Product = ({ item }: { item: Item }) => {
         <span className="text-2xl text-secondary-foreground font-semibold">
           ${item.variants[0].d2cPrice}
         </span>
-        {/* <ul>
-        {variants.map((variant: Variant) => (
-          <div>
-            <span>{variant.d2cPrice}</span>
-          </div>
-        ))}
-      </ul> */}
-        {/* <p>{parse(item.description)}</p> */}
       </div>
     </Link>
   );

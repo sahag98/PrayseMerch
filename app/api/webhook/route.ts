@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
+import Mail from "nodemailer/lib/mailer";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -23,20 +25,52 @@ export async function POST(req: Request) {
   const session = event.data.object as Stripe.Checkout.Session;
   const address = session?.customer_details?.address;
 
-  console.log("address: ", address);
-
-  const addressComponents = [
-    address?.line1,
-    address?.line2,
-    address?.city,
-    address?.state,
-    address?.postal_code,
-    address?.country,
-  ];
-
   if (event.type === "checkout.session.completed") {
-    console.log("this is where I need to send info to SPOD.");
+    const transport = nodemailer.createTransport({
+      service: "gmail",
+      /* 
+        setting service as 'gmail' is same as providing these setings:
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true
+        If you want to use a different email provider other than gmail, you need to provide these manually.
+        Or you can go use these well known services and their settings at
+        https://github.com/nodemailer/nodemailer/blob/master/lib/well-known/services.json
+    */
+      auth: {
+        user: process.env.MY_EMAIL,
+        pass: process.env.MY_PASSWORD,
+      },
+    });
+
+    const mailOptions: Mail.Options = {
+      from: process.env.MY_EMAIL,
+      to: session?.customer_details?.email ?? "",
+      cc: "prayse.app@gmail.com",
+      subject: `Your order was placed successfully! ✅`,
+      text: `Hey ${session?.customer_details?.name} 👋, thank you so much for placing an order.`,
+      html: `<h4>Hey ${session?.customer_details?.name} 👋,</h4><p>Thank you so much for placing your order. Our prayer is that wearing our merch would provide fruitful conversations on the topics of praying and praising God every single day.</p> <p>You can check any shipment updates for your order by clicking the check shipment updates button on the success page.</p> <p>If you have any questions, feel free to email us at prayse.app@gmail.com.</p> <h4>Have a blessed day,<br/>Prayse</h4>`,
+    };
+
+    // return NextResponse.json({ message: "Email sent" });
+    const sendMailPromise = () =>
+      new Promise<string>((resolve, reject) => {
+        transport.sendMail(mailOptions, function (err: any) {
+          if (!err) {
+            resolve("Email sent");
+          } else {
+            reject(err.message);
+          }
+        });
+      });
+
+    try {
+      await sendMailPromise();
+      console.log("email sent");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  return new NextResponse("Address is collected", { status: 200 });
+  return new NextResponse("Email is sent", { status: 200 });
 }

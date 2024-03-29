@@ -3,7 +3,6 @@ import { VariantProps } from "./sizeChart";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -33,7 +32,7 @@ const SingleSizeChart = async ({ variant }: { variant: VariantProps }) => {
         src={size.sizeImageUrl}
         width={190}
         height={190}
-        className="flex-3"
+        className="flex-3 rounded-md"
         alt="size chart"
       />
       <Table className="mt-5">
@@ -47,7 +46,7 @@ const SingleSizeChart = async ({ variant }: { variant: VariantProps }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {size.sizes.slice(0, 4).map((size: any) => (
+          {size.sizes.slice(0, 5).map((size: any) => (
             <TableRow key={size.sizeId}>
               <TableCell>{size.name}</TableCell>
               <TableCell>

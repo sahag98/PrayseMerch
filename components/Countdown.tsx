@@ -40,6 +40,7 @@ const CountdownTimer = ({ releaseDate }: any) => {
 
   return (
     <div
+      suppressHydrationWarning
       id="countdown"
       className="bg-secondary lg:w-fit w-full translate-x-[-1000px] mt-2 rounded-md px-4 py-3"
     >

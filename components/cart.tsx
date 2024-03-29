@@ -4,7 +4,6 @@ import {
   SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -12,20 +11,37 @@ import {
 import { Button } from "./ui/button";
 import { Separator } from "@/components/ui/separator";
 
-import { ShoppingCart, TrashIcon } from "lucide-react";
+import {
+  ArrowLeftCircle,
+  ArrowRightCircle,
+  ShoppingCart,
+  TrashIcon,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import { CartItem } from "@/app/addToCart";
 import useCart from "@/hooks/use-cart";
 import axios from "axios";
-import Link from "next/link";
 import ShippingForm from "./shippingForm";
 import CheckoutForm from "./checkoutForm";
+import CancelDialog from "./CancelDialog";
 const Cart = () => {
   const cart = useCart();
   const isCartOpen = useCart((state) => state.isCartOpen);
   const [shippingTypes, setShippingTypes] = useState([]);
   const [activeTab, setActiveTab] = useState("cart");
   const cartProducts = useCart((state) => state.items);
+
+  const cancelOrder = async () => {
+    const res = await axios.post("/api/cancelOrder", {
+      order_id: cart.order_id,
+    });
+
+    cart.removeAll();
+    cart.closeCart();
+    setActiveTab("cart");
+  };
+  const [showCancelAlert, setShowCancelAlert] = useState(false);
 
   return (
     <Sheet open={isCartOpen} onOpenChange={cart.closeCart}>
@@ -39,9 +55,12 @@ const Cart = () => {
           </div>
         </Button>
       </SheetTrigger>
-      <SheetContent className="px-3 flex flex-col justify-between h-screen md:w-2/3 lg:w-2/6">
+      <SheetContent className="px-3 flex flex-col overflow-auto justify-between min-h-[100dvh] md:w-2/3 lg:w-2/6">
         {activeTab == "cart" && (
           <>
+            <SheetClose className="absolute right-5 top-5">
+              <X className="h-6 w-6" />
+            </SheetClose>
             {cart.items.length === 0 ? (
               <div className="h-full flex flex-col gap-8 items-center justify-center">
                 <Image
@@ -79,13 +98,13 @@ const Cart = () => {
                                 alt={item.image}
                               />
                               <section className="space-y-1 flex flex-col">
-                                <p className="text-sm">{item.name}</p>
+                                <p className="">{item.name}</p>
                                 <div className="flex items-center gap-3">
                                   <div className="flex items-center w-fit text-secondary-foreground rounded-md px-2 py-1 bg-secondary gap-3">
                                     <span className="text-sm">
                                       Size: {item.size}
                                     </span>
-                                    <p className="text-sm">x {item.quantity}</p>
+                                    <p className="text-sm">x{item.quantity}</p>
                                   </div>
                                   <p className="text-sm font-medium">
                                     ${item.customerPrice.amount * item.quantity}
@@ -93,10 +112,12 @@ const Cart = () => {
                                 </div>
                               </section>
                             </div>
-                            <TrashIcon
-                              className="text-destructive cursor-pointer w-5"
-                              onClick={() => cart.removeItem(item.sku)}
-                            />
+                            <div className="p-2 bg-destructive/10 rounded-full">
+                              <TrashIcon
+                                className="text-destructive cursor-pointer w-5"
+                                onClick={() => cart.removeItem(item.sku)}
+                              />
+                            </div>
                           </div>
                           <Separator className="mt-3" />
                         </div>
@@ -129,18 +150,18 @@ const Cart = () => {
 
                   <Button
                     onClick={() => setActiveTab("shipping")}
-                    className="w-full"
+                    className="w-full text-base gap-3"
                     type="submit"
                   >
-                    Proceed to Shipping
+                    Proceed to Shipping <ArrowRightCircle />
                   </Button>
                   <Button
                     variant={"outline"}
-                    onClick={() => cart.removeAll()}
-                    className="w-full border-red-200"
+                    onClick={() => cart.closeCart()}
+                    className="w-full gap-3 text-base"
                     type="button"
                   >
-                    Clear Cart
+                    Back to Shopping <ArrowLeftCircle />
                   </Button>
                 </section>
               </>
@@ -148,20 +169,41 @@ const Cart = () => {
           </>
         )}
         {activeTab == "shipping" && (
-          <ShippingForm
-            shippingTypes={shippingTypes}
-            setShippingTypes={setShippingTypes}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
+          <>
+            <SheetClose className="absolute right-5 top-5">
+              <X className="h-6 w-6" />
+            </SheetClose>
+            <ShippingForm
+              shippingTypes={shippingTypes}
+              setShippingTypes={setShippingTypes}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+          </>
         )}
         {activeTab == "checkout" && (
-          <CheckoutForm
-            shippingTypes={shippingTypes}
-            setShippingTypes={setShippingTypes}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
+          <>
+            <CancelDialog
+              cancelOrder={cancelOrder}
+              showCancelAlert={showCancelAlert}
+              setShowCancelAlert={setShowCancelAlert}
+            />
+            <Button
+              variant={"ghost"}
+              onClick={() => {
+                setShowCancelAlert(true);
+              }}
+              className="absolute right-5 top-5"
+            >
+              <X className="h-6 w-6" />
+            </Button>
+            <CheckoutForm
+              shippingTypes={shippingTypes}
+              setShippingTypes={setShippingTypes}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+          </>
         )}
       </SheetContent>
     </Sheet>

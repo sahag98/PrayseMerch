@@ -6,62 +6,39 @@ import { useGSAP } from "@gsap/react";
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import CountdownTimer from "./Countdown";
-import { Mails } from "lucide-react";
 import Link from "next/link";
 
 const Hero = () => {
-  const releaseDate = "2024-03-29T00:00:00Z";
-
-  // const currentDate = new Date();
-  // const targetDate = new Date(
-  //   currentDate.getTime() +
-  //     10 * 24 * 60 * 60 * 1000 +
-  //     6 * 60 * 60 * 1000 +
-  //     30 * 60 * 1000
-  // ); // Adjust minutes here
-
   useGSAP(() => {
     gsap.to("#hero-img", { opacity: 1, x: 0, duration: 1 });
     gsap.to("#stagger", { opacity: 1, duration: 1, stagger: 0.2 });
   }, []);
   return (
-    <div className="flex w-full lg:flex-row flex-col lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center">
-      <section className="flex w-full flex-col">
+    <div
+      suppressHydrationWarning={true}
+      className="flex w-full lg:flex-row flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
+    >
+      <section className="flex flex-col">
         <h1 id="stagger" className="lg:text-7xl opacity-0 text-5xl font-bold ">
           Prayse Merch
         </h1>
-        {/* <p className="opacity-0" id="stagger">
-          Check out our limited time merch!
-        </p> */}
-        {/* <Button
-          id="stagger"
-          className="w-1/2 mt-3 opacity-0 bg-primary font-bold"
-        >
-          Shop Now!
-        </Button> */}
-        <CountdownTimer releaseDate={releaseDate} />
-        <div className="mt-3 space-y-3">
-          <p
+
+        <p className="opacity-0 lg:w-2/3 w-full" id="stagger">
+          Perfect for everyday wear, reminding us of the power of prayer and
+          praise in our daily walk with God.
+        </p>
+        <Link className="lg:w-1/3 md:w-1/2 w-full" href="#chip">
+          <Button
             id="stagger"
-            className="opacity-0 mb-1 text-secondary-foreground/50"
+            className="w-full mt-3 opacity-0 bg-primary font-bold"
           >
-            Stay up-to-date with our most recent updates & news!
-          </p>
-          <Link target="_blank" href={"https://newsletter.prayse.app/"}>
-            <Button
-              id="stagger"
-              className="opacity-0 lg:w-fit w-full md:w-fit space-x-3 flex items-center"
-            >
-              <span className="font-bold">Subscribe to our Newsletter</span>
-              <Mails />
-            </Button>
-          </Link>
-        </div>
+            Shop Now
+          </Button>
+        </Link>
       </section>
       <section
         id="hero-img"
-        className="w-full opacity-0 translate-x-[1000px] overflow-hidden grid grid-cols-2 place-items-center h-fit lg:w-3/4 gap-3 place-content-center rounded-lg"
+        className="w-full opacity-0 translate-x-[1000px] overflow-hidden grid grid-cols-2 place-items-center h-fit lg:w-fit gap-3 place-content-center rounded-lg"
       >
         <Image
           src={"/hero-shirt.png"}

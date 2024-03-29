@@ -72,8 +72,8 @@ export async function POST(req: Request) {
       enabled: true,
     },
 
-    success_url: `http://localhost:3000/success/${orderId}`,
-    cancel_url: `http://localhost:3000/cancel/${orderId}`,
+    success_url: `https://shop.prayse.app/success/${orderId}`,
+    cancel_url: `https://shop.prayse.app/cancel/${orderId}`,
   });
 
   return NextResponse.json(

@@ -1,7 +1,5 @@
 "use client";
 import React, { useRef } from "react";
-import parse from "html-react-parser";
-import Image from "next/image";
 import Product from "@/components/Product";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";

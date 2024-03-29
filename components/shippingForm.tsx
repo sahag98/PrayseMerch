@@ -2,7 +2,6 @@
 
 import useCart from "@/hooks/use-cart";
 import axios from "axios";
-import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
@@ -16,7 +15,6 @@ import { v4 as uuidv4 } from "uuid";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,15 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
 import { z } from "zod";
-import { CartItem } from "@/app/addToCart";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { cn } from "@/lib/utils";
 import {
@@ -41,7 +31,6 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
 } from "./ui/command";
 
 import {
@@ -51,6 +40,7 @@ import {
   unShippableCountries,
 } from "@/lib/countryData";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import Loading from "./Loading";
 
 const formSchema = z.object({
   first_name: z.string().min(2, { message: "First name is required." }).max(50),
@@ -86,7 +76,7 @@ const ShippingForm = ({
 
   const [selectedProvice, setSelectedProvince] = useState("");
   const [selectedProvinceCode, setSelectedProvinceCode] = useState("");
-
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [statePopoverOpen, setStatePopoverOpen] = useState(false);
   const [provincePopoverOpen, setProvincePopoverOpen] = useState(false);
@@ -121,7 +111,6 @@ const ShippingForm = ({
     },
   ];
 
-  const [selectedType, setSelectedType] = useState<any>({});
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -142,12 +131,13 @@ const ShippingForm = ({
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>, e: any) {
+  async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
     e.preventDefault();
     console.log("trying to submit");
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     checkout(values);
+
     console.log(values + "");
   }
 
@@ -189,28 +179,29 @@ const ShippingForm = ({
       customerTaxType: "SALESTAX",
     };
     console.log("shipping info: ", requestBody);
-    const res = await axios.post("/api/shipping", {
-      requestBody,
-    });
+    try {
+      setIsCheckingOut(true);
+      const res = await axios.post("/api/shipping", {
+        requestBody,
+      });
 
-    const resp = await axios.post("/api/shippingTypes", {
-      order_id: res.data.orderInfo.id,
-    });
+      const resp = await axios.post("/api/shippingTypes", {
+        order_id: res.data.orderInfo.id,
+      });
+      cart.setOrderId(res.data.orderInfo.id);
 
-    cart.setOrderId(res.data.orderInfo.id);
+      setShippingTypes(resp.data.shippingTypes);
+    } catch (error) {
+      console.log(error);
+    }
 
-    setShippingTypes(resp.data.shippingTypes);
+    setIsCheckingOut(false);
     setActiveTab("checkout");
-    // const response = await axios.post("/api/checkout", {
-    //   products: cartProducts,
-    // });
-    // console.log("response from checkout: ", response);
-    // cart.removeAll();
-
-    // window.location = response.data.url;
-
-    // setActiveTab("checkout");
   };
+
+  if (isCheckingOut) {
+    return <Loading text="Please wait" />;
+  }
 
   return (
     <div className="w-full h-full flex flex-col ">
@@ -221,7 +212,7 @@ const ShippingForm = ({
           className="flex flex-col flex-grow"
         >
           <div className="flex flex-col gap-2 ">
-            <section className="flex items-center w-full gap-2">
+            <section className="flex items-center lg:flex-row flex-col w-full gap-2">
               <FormField
                 control={form.control}
                 name="first_name"
@@ -249,7 +240,7 @@ const ShippingForm = ({
                 )}
               />
             </section>
-            <section className="flex items-center w-full gap-2">
+            <section className="flex items-center lg:flex-row flex-col w-full gap-2">
               <FormField
                 control={form.control}
                 name="phone_number"
@@ -284,7 +275,10 @@ const ShippingForm = ({
                 <FormItem className="w-full">
                   <FormLabel>Street Address*</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter street address" {...field} />
+                    <Input
+                      placeholder="Enter a valid street address"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -306,7 +300,7 @@ const ShippingForm = ({
                 </FormItem>
               )}
             />
-            <section className="flex items-center w-full gap-2">
+            <section className="flex items- lg:flex-row flex-col w-full gap-2">
               <FormField
                 control={form.control}
                 name="country"
@@ -520,13 +514,13 @@ const ShippingForm = ({
                 />
               )}
             </section>
-            <section className="flex items-center w-full gap-2">
+            <section className="flex items-center lg:flex-row flex-col w-full gap-2">
               <FormField
                 control={form.control}
                 name="city"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>City/Provice*</FormLabel>
+                    <FormLabel>City*</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter city" {...field} />
                     </FormControl>
@@ -539,7 +533,7 @@ const ShippingForm = ({
                 name="zipCode"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>ZipCode</FormLabel>
+                    <FormLabel>Zip Code (If applicable)</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter zip code" {...field} />
                     </FormControl>
@@ -560,20 +554,21 @@ const ShippingForm = ({
             </div>
           )}
 
-          <div className="mt-auto space-y-2">
+          <div className="lg:mt-auto mt-4 space-y-2">
             <Button
-              disabled={true}
+              disabled={isCheckingOut}
               onClick={() => console.log("click")}
-              className="w-full"
+              className="w-full text-base"
               type="submit"
             >
-              Proceed to checkout
+              Proceed to Checkout
             </Button>
             <Button
+              disabled={isCheckingOut}
               type="button"
               onClick={() => setActiveTab("cart")}
               variant={"outline"}
-              className="w-full"
+              className="w-full text-base"
             >
               Go Back to Cart
             </Button>

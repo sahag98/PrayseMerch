@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import Image from "next/image";
-import Canvas from "../canvas";
 import OurProducts from "./our-products";
 
 import Hero from "@/components/Hero";
+import Mission from "@/components/Mission";
+import Newsletter from "@/components/Newsletter";
+import Connect from "@/components/Connect";
 
 export default async function Home() {
   const res = await fetch("https://rest.spod.com/articles", {
@@ -20,11 +20,16 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-36 px-4">
-      <section className="flex  w-full justify-center">
+      <section className="flex w-full justify-center">
         <Hero />
-        {/* <ChevronDown className="absolute text-primary w-8 h-8 bottom-2 animate-pulse" /> */}
+
+        <ChevronDown className="absolute hidden lg:flex text-primary w-8 h-8 bottom-2 animate-pulse" />
       </section>
-      {/* <OurProducts products={products} /> */}
+      <OurProducts products={products} />
+
+      <Mission />
+      <Connect />
+      <Newsletter />
     </main>
   );
 }

@@ -3,10 +3,8 @@
 import useCart from "@/hooks/use-cart";
 import axios from "axios";
 import Image from "next/image";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import { AlertTriangleIcon, TrashIcon } from "lucide-react";
+import { AlertTriangleIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 // @ts-ignore: Unreachable code error
@@ -15,12 +13,11 @@ import { CartItem } from "@/app/addToCart";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import CancelDialog from "./CancelDialog";
+import Loading from "./Loading";
 
 const CheckoutForm = ({
-  activeTab,
   setActiveTab,
   shippingTypes,
-  setShippingTypes,
 }: {
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
@@ -31,38 +28,39 @@ const CheckoutForm = ({
   const cartProducts = useCart((state) => state.items);
   const subtotal = cart.calculateTotal().subTotal.toFixed(2);
   const salesTax = cart.calculateTotal().salesTaxNum;
-  const testTypes = [
-    {
-      id: 38,
-      description: "Tracking provided. Saturday delivery.",
-      name: "Standard",
-      price: {
-        amount: 4.77,
-      },
-    },
-    {
-      id: 16,
-      description: "Tracking provided. Saturday delivery.",
-      name: "Premium",
-      price: {
-        amount: 5.62,
-      },
-    },
+  // const testTypes = [
+  //   {
+  //     id: 38,
+  //     description: "Tracking provided. Saturday delivery.",
+  //     name: "Standard",
+  //     price: {
+  //       amount: 4.77,
+  //     },
+  //   },
+  //   {
+  //     id: 16,
+  //     description: "Tracking provided. Saturday delivery.",
+  //     name: "Premium",
+  //     price: {
+  //       amount: 5.62,
+  //     },
+  //   },
 
-    {
-      id: 23,
-      description:
-        "Tracking provided. Delivery not available for AK, HI, PO Box and APO.",
-      name: "Express",
-      price: {
-        amount: 4.77,
-      },
-    },
-  ];
+  //   {
+  //     id: 23,
+  //     description:
+  //       "Tracking provided. Delivery not available for AK, HI, PO Box and APO.",
+  //     name: "Express",
+  //     price: {
+  //       amount: 4.77,
+  //     },
+  //   },
+  // ];
 
   const [selectedType, setSelectedType] = useState<any>(shippingTypes[0]);
   console.log("shipping type: ", selectedType.id);
   const [showCancelAlert, setShowCancelAlert] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
   const router = useRouter();
 
   const cancelOrder = async () => {
@@ -71,6 +69,7 @@ const CheckoutForm = ({
     });
 
     cart.removeAll();
+    cart.closeCart();
     setActiveTab("cart");
   };
 
@@ -88,29 +87,29 @@ const CheckoutForm = ({
   };
 
   const handlePayment = async () => {
-    // const shippingBody = {
-    //   id: selectedType.id,
-    // };
+    try {
+      setIsPaying(true);
+      await handleShipping();
+      const response = await axios.post("/api/checkout", {
+        products: cartProducts,
+        orderId: cart.order_id,
+        shippingFee: selectedType.price?.amount,
+        salesTax: salesTax,
+      });
 
-    // const setShipping = await axios.post("/api/setShipping", {
-    //   shippingBody,
-    //   orderId: cart.order_id,
-    // });
+      cart.closeCart();
+      cart.removeAll();
 
-    // console.log("confirm type:", cart.order_id);
-
-    const response = await axios.post("/api/checkout", {
-      products: cartProducts,
-      orderId: cart.order_id,
-      shippingFee: selectedType.price?.amount,
-      salesTax: salesTax,
-    });
-
-    console.log("response from checkout: ", response);
-    cart.removeAll();
-
-    window.location = response.data.url;
+      window.location = response.data.url;
+    } catch (error) {
+      console.log(error);
+    }
+    setIsPaying(false);
   };
+
+  if (isPaying) {
+    return <Loading text="Please Wait" />;
+  }
 
   return (
     <div className="h-full">
@@ -215,17 +214,26 @@ const CheckoutForm = ({
             </div>
           </div>
 
-          <Button onClick={handleShipping} className="w-full" type="button">
-            Confirm Shipping
-          </Button>
-
-          <Button onClick={handlePayment} className="w-full" type="submit">
+          <Button
+            disabled={isPaying}
+            onClick={handlePayment}
+            className="w-full text-base gap-3"
+            type="submit"
+          >
             Pay with Stripe
+            <Image
+              alt="stripe logo"
+              src={"/stripe.jpeg"}
+              width={400}
+              height={400}
+              className="w-8 rounded-full"
+            />
           </Button>
           <Button
+            disabled={isPaying}
             variant={"outline"}
             onClick={() => setShowCancelAlert(true)}
-            className="w-full border-red-200"
+            className="w-full text-base border-red-200"
             type="button"
           >
             Cancel Checkout

@@ -2,8 +2,6 @@ import { create } from "zustand";
 
 import { persist, createJSONStorage } from "zustand/middleware";
 
-import { AlertTriangle } from "lucide-react";
-import { Item } from "@/app/our-products";
 import { CartItem } from "@/app/addToCart";
 
 interface CartStore {
@@ -11,9 +9,11 @@ interface CartStore {
   isCartOpen: boolean;
   order_id: number;
   openCart: () => void;
+  orderItems: { products: any[] };
   setOrderId: (data: number) => void;
   closeCart: () => void;
   addItem: (data: CartItem) => void;
+  addOrderItems: (data: any) => void;
   removeItem: (id: number) => void;
   calculateTotal: () => {
     subTotal: number;
@@ -27,6 +27,7 @@ const useCart = create(
   persist<CartStore>(
     (set, get) => ({
       items: [],
+      orderItems: { products: [] },
       order_id: 0,
       isCartOpen: false,
       closeCart: () => {
@@ -77,12 +78,20 @@ const useCart = create(
           total,
         };
       },
+
+      addOrderItems: (data: any) => {
+        console.log("adding to orderItems: ", data);
+        set({ orderItems: data });
+      },
       removeItem: (sku: number) => {
         set({
           items: [...get().items.filter((item) => item.sku !== sku)],
         });
       },
-      removeAll: () => set({ items: [] }),
+
+      removeAll: () => {
+        set({ items: [] });
+      },
     }),
     {
       name: "cart-storage",
