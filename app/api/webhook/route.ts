@@ -23,9 +23,9 @@ export async function POST(req: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
-  const address = session?.customer_details?.address;
 
   if (event.type === "checkout.session.completed") {
+    console.log("checking out!");
     const transport = nodemailer.createTransport({
       service: "gmail",
       /* 
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       cc: "prayse.app@gmail.com",
       subject: `Your order was placed successfully! ✅`,
       text: `Hey ${session?.customer_details?.name} 👋, thank you so much for placing an order.`,
-      html: `<h4>Hey ${session?.customer_details?.name} 👋,</h4><p>Thank you so much for placing your order. Our prayer is that wearing our merch would provide fruitful conversations on the topics of praying and praising God every single day.</p> <p>You can check any shipment updates for your order by clicking the check shipment updates button on the success page.</p> <p>If you have any questions, feel free to email us at prayse.app@gmail.com.</p> <h4>Have a blessed day,<br/>Prayse</h4>`,
+      html: `<h4>Hey ${session?.customer_details?.name} 👋,</h4><p>Thank you so much for placing your order. Our prayer is that wearing our merch would provide fruitful conversations on the topics of praying and praising God every single day.</p> <p>You can check any shipment updates for your order by clicking the check shipment updates button on the <a href=${session?.success_url}>Success page</a>.</p> <p>If you have any questions, feel free to email us at prayse.app@gmail.com.</p> <h4>Have a blessed day,<br/>Prayse</h4>`,
     };
 
     // return NextResponse.json({ message: "Email sent" });

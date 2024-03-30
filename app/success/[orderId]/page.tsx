@@ -55,9 +55,9 @@ const SuccessPage = async ({ params: { orderId } }: any) => {
         get back to you shortly :)
       </p>
 
-      <Button size={"sm"} className="gap-2">
+      <Button size={"lg"} className="gap-2 mt-3">
         <Link
-          className="flex items-center gap-2"
+          className="flex items-center text-base font-bold gap-2"
           href={`/shipments/${orderId}`}
         >
           Check Shipment Updates <ArrowRightCircle />

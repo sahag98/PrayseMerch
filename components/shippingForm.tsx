@@ -558,7 +558,7 @@ const ShippingForm = ({
             <Button
               disabled={isCheckingOut}
               onClick={() => console.log("click")}
-              className="w-full text-base"
+              className="w-full text-base font-bold text-primary-foreground"
               type="submit"
             >
               Proceed to Checkout

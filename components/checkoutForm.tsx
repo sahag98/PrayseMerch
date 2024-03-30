@@ -217,7 +217,7 @@ const CheckoutForm = ({
           <Button
             disabled={isPaying}
             onClick={handlePayment}
-            className="w-full text-base gap-3"
+            className="w-full text-base text-primary-foreground font-bold gap-3"
             type="submit"
           >
             Pay with Stripe
