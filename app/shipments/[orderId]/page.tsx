@@ -3,7 +3,7 @@ import { ArrowLeftCircle, ArrowRightCircle, Loader } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export const revalidate = 3600;
+export const revalidate = 0;
 
 const ShipmentPage = async ({ params: { orderId } }: any) => {
   if (!orderId) {
@@ -29,6 +29,7 @@ const ShipmentPage = async ({ params: { orderId } }: any) => {
       "Content-Type": "application/json",
       "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
     },
+    cache: "no-store",
   });
 
   const shipments = await res.json();
