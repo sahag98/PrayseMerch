@@ -36,8 +36,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const singleProduct: Item = await res.json();
 
+  if (!singleProduct) {
+    return {
+      title: "Not Found",
+      description: "The page you are looking for does not exist",
+    };
+  }
+
   return {
     title: singleProduct.title,
+    description: singleProduct.description,
+    openGraph: {
+      title: singleProduct.title,
+      description: singleProduct.description,
+      images: singleProduct.images[0].imageUrl,
+    },
   };
 }
 

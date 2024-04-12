@@ -9,7 +9,11 @@ import Footer from "@/components/footer";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Prayse Merch",
+  metadataBase: new URL("https://shop.prayse.app"),
+  title: {
+    default: "Prayse Merch",
+    template: `%s | Prayse Merch`,
+  },
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   description:
     "Check out our first release of merchandise with a message of elavating the importance of prayer and praise in our walk with God.",
@@ -34,10 +38,25 @@ export const metadata: Metadata = {
     noimageindex: true,
     nocache: true,
   },
-  authors: [{ name: "Prayse", url: "https://www.prayse.app/" }],
+  authors: [{ name: "Prayse", url: "https://www.prayse.app" }],
   generator: "Prayse",
   keywords: [
-    "tshirt, tanktops, tee, apparel, christian, christianmerch, merch, jesuslovesyou, God, Jesus",
+    "jesus is jesus",
+    "prayse merch",
+    "christian",
+    "christian tshirts",
+    "christian tanktops",
+    "christian crewneck",
+    "tshirt",
+    "tanktops",
+    "tee",
+    "crewneck",
+    "apparel",
+    "christianmerch",
+    "merch",
+    "jesuslovesyou",
+    "God",
+    "Jesus",
   ],
   publisher: "Vercel",
   creator: "Prayse Team",
