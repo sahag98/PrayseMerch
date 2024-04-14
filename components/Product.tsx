@@ -110,7 +110,7 @@ const Product = ({ item }: { item: Item }) => {
               className="font-semibold text-accent-foreground"
               onClick={() => router.push(`/product/${item.id}`)}
             >
-              View Product
+              View
             </Button>
           </div>
         </div>
