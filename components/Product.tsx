@@ -1,8 +1,18 @@
+"use client";
 import { Item } from "@/app/our-products";
 import Image from "next/image";
 import Link from "next/link";
 
-import React from "react";
+import React, { useRef, useState } from "react";
+import { Button } from "./ui/button";
+import { ShoppingCart } from "lucide-react";
+// @ts-ignore: Unreachable code error
+import { v4 as uuidv4 } from "uuid";
+import useCart from "@/hooks/use-cart";
+import { CartItem } from "@/app/addToCart";
+import { useRouter } from "next/navigation";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export type Variant = {
   id: number;
@@ -23,27 +33,103 @@ export type Variant = {
 
 const Product = ({ item }: { item: Item }) => {
   const itemImage = item.images[0];
-
+  const cart = useCart();
+  const viewProductRef = useRef(null);
+  const [isMouseHovering, setIsMouseHovering] = useState("");
   const variants = item.variants;
+  const router = useRouter();
+  const handleClick = (event: any) => {
+    addToCart(); // Calls the addToCart function
+  };
+
+  const handleMouseEnter = () => {
+    gsap.to(viewProductRef.current, {
+      opacity: 1,
+      duration: 0.5,
+      ease: "power1.inOut",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    gsap.to(viewProductRef.current, {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power1.inOut",
+    });
+  };
+
+  async function addToCart() {
+    const id = uuidv4();
+    console.log("item to add: ", item);
+    // const correctSku = await checkSkuMatch(values);
+
+    // if (!correctSku) {
+    //   return;
+    // }
+
+    const customerPrice = {
+      amount: item.variants[1].d2cPrice,
+    };
+
+    const CartItem: CartItem = {
+      id: uuidv4(),
+      name: item.title,
+      size: item.variants[1].sizeName,
+      image: item.images[0].imageUrl,
+      sku: item.variants[1].deprecatedSku,
+      quantity: 1,
+      customerPrice,
+    };
+
+    console.log("Cart Item: ", CartItem);
+    cart.addItem(CartItem);
+    cart.openCart();
+  }
   return (
-    <Link className="opacity-0" href={`/product/${item.id}`}>
+    <div className="opacity-0">
       <div
-        className="flex flex-col gap-3 items-center bg-accent rounded-lg justify-center border hover:scale-105 cursor-pointer duration-500 transition-all"
+        className="flex relative flex-col bg-accent rounded-lg justify-center border overflow-hidden duration-500 transition-all"
         key={item.id}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <Image
-          src={itemImage.imageUrl}
-          className=""
-          width={1000}
-          height={1000}
-          alt={`Prayse ${itemImage.appearanceName} Shirt`}
-        />
-        <h3 className="font-semibold">{item.title}</h3>
-        <span className="text-2xl text-secondary-foreground font-semibold">
-          ${item.variants[0].d2cPrice}
-        </span>
+        <div className="relative">
+          <Image
+            src={itemImage.imageUrl}
+            className=""
+            width={1000}
+            height={1000}
+            alt={`Prayse ${itemImage.appearanceName} Shirt`}
+          />
+          <div
+            ref={viewProductRef}
+            className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0"
+          >
+            <Button
+              variant={"outline"}
+              className="font-semibold text-accent-foreground"
+              onClick={() => router.push(`/product/${item.id}`)}
+            >
+              View Product
+            </Button>
+          </div>
+        </div>
+        <div className="bg-background flex-col flex border-t gap-4 px-4 py-2">
+          <h3 className="font-semibold">{item.title}</h3>
+          <div className="flex justify-between">
+            <section>
+              <p className="font-normal text-accent-foreground/50">Price:</p>
+              <span className="text-2xl text-primary font-semibold">
+                ${item.variants[0].d2cPrice}
+              </span>
+            </section>
+            <Button onClick={handleClick}>
+              <ShoppingCart />
+            </Button>
+          </div>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

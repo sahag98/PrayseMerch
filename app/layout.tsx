@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     default: "Prayse Merch",
     template: `%s | Prayse Merch`,
   },
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   description:
     "Check out our first release of merchandise with a message of elavating the importance of prayer and praise in our walk with God.",
   openGraph: {
