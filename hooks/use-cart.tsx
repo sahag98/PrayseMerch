@@ -14,6 +14,7 @@ interface CartStore {
   closeCart: () => void;
   addItem: (data: CartItem) => void;
   addOrderItems: (data: any) => void;
+  decreaseQty: (data: any) => void;
   removeItem: (id: number) => void;
   calculateTotal: () => {
     subTotal: number;
@@ -61,6 +62,22 @@ const useCart = create(
         } else {
           // Item doesn't exist, so add it to the cart
           set({ items: [...currentItems, data] });
+        }
+      },
+      decreaseQty: (data: CartItem) => {
+        const currentItems = get().items;
+        const existingItemIndex = currentItems.findIndex(
+          (item) => item.sku === data.sku
+        );
+
+        if (existingItemIndex !== -1) {
+          console.log("exists already: ", currentItems[existingItemIndex]);
+
+          // Item already exists, so update the quantity
+          const updatedItems = [...currentItems];
+          updatedItems[existingItemIndex].quantity = data.quantity - 1;
+
+          set({ items: updatedItems });
         }
       },
       calculateTotal: () => {
