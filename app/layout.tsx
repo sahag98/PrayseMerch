@@ -6,7 +6,6 @@ import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "./theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/footer";
-// @ts-ignore: Unreachable code error
 import { Analytics } from "@vercel/analytics/react";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
