@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Ban, Home } from "lucide-react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import React from "react";
 
 const CancelPage = async ({ params: { orderId } }: any) => {

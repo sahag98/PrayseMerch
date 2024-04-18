@@ -53,6 +53,8 @@ const Cart = () => {
   };
   const [showCancelAlert, setShowCancelAlert] = useState(false);
 
+  console.log("all cart items: ", cart.items);
+
   return (
     <Sheet open={isCartOpen} onOpenChange={cart.closeCart}>
       <SheetTrigger asChild>
@@ -115,7 +117,11 @@ const Cart = () => {
                                   </p>
                                 </section>
                                 <div className="flex items-center justify-between gap-5">
-                                  <Select>
+                                  <Select
+                                    onValueChange={(e) =>
+                                      cart.updateSize(item, e)
+                                    }
+                                  >
                                     <SelectTrigger className="w-[100px]">
                                       <SelectValue placeholder={item.size} />
                                     </SelectTrigger>

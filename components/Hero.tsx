@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const Hero = () => {
   useGSAP(() => {

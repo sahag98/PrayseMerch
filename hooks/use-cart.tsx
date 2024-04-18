@@ -11,9 +11,10 @@ interface CartStore {
   openCart: () => void;
   orderItems: { products: any[] };
   setOrderId: (data: number) => void;
+  updateSize: (data: CartItem, newSize: string) => void;
   closeCart: () => void;
   addItem: (data: CartItem) => void;
-  addOrderItems: (data: any) => void;
+
   decreaseQty: (data: any) => void;
   removeItem: (id: number) => void;
   calculateTotal: () => {
@@ -36,21 +37,16 @@ const useCart = create(
         set({ isCartOpen: !isOpen });
       },
       openCart: () => {
-        console.log("trying to open cart");
         set({ isCartOpen: true });
       },
       setOrderId: (data: number) => {
         set({ order_id: data });
       },
       addItem: (data: CartItem) => {
-        console.log("in add: ", data);
         const currentItems = get().items;
         const existingItemIndex = currentItems.findIndex(
           (item) => item.sku === data.sku
         );
-
-        console.log("check: ", existingItemIndex);
-
         if (existingItemIndex !== -1) {
           console.log("exists already: ", currentItems[existingItemIndex]);
 
@@ -80,6 +76,20 @@ const useCart = create(
           set({ items: updatedItems });
         }
       },
+      updateSize: (data: CartItem, newSize) => {
+        console.log("updating to: ", newSize.toString());
+        const currentItems = get().items;
+        const existingItemIndex = currentItems.findIndex(
+          (item) => item.sku === data.sku
+        );
+
+        if (existingItemIndex !== -1) {
+          const updatedItems = [...currentItems];
+          updatedItems[existingItemIndex].size = newSize.toString();
+
+          set({ items: updatedItems });
+        }
+      },
       calculateTotal: () => {
         const items = get().items;
         const sum = items.reduce((acc, item) => {
@@ -94,11 +104,6 @@ const useCart = create(
           salesTaxNum,
           total,
         };
-      },
-
-      addOrderItems: (data: any) => {
-        console.log("adding to orderItems: ", data);
-        set({ orderItems: data });
       },
       removeItem: (sku: number) => {
         set({

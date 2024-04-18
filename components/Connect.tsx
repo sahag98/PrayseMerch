@@ -13,6 +13,8 @@ const Connect = () => {
 
   const { theme } = useTheme();
 
+  console.log("theme in connect: ", theme);
+
   useGSAP(
     () => {
       gsap.to("#stagger", {
@@ -57,7 +59,7 @@ const Connect = () => {
       <div className="relative">
         <Image
           id="cstagger"
-          src={theme == "light" ? "/2.png" : "/5.png"}
+          src={theme == "light" || theme == undefined ? "/2.png" : "/5.png"}
           width={2000}
           className="opacity-0"
           height={1000}

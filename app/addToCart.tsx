@@ -26,6 +26,7 @@ import useCart from "@/hooks/use-cart";
 import { useToast } from "@/components/ui/use-toast";
 export type CartItem = {
   id: number;
+  articleId: number;
   name: string;
   size: string;
   sku: number;
@@ -92,6 +93,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
 
       const CartItem: CartItem = {
         id: uuidv4(),
+        articleId: singleProduct.id,
         name: singleProduct.title,
         size: values.size,
         image: singleProduct.images[0].imageUrl,

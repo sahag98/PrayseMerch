@@ -28,6 +28,8 @@ const CheckoutForm = ({
   const cartProducts = useCart((state) => state.items);
   const subtotal = cart.calculateTotal().subTotal.toFixed(2);
   const salesTax = cart.calculateTotal().salesTaxNum;
+
+  console.log("cart products: ", cartProducts);
   // const testTypes = [
   //   {
   //     id: 38,

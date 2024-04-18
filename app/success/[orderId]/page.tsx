@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import React from "react";
 import Success from "./success";
 import { ArrowRightCircle, CheckCircle } from "lucide-react";
+import SuccessOrder from "@/components/SuccessOrder";
 
 const SuccessPage = async ({ params: { orderId } }: any) => {
   if (!orderId) {

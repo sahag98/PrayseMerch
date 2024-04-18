@@ -1,7 +1,6 @@
 "use client";
 import { Item } from "@/app/our-products";
 import Image from "next/image";
-import Link from "next/link";
 
 import React, { useRef, useState } from "react";
 import { Button } from "./ui/button";
@@ -12,7 +11,6 @@ import useCart from "@/hooks/use-cart";
 import { CartItem } from "@/app/addToCart";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 
 export type Variant = {
   id: number;
@@ -73,6 +71,7 @@ const Product = ({ item }: { item: Item }) => {
 
     const CartItem: CartItem = {
       id: uuidv4(),
+      articleId: item.id,
       name: item.title,
       size: item.variants[1].sizeName,
       image: item.images[0].imageUrl,
