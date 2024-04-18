@@ -29,7 +29,7 @@ const CancelPage = async ({ params: { orderId } }: any) => {
       <h1>Your order was canceled successfully.</h1>
       <p className="text-center">
         Please let us know if you ran into any issues by emailing us at
-        <span className="font-bold">prayse.app@gmail.com</span>.
+        <span className="font-bold"> prayse.app@gmail.com</span>.
       </p>
       <Button size={"sm"} className="mt-3">
         <Link className="gap-2 flex items-center text-base" href={"/"}>

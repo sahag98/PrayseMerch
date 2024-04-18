@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import CancelDialog from "./CancelDialog";
 import Loading from "./Loading";
+import { setShipping } from "@/app/actions";
 
 const CheckoutForm = ({
   setActiveTab,
@@ -29,7 +30,6 @@ const CheckoutForm = ({
   const subtotal = cart.calculateTotal().subTotal.toFixed(2);
   const salesTax = cart.calculateTotal().salesTaxNum;
 
-  console.log("cart products: ", cartProducts);
   // const testTypes = [
   //   {
   //     id: 38,
@@ -80,10 +80,15 @@ const CheckoutForm = ({
       id: selectedType.id,
     };
 
-    await axios.post("/api/setShipping", {
+    await setShipping({
       shippingBody,
       orderId: cart.order_id,
     });
+
+    // await axios.post("/api/setShipping", {
+    //   shippingBody,
+    //   orderId: cart.order_id,
+    // });
 
     console.log("shipping type is set!");
   };
@@ -151,9 +156,7 @@ const CheckoutForm = ({
 
           {shippingTypes.length > 0 ? (
             <div className="flex flex-col gap-2">
-              <h2 className="font-bold text-xl">
-                Shipping Types: (Select One)
-              </h2>
+              <h2 className="font-bold text-xl">Shipping Types: (Required)</h2>
               <div className="flex flex-col gap-5">
                 {shippingTypes.map((type: any) => (
                   <div
@@ -184,38 +187,42 @@ const CheckoutForm = ({
           )}
         </div>
         <section className="flex gap-2 border-t p-2 flex-col">
-          <div className="flex flex-col gap-1 items-end">
-            <div className="flex gap-5">
-              <span className="">Subtotal:</span>
-              <span className="font-bold">${subtotal}</span>
-            </div>
-            <div className="flex gap-5 ">
-              <span className="text-left">Sales Tax:</span>
-              <span className="text-right font-bold">${salesTax}</span>
-            </div>
-            <div className="flex gap-5 ">
-              <span className="text-left">Shipping Fee:</span>
-              <span className="text-right font-bold">
-                ${selectedType.price?.amount}
-              </span>
-            </div>
-            <div className="flex gap-2 items-end">
-              <span className="text-lg ">Total:</span>
-              {selectedType.price?.amount ? (
-                <span className="text-2xl font-bold">
-                  $
-                  {(
-                    cart.calculateTotal().total + selectedType.price?.amount
-                  ).toFixed(2)}
+          <div className="flex justify-between ">
+            <p className="text-sm flex-1">
+              * The shipping fee includes both production and shipping costs.
+            </p>
+            <div className="flex flex-3 flex-col gap-1 items-end">
+              <div className="flex gap-5">
+                <span className="">Subtotal:</span>
+                <span className="font-bold">${subtotal}</span>
+              </div>
+              <div className="flex gap-5 ">
+                <span className="text-left">Sales Tax:</span>
+                <span className="text-right font-bold">${salesTax}</span>
+              </div>
+              <div className="flex gap-5 ">
+                <span className="text-left">Shipping Fee:</span>
+                <span className="text-right font-bold">
+                  ${selectedType.price?.amount}
                 </span>
-              ) : (
-                <span className="text-2xl font-bold">
-                  ${cart.calculateTotal().total}
-                </span>
-              )}
+              </div>
+              <div className="flex gap-2 items-end">
+                <span className="text-lg ">Total:</span>
+                {selectedType.price?.amount ? (
+                  <span className="text-2xl font-bold">
+                    $
+                    {(
+                      cart.calculateTotal().total + selectedType.price?.amount
+                    ).toFixed(2)}
+                  </span>
+                ) : (
+                  <span className="text-2xl font-bold">
+                    ${cart.calculateTotal().total}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-
           <Button
             disabled={isPaying}
             onClick={handlePayment}

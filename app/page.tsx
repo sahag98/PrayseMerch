@@ -7,16 +7,22 @@ import Newsletter from "@/components/Newsletter";
 import Connect from "@/components/Connect";
 
 export default async function Home() {
-  const res = await fetch("https://rest.spod.com/articles", {
-    method: "GET",
-    headers: {
-      "Accept-encoding": "gzip, deflate",
-      "Content-Type": "application/json",
-      "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
-    },
-  });
+  async function fetchAllProducts() {
+    "use server";
+    const res = await fetch("https://rest.spod.com/articles", {
+      method: "GET",
+      headers: {
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+        "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
+      },
+    });
 
-  const products = await res.json();
+    const products = await res.json();
+
+    return products;
+  }
+  const products = await fetchAllProducts();
 
   return (
     <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-36 px-4">
