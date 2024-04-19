@@ -35,6 +35,9 @@ import axios from "axios";
 import ShippingForm from "./shippingForm";
 import CheckoutForm from "./checkoutForm";
 import CancelDialog from "./CancelDialog";
+import { Variant } from "./Product";
+import { Item } from "@/app/our-products";
+import { fetchSingleProduct } from "@/app/actions";
 const Cart = () => {
   const cart = useCart();
   const isCartOpen = useCart((state) => state.isCartOpen);
@@ -52,6 +55,19 @@ const Cart = () => {
     setActiveTab("cart");
   };
   const [showCancelAlert, setShowCancelAlert] = useState(false);
+
+  const updateSku = async (item: CartItem, sizeName: any) => {
+    const singleProduct = await fetchSingleProduct(item.articleId);
+
+    console.log("single product: ", singleProduct);
+    // let sku: string;
+    singleProduct.variants.map((variant: any) => {
+      // console.log(variant.sizeName, formValues.size);
+      if (variant.sizeName == sizeName) {
+        cart.updateSize(item, sizeName, variant.deprecatedSku);
+      }
+    });
+  };
 
   console.log("all cart items: ", cart.items);
 
@@ -118,8 +134,13 @@ const Cart = () => {
                                 </section>
                                 <div className="flex items-center justify-between gap-5">
                                   <Select
-                                    onValueChange={(e) =>
-                                      cart.updateSize(item, e)
+                                    onValueChange={
+                                      (e) => {
+                                        updateSku(item, e);
+                                        // cart.updateSize(item, e);
+                                      }
+
+                                      // updateSku()
                                     }
                                   >
                                     <SelectTrigger className="w-[100px]">
@@ -210,7 +231,7 @@ const Cart = () => {
                         ${cart.calculateTotal().total.toFixed(2)}
                       </span>
                     </div>
-                    <span>+ plus Shipping</span>
+                    <span className="font-medium">+ plus shipping</span>
                   </div>
 
                   <Button

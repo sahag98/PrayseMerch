@@ -105,9 +105,19 @@ const CheckoutForm = ({
       });
 
       cart.closeCart();
+      const orderInfo = {
+        products: cartProducts,
+        orderId: cart.order_id,
+        shippingFee: selectedType.price?.amount,
+        salesTax: salesTax,
+        total: (
+          cart.calculateTotal().total + selectedType.price?.amount
+        ).toFixed(2),
+      };
+      cart.addToOrderInfo(orderInfo);
       cart.removeAll();
 
-      window.location = response.data.url;
+      // window.location = response.data.url;
     } catch (error) {
       console.log(error);
     }

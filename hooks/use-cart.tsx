@@ -11,10 +11,10 @@ interface CartStore {
   openCart: () => void;
   orderItems: { products: any[] };
   setOrderId: (data: number) => void;
-  updateSize: (data: CartItem, newSize: string) => void;
+  addToOrderInfo: (data: any) => void;
+  updateSize: (data: CartItem, newSize: string, newSku: number) => void;
   closeCart: () => void;
   addItem: (data: CartItem) => void;
-
   decreaseQty: (data: any) => void;
   removeItem: (id: number) => void;
   calculateTotal: () => {
@@ -52,13 +52,17 @@ const useCart = create(
 
           // Item already exists, so update the quantity
           const updatedItems = [...currentItems];
-          updatedItems[existingItemIndex].quantity += data.quantity;
+          updatedItems[existingItemIndex].quantity =
+            updatedItems[existingItemIndex].quantity + 1;
 
           set({ items: updatedItems });
         } else {
           // Item doesn't exist, so add it to the cart
           set({ items: [...currentItems, data] });
         }
+      },
+      addToOrderInfo: (data: any) => {
+        console.log("orderInfo: ", data);
       },
       decreaseQty: (data: CartItem) => {
         const currentItems = get().items;
@@ -76,7 +80,8 @@ const useCart = create(
           set({ items: updatedItems });
         }
       },
-      updateSize: (data: CartItem, newSize) => {
+
+      updateSize: (data: CartItem, newSize, newSku) => {
         console.log("updating to: ", newSize.toString());
         const currentItems = get().items;
         const existingItemIndex = currentItems.findIndex(
@@ -86,7 +91,7 @@ const useCart = create(
         if (existingItemIndex !== -1) {
           const updatedItems = [...currentItems];
           updatedItems[existingItemIndex].size = newSize.toString();
-
+          updatedItems[existingItemIndex].sku = newSku;
           set({ items: updatedItems });
         }
       },

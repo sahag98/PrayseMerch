@@ -7,6 +7,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
+import Reviews from "./reviews";
 
 const Hero = () => {
   useGSAP(() => {
@@ -16,21 +17,24 @@ const Hero = () => {
   return (
     <div
       suppressHydrationWarning={true}
-      className="flex w-full lg:flex-row flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
+      className="flex w-full lg:flex-row flex-col  lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
     >
       <section className="flex flex-col">
         <h1 id="stagger" className="lg:text-7xl opacity-0 text-5xl font-bold ">
           Prayse Merch
         </h1>
 
-        <p className="opacity-0 lg:w-2/3 w-full" id="stagger">
+        <p
+          className="opacity-0 text-foreground/55 lg:w-2/3 w-full"
+          id="stagger"
+        >
           Perfect for everyday wear, reminding us of the power of prayer and
-          praise in our daily walk with God.
+          praise in our walk with God.
         </p>
         <Link className="lg:w-1/3 md:w-1/2 w-full" href="#chip">
           <Button
             id="stagger"
-            className="w-full mt-3 opacity-0 bg-primary font-bold"
+            className="w-full mt-3 opacity-0 text-base bg-primary font-bold"
           >
             Shop Now
           </Button>
@@ -42,6 +46,7 @@ const Hero = () => {
       >
         <Image
           src={"/hero-shirt.png"}
+          priority
           className="w-96 object-cover rounded-md"
           width={800}
           height={800}

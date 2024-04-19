@@ -28,17 +28,14 @@ const Success = () => {
 
   return (
     <div className="border rounded-md space-y-3 p-2">
-      <p
-        onClick={copyToClipboard}
-        className="font-medium cursor-pointer text-sm flex items-center justify-between gap-5"
-      >
-        1- Copy the URL (link) of this page so that you can check shipment
-        updates using the button below. <CopyIcon className="cursor-pointer" />
+      <p className="font-medium text-sm flex items-center justify-between gap-5">
+        1- Take a screenshot to save the order information in case something
+        goes wrong with your order.
+        <Camera />
       </p>
       <Separator />
       <p className="font-medium text-sm flex items-center justify-between gap-5">
-        2- Take a screenshot to save the order information in case something
-        goes wrong with your order.
+        2- Ch .
         <Camera />
       </p>
     </div>

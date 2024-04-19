@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Mission from "@/components/Mission";
 import Newsletter from "@/components/Newsletter";
 import Connect from "@/components/Connect";
+import Reviews from "@/components/reviews";
 
 export default async function Home() {
   async function fetchAllProducts() {
@@ -26,11 +27,9 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-36 px-4">
-      <section className="flex w-full justify-center">
-        <Hero />
+      <Hero />
 
-        <ChevronDown className="absolute hidden lg:flex text-primary w-8 h-8 bottom-2 animate-pulse" />
-      </section>
+      <Reviews />
       <OurProducts products={products} />
 
       <Mission />

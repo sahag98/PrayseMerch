@@ -1,5 +1,7 @@
 "use server";
 
+import { Item } from "./our-products";
+
 export async function setShipping({ shippingBody, orderId }: any) {
   console.log("shipping body in ACTION: ", shippingBody, orderId);
   let shippingType;
@@ -26,6 +28,8 @@ export async function setShipping({ shippingBody, orderId }: any) {
 }
 
 export async function createShipping({ requestBody }: any) {
+  console.log("creating order: ");
+  console.log("request body: ", requestBody);
   try {
     const createOrder = await fetch("https://rest.spod.com/orders", {
       method: "POST",
@@ -68,4 +72,24 @@ export async function getShippingTypes({ order_id }: any) {
   );
   const types = await getShipping.json();
   return types;
+}
+
+export async function fetchSingleProduct(id: number) {
+  try {
+    const res = await fetch(`https://rest.spod.com/articles/${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+        "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
+      },
+    });
+
+    const singleProduct: Item = await res.json();
+
+    return singleProduct;
+  } catch (error) {
+    throw new Error("Something went wrong while fetching single product...");
+  }
 }
