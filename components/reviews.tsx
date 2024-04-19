@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
 
 const Reviews = () => {
-  const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
 
   const reviewsArray = [
     {

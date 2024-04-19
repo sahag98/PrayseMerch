@@ -11,13 +11,13 @@ import Reviews from "./reviews";
 
 const Hero = () => {
   useGSAP(() => {
-    gsap.to("#hero-img", { opacity: 1, x: 0, duration: 1 });
-    gsap.to("#stagger", { opacity: 1, duration: 1, stagger: 0.2 });
+    gsap.to("#hero-img", { opacity: 1, x: 0, duration: 0.5 });
+    gsap.to("#stagger", { opacity: 1, duration: 0.5, stagger: 0.2 });
   }, []);
   return (
     <div
       suppressHydrationWarning={true}
-      className="flex w-full lg:flex-row flex-col  lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
+      className="flex w-full lg:flex-row flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
     >
       <section className="flex flex-col">
         <h1 id="stagger" className="lg:text-7xl opacity-0 text-5xl font-bold ">

@@ -89,10 +89,12 @@ const Product = ({ item }: { item: Item }) => {
       <div
         className="flex relative flex-col bg-accent rounded-lg justify-center border overflow-hidden duration-500 transition-all"
         key={item.id}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
-        <div className="relative">
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative"
+        >
           <Image
             src={itemImage.imageUrl}
             className=""
@@ -122,9 +124,18 @@ const Product = ({ item }: { item: Item }) => {
                 ${item.variants[0].d2cPrice}
               </span>
             </section>
-            <Button onClick={handleClick}>
-              <ShoppingCart />
-            </Button>
+            <section className="flex items-center gap-3">
+              <Button
+                className="lg:hidden md:hidden text-base sm:flex flex"
+                variant={"outline"}
+                onClick={() => router.push(`/product/${item.id}`)}
+              >
+                View
+              </Button>
+              <Button onClick={handleClick}>
+                <ShoppingCart />
+              </Button>
+            </section>
           </div>
         </div>
       </div>
