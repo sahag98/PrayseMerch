@@ -4,7 +4,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -35,9 +34,8 @@ import axios from "axios";
 import ShippingForm from "./shippingForm";
 import CheckoutForm from "./checkoutForm";
 import CancelDialog from "./CancelDialog";
-import { Variant } from "./Product";
-import { Item } from "@/app/our-products";
 import { fetchSingleProduct } from "@/app/actions";
+
 const Cart = () => {
   const cart = useCart();
   const isCartOpen = useCart((state) => state.isCartOpen);
@@ -45,6 +43,7 @@ const Cart = () => {
   const [activeTab, setActiveTab] = useState("cart");
   const cartProducts = useCart((state) => state.items);
   const [quantity, setQuantity] = useState(0);
+
   const cancelOrder = async () => {
     const res = await axios.post("/api/cancelOrder", {
       order_id: cart.order_id,

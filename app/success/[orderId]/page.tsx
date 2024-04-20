@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "next-view-transitions";
 import React from "react";
-import Success from "./success";
+
 import { ArrowRightCircle, CheckCircle } from "lucide-react";
 
 const SuccessPage = async ({ params: { orderId } }: any) => {
@@ -47,8 +47,7 @@ const SuccessPage = async ({ params: { orderId } }: any) => {
       <h3>Your order has been placed!</h3>
       <h1 className="text-2xl underline font-bold">Order ID: {orderInfo.id}</h1>
       <h2 className="">Order Reference: {orderInfo.externalOrderReference}</h2>
-      {/* <h3 className="mb-1 mt-3 font-semibold">What to do next:</h3>
-      <Success /> */}
+
       <p className="mt-5 mb-2 text-center">
         If you have any questions please email us at
         <span className="font-bold"> prayse.app@gmail.com</span>, and we&apos;ll
