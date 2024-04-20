@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -27,6 +27,7 @@ const Newsletter = () => {
   return (
     <section
       ref={scrollNewsRef}
+      id="trigger"
       className="bg-secondary opacity-1 mt-5 border border-primary rounded-md p-5 w-full flex flex-col items-center justify-center"
     >
       <h3 id="trigger" className="text-lg opacity-0">

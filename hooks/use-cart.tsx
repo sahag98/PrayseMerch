@@ -11,9 +11,11 @@ interface CartStore {
   openCart: () => void;
   orderItems: { products: any[] };
   setOrderId: (data: number) => void;
+  addToOrderInfo: (data: any) => void;
+  updateSize: (data: CartItem, newSize: string, newSku: number) => void;
   closeCart: () => void;
   addItem: (data: CartItem) => void;
-  addOrderItems: (data: any) => void;
+  decreaseQty: (data: any) => void;
   removeItem: (id: number) => void;
   calculateTotal: () => {
     subTotal: number;
@@ -35,32 +37,62 @@ const useCart = create(
         set({ isCartOpen: !isOpen });
       },
       openCart: () => {
-        console.log("trying to open cart");
         set({ isCartOpen: true });
       },
       setOrderId: (data: number) => {
         set({ order_id: data });
       },
       addItem: (data: CartItem) => {
-        console.log("in add: ", data);
         const currentItems = get().items;
         const existingItemIndex = currentItems.findIndex(
           (item) => item.sku === data.sku
         );
+        if (existingItemIndex !== -1) {
+          console.log("exists already: ", currentItems[existingItemIndex]);
 
-        console.log("check: ", existingItemIndex);
+          // Item already exists, so update the quantity
+          const updatedItems = [...currentItems];
+          updatedItems[existingItemIndex].quantity =
+            updatedItems[existingItemIndex].quantity + 1;
+
+          set({ items: updatedItems });
+        } else {
+          // Item doesn't exist, so add it to the cart
+          set({ items: [...currentItems, data] });
+        }
+      },
+      addToOrderInfo: (data: any) => {
+        console.log("orderInfo: ", data);
+      },
+      decreaseQty: (data: CartItem) => {
+        const currentItems = get().items;
+        const existingItemIndex = currentItems.findIndex(
+          (item) => item.sku === data.sku
+        );
 
         if (existingItemIndex !== -1) {
           console.log("exists already: ", currentItems[existingItemIndex]);
 
           // Item already exists, so update the quantity
           const updatedItems = [...currentItems];
-          updatedItems[existingItemIndex].quantity += data.quantity;
+          updatedItems[existingItemIndex].quantity = data.quantity - 1;
 
           set({ items: updatedItems });
-        } else {
-          // Item doesn't exist, so add it to the cart
-          set({ items: [...currentItems, data] });
+        }
+      },
+
+      updateSize: (data: CartItem, newSize, newSku) => {
+        console.log("updating to: ", newSize.toString());
+        const currentItems = get().items;
+        const existingItemIndex = currentItems.findIndex(
+          (item) => item.sku === data.sku
+        );
+
+        if (existingItemIndex !== -1) {
+          const updatedItems = [...currentItems];
+          updatedItems[existingItemIndex].size = newSize.toString();
+          updatedItems[existingItemIndex].sku = newSku;
+          set({ items: updatedItems });
         }
       },
       calculateTotal: () => {
@@ -77,11 +109,6 @@ const useCart = create(
           salesTaxNum,
           total,
         };
-      },
-
-      addOrderItems: (data: any) => {
-        console.log("adding to orderItems: ", data);
-        set({ orderItems: data });
       },
       removeItem: (sku: number) => {
         set({

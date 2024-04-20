@@ -41,6 +41,7 @@ import {
 } from "@/lib/countryData";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import Loading from "./Loading";
+import { createShipping } from "@/app/actions";
 
 const formSchema = z.object({
   first_name: z.string().min(2, { message: "First name is required." }).max(50),
@@ -181,16 +182,17 @@ const ShippingForm = ({
     console.log("shipping info: ", requestBody);
     try {
       setIsCheckingOut(true);
-      const res = await axios.post("/api/shipping", {
-        requestBody,
-      });
+      const { cartOrderId, types } = await createShipping({ requestBody });
+      // const res = await axios.post("/api/shipping", {
+      //   requestBody,
+      // });
 
-      const resp = await axios.post("/api/shippingTypes", {
-        order_id: res.data.orderInfo.id,
-      });
-      cart.setOrderId(res.data.orderInfo.id);
+      // const resp = await axios.post("/api/shippingTypes", {
+      //   order_id: res.data.orderInfo.id,
+      // });
+      cart.setOrderId(cartOrderId);
 
-      setShippingTypes(resp.data.shippingTypes);
+      setShippingTypes(types);
     } catch (error) {
       console.log(error);
     }

@@ -7,6 +7,7 @@ import { ThemeProvider } from "./theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/react";
+import { ViewTransitions } from "next-view-transitions";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,7 +16,6 @@ export const metadata: Metadata = {
     default: "Prayse Merch",
     template: `%s | Prayse Merch`,
   },
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   description:
     "Check out our first release of merchandise with a message of elavating the importance of prayer and praise in our walk with God.",
   openGraph: {
@@ -75,23 +75,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning={true} lang="en">
-      <body suppressHydrationWarning={true} className={josefin.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextTopLoader />
-          <Navbar />
-          {children}
+    <ViewTransitions>
+      <html suppressHydrationWarning={true} lang="en">
+        <body suppressHydrationWarning={true} className={josefin.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextTopLoader />
+            <Navbar />
+            {children}
 
-          <Footer />
-          <Toaster />
-          <Analytics />
-        </ThemeProvider>
-      </body>
-    </html>
+            <Footer />
+            <Toaster />
+            <Analytics />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

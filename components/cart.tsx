@@ -1,19 +1,28 @@
+"use client";
 import React, { useState } from "react";
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Separator } from "@/components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import {
   ArrowLeftCircle,
   ArrowRightCircle,
+  Minus,
+  Plus,
   ShoppingCart,
   TrashIcon,
   X,
@@ -25,12 +34,15 @@ import axios from "axios";
 import ShippingForm from "./shippingForm";
 import CheckoutForm from "./checkoutForm";
 import CancelDialog from "./CancelDialog";
+import { fetchSingleProduct } from "@/app/actions";
+
 const Cart = () => {
   const cart = useCart();
   const isCartOpen = useCart((state) => state.isCartOpen);
   const [shippingTypes, setShippingTypes] = useState([]);
   const [activeTab, setActiveTab] = useState("cart");
   const cartProducts = useCart((state) => state.items);
+  const [quantity, setQuantity] = useState(0);
 
   const cancelOrder = async () => {
     const res = await axios.post("/api/cancelOrder", {
@@ -42,6 +54,21 @@ const Cart = () => {
     setActiveTab("cart");
   };
   const [showCancelAlert, setShowCancelAlert] = useState(false);
+
+  const updateSku = async (item: CartItem, sizeName: any) => {
+    const singleProduct = await fetchSingleProduct(item.articleId);
+
+    console.log("single product: ", singleProduct);
+    // let sku: string;
+    singleProduct.variants.map((variant: any) => {
+      // console.log(variant.sizeName, formValues.size);
+      if (variant.sizeName == sizeName) {
+        cart.updateSize(item, sizeName, variant.deprecatedSku);
+      }
+    });
+  };
+
+  console.log("all cart items: ", cart.items);
 
   return (
     <Sheet open={isCartOpen} onOpenChange={cart.closeCart}>
@@ -79,17 +106,14 @@ const Cart = () => {
                     <SheetTitle className="text-xl font-bold">
                       Shopping Cart
                     </SheetTitle>
-                    <SheetDescription className="text-lg">
-                      Your cart items:
-                    </SheetDescription>
                   </SheetHeader>
 
                   <div className="flex-1 overflow-y-auto">
                     <div className="grid  overflow-hidden gap-4 py-4">
                       {cartProducts.map((item: CartItem, index: number) => (
                         <div key={item.id}>
-                          <div className="flex relative items-center justify-between">
-                            <div className="flex items-center gap-2">
+                          <div className="flex relative  items-center justify-between">
+                            <div className="flex items-center w-full gap-2">
                               <Image
                                 src={item.image}
                                 width={1000}
@@ -97,9 +121,70 @@ const Cart = () => {
                                 className="w-14 lg:w-20 border rounded-lg"
                                 alt={item.image}
                               />
-                              <section className="space-y-1 flex flex-col">
-                                <p className="">{item.name}</p>
-                                <div className="flex items-center gap-3">
+                              <section className="space-y-3 flex w-full  flex-col">
+                                <section className="flex items-center w-full  justify-between">
+                                  <p className="text-wrap font-medium">
+                                    {item.name}
+                                  </p>
+
+                                  <p className="font-medium">
+                                    ${item.customerPrice.amount * item.quantity}
+                                  </p>
+                                </section>
+                                <div className="flex items-center justify-between gap-5">
+                                  <Select
+                                    onValueChange={
+                                      (e) => {
+                                        updateSku(item, e);
+                                        // cart.updateSize(item, e);
+                                      }
+
+                                      // updateSku()
+                                    }
+                                  >
+                                    <SelectTrigger className="w-[100px]">
+                                      <SelectValue placeholder={item.size} />
+                                    </SelectTrigger>
+                                    <SelectContent
+                                      defaultValue={`${item.size}`}
+                                    >
+                                      <SelectItem value="S">S</SelectItem>
+                                      <SelectItem value="M">M</SelectItem>
+                                      <SelectItem value="L">L</SelectItem>
+                                      <SelectItem value="XL">XL</SelectItem>
+                                      <SelectItem value="2XL">2XL</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+
+                                  <section className="flex items-center">
+                                    <div
+                                      onClick={
+                                        item.quantity == 1
+                                          ? () => cart.removeItem(item.sku)
+                                          : () => {
+                                              cart.decreaseQty(item);
+                                            }
+                                      }
+                                      className="border p-2 cursor-pointer"
+                                    >
+                                      {item.quantity == 1 ? (
+                                        <TrashIcon className="text-destructive cursor-pointer w-5" />
+                                      ) : (
+                                        <Minus />
+                                      )}
+                                    </div>
+                                    <div className="border px-4 py-2">
+                                      {item.quantity}
+                                    </div>
+                                    <div
+                                      onClick={() => cart.addItem(item)}
+                                      className="border p-2 cursor-pointer"
+                                    >
+                                      <Plus />
+                                    </div>
+                                  </section>
+                                </div>
+                                {/* <div className="flex items-center gap-3">
                                   <div className="flex items-center w-fit text-secondary-foreground rounded-md px-2 py-1 bg-secondary gap-3">
                                     <span className="text-sm">
                                       Size: {item.size}
@@ -109,15 +194,15 @@ const Cart = () => {
                                   <p className="text-sm font-medium">
                                     ${item.customerPrice.amount * item.quantity}
                                   </p>
-                                </div>
+                                </div> */}
                               </section>
                             </div>
-                            <div className="p-2 bg-destructive/10 rounded-full">
+                            {/* <div className="p-2 bg-destructive/10 rounded-full">
                               <TrashIcon
                                 className="text-destructive cursor-pointer w-5"
                                 onClick={() => cart.removeItem(item.sku)}
                               />
-                            </div>
+                            </div> */}
                           </div>
                           <Separator className="mt-3" />
                         </div>
@@ -145,7 +230,7 @@ const Cart = () => {
                         ${cart.calculateTotal().total.toFixed(2)}
                       </span>
                     </div>
-                    <span>+ plus Shipping</span>
+                    <span className="font-medium">+ plus shipping</span>
                   </div>
 
                   <Button

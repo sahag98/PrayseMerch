@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     console.log(error);
   }
 
-  // console.log("order info: ", created);
   return NextResponse.json(
     { cancelInfo: "canceled" },
     {

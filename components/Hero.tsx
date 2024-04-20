@@ -6,12 +6,12 @@ import { useGSAP } from "@gsap/react";
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const Hero = () => {
   useGSAP(() => {
-    gsap.to("#hero-img", { opacity: 1, x: 0, duration: 1 });
-    gsap.to("#stagger", { opacity: 1, duration: 1, stagger: 0.2 });
+    gsap.to("#hero-img", { opacity: 1, x: 0, duration: 0.5 });
+    gsap.to("#stagger", { opacity: 1, duration: 0.5, stagger: 0.2 });
   }, []);
   return (
     <div
@@ -23,14 +23,17 @@ const Hero = () => {
           Prayse Merch
         </h1>
 
-        <p className="opacity-0 lg:w-2/3 w-full" id="stagger">
+        <p
+          className="opacity-0 text-foreground/55 lg:w-2/3 w-full"
+          id="stagger"
+        >
           Perfect for everyday wear, reminding us of the power of prayer and
-          praise in our daily walk with God.
+          praise in our walk with God.
         </p>
         <Link className="lg:w-1/3 md:w-1/2 w-full" href="#chip">
           <Button
             id="stagger"
-            className="w-full mt-3 opacity-0 bg-primary font-bold"
+            className="w-full mt-3 opacity-0 text-base bg-primary font-bold"
           >
             Shop Now
           </Button>
@@ -42,6 +45,7 @@ const Hero = () => {
       >
         <Image
           src={"/hero-shirt.png"}
+          priority={true}
           className="w-96 object-cover rounded-md"
           width={800}
           height={800}

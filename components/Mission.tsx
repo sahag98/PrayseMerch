@@ -7,6 +7,26 @@ import React, { useRef } from "react";
 
 const Mission = () => {
   const scrollRef = useRef(null);
+  const missionRef = useRef(null);
+  useGSAP(() => {
+    // @ts-ignore: Unreachable code error
+    const boxes = gsap.utils.toArray(missionRef.current?.children);
+
+    boxes.forEach((box: any) => {
+      gsap.to(box, {
+        opacity: 1,
+        stagger: 1,
+        scrollTrigger: {
+          trigger: box,
+          start: "bottom, bottom",
+          end: "top 20%",
+          scrub: true,
+        },
+        ease: "power1.inOut",
+      });
+    });
+  });
+
   useGSAP(
     () => {
       gsap.to("#stagger", {
@@ -36,7 +56,7 @@ const Mission = () => {
         Our Mission
       </h2>
       <div className="flex items-center justify-between lg:flex-row flex-col gap-5">
-        <div className="space-y-3">
+        <div ref={missionRef} className="space-y-3">
           <p id="stagger" className="lg:w-3/4 opacity-0 w-full dark:font-light">
             Prayse&apos;s main mission has always been to elevate the importance
             of prayer in a Christian&apos;s walk with God. One of our favorite
@@ -68,7 +88,7 @@ const Mission = () => {
             width={500}
             height={500}
             alt="Prayse Logo"
-            className="lg:w-1/2 w-full  lg:h-1/2"
+            className="lg:w-1/2 w-full hidden lg:flex sm:flex md:flex  lg:h-1/2"
           />
         </div>
       </div>
