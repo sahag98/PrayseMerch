@@ -63,6 +63,7 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
       "Content-Type": "application/json",
       "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
     },
+    cache: "no-store",
   });
 
   const singleProduct: Item = await res.json();

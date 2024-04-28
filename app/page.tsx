@@ -17,6 +17,7 @@ export default async function Home() {
         "Content-Type": "application/json",
         "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
       },
+      cache: "no-store",
     });
 
     const products = await res.json();
