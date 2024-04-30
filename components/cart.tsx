@@ -213,32 +213,36 @@ const Cart = () => {
                 <section className="flex gap-2 border-t p-2 flex-col">
                   <div className="flex flex-col gap-1 items-end">
                     <div className="flex gap-5">
-                      <span className="">Subtotal:</span>
+                      <span className="text-foreground/75">Subtotal:</span>
                       <span className="font-bold">
                         ${cart.calculateTotal().subTotal.toFixed(2)}
                       </span>
                     </div>
                     <div className="flex gap-5 ">
-                      <span className="text-left">Sales Tax:</span>
+                      <span className="text-left text-foreground/75">
+                        Sales Tax:
+                      </span>
                       <span className="text-right font-bold">
                         ${cart.calculateTotal().salesTaxNum.toFixed(2)}
                       </span>
                     </div>
                     <div className="flex gap-2 items-end">
-                      <span className="text-lg ">Total:</span>
+                      <span className="text-lg text-foreground/75">Total:</span>
                       <span className="text-2xl font-bold">
                         ${cart.calculateTotal().total.toFixed(2)}
                       </span>
                     </div>
-                    <span className="font-medium">+ plus shipping</span>
+                    <span className="font-medium text-foreground/75">
+                      + plus shipping
+                    </span>
                   </div>
 
                   <Button
                     onClick={() => setActiveTab("shipping")}
-                    className="w-full text-base gap-3"
+                    className="w-full text-base text-white gap-3"
                     type="submit"
                   >
-                    Proceed to Shipping <ArrowRightCircle />
+                    Proceed to Shipping
                   </Button>
                   <Button
                     variant={"outline"}
@@ -246,7 +250,7 @@ const Cart = () => {
                     className="w-full gap-3 text-base"
                     type="button"
                   >
-                    Back to Shopping <ArrowLeftCircle />
+                    Back to Shopping
                   </Button>
                 </section>
               </>

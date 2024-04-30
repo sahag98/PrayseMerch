@@ -27,7 +27,7 @@ const SingleSizeChart = async ({ variant }: { variant: VariantProps }) => {
   const size = await types.json();
 
   return (
-    <div className="flex mt-10 lg:mt-0 items-center flex-col lg:flex-row-reverse gap-0 lg:gap-5">
+    <div className="flex mt-10 lg:mt-0 items-center flex-col lg:flex-col gap-0 lg:gap-5">
       <Image
         src={size.sizeImageUrl}
         width={190}

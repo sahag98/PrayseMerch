@@ -69,7 +69,7 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
   const singleProduct: Item = await res.json();
 
   return (
-    <div className="lg:px-28 mt-28 lg:mt-36 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-5 gap-5 items-start px-4">
+    <div className="lg:px-28 mt-24 lg:mt-24 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-5 gap-3 items-start px-4">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -82,12 +82,19 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="flex lg:flex-row flex-col m:gap-5 gap-1 lg:gap-5">
+      <div className="flex lg:flex-row flex-col md:gap-5 gap-3 lg:gap-5">
+        <h1 className="text-2xl lg:hidden w-fit font-bold">
+          {singleProduct.title}
+        </h1>
         <div className="flex flex-col md:gap-3 gap-0 lg:gap-3 w-full">
           <ProductImages singleProduct={singleProduct} />
         </div>
-        <section>
+        <section className="flex flex-col gap-5">
           <AddToCart singleProduct={singleProduct} />
+          <p className="w-full lg:w-2/3 dark:text-gray-400">
+            <h2 className="text-foreground font-semibold text-lg">Details:</h2>
+            {singleProduct.description}
+          </p>
           <SizeChart variants={singleProduct.variants} />
         </section>
       </div>

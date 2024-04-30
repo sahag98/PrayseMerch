@@ -24,10 +24,18 @@ const CancelDialog = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setShowCancelAlert(false)}>
+          <AlertDialogCancel
+            className="text-white text-base font-bold"
+            onClick={() => setShowCancelAlert(false)}
+          >
             No
           </AlertDialogCancel>
-          <AlertDialogAction onClick={cancelOrder}>Yes</AlertDialogAction>
+          <AlertDialogAction
+            className="text-white text-base font-bold"
+            onClick={cancelOrder}
+          >
+            Yes
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -7,21 +7,22 @@ const Hero = () => {
   return (
     <div
       suppressHydrationWarning={true}
-      className="flex w-full lg:flex-row flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
+      className="flex w-full lg:flex-row flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background to-background lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-center"
     >
       <section className="flex flex-col">
         <h1 id="stagger" className="lg:text-7xl  text-5xl font-bold ">
           Prayse Merch
         </h1>
 
-        <p className=" text-foreground/55 lg:w-2/3 w-full" id="stagger">
-          Perfect for everyday wear, reminding us of the power of prayer and
-          praise in our walk with God.
+        <p className=" text-foreground/75 lg:w-2/3 w-full" id="stagger">
+          Perfect for everyday wear, reminding us of the power of{" "}
+          <span className="text-primary"> prayer </span> and
+          <span className="text-primary"> praise </span> in our walk with God.
         </p>
         <Link className="lg:w-1/3 md:w-1/2 w-full" href="#chip">
           <Button
             id="stagger"
-            className="w-full mt-3  text-base bg-primary font-bold"
+            className="w-full mt-3  text-base text-white bg-primary font-bold"
           >
             Shop Now
           </Button>

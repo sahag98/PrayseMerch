@@ -6,7 +6,7 @@ import { ModeToggle } from "@/app/mode-toggle";
 
 const Navbar = () => {
   return (
-    <header className="flex fixed top-0 w-full  bg-opacity-25 z-30 border-b backdrop-filter backdrop-blur-sm items-center py-3 justify-between  lg:px-36 px-4">
+    <header className="flex fixed top-0 w-full  bg-opacity-25 z-30 border-b backdrop-filter backdrop-blur-sm items-center py-3 justify-between  lg:px-28 md:px-20 px-4">
       <Link className="flex  items-center gap-3" href={"/"}>
         <Image
           className="w-12 dark:bg-white dark:rounded-full"

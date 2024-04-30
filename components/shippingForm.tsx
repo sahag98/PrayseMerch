@@ -207,7 +207,7 @@ const ShippingForm = ({
 
   return (
     <div className="w-full h-full flex flex-col ">
-      <h2 className="mb-10 font-bold ">Shipping Information</h2>
+      <h2 className="mb-10 font-bold text-lg">Shipping Information</h2>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -317,7 +317,7 @@ const ShippingForm = ({
                             variant="outline"
                             role="combobox"
                             className={cn(
-                              "justify-between h-10 mt-1",
+                              "justify-between h-12 mt-1",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -389,7 +389,7 @@ const ShippingForm = ({
                               variant="outline"
                               role="combobox"
                               className={cn(
-                                "justify-between h-10 mt-1",
+                                "justify-between h-12 mt-1",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -556,11 +556,11 @@ const ShippingForm = ({
             </div>
           )}
 
-          <div className="lg:mt-auto mt-4 space-y-2">
+          <div className="lg:mt-auto lg:my-0 my-4 space-y-2">
             <Button
               disabled={isCheckingOut}
               onClick={() => console.log("click")}
-              className="w-full text-base font-bold text-primary-foreground"
+              className="w-full text-base font-bold text-white"
               type="submit"
             >
               Proceed to Checkout

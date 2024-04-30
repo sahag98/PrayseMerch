@@ -130,7 +130,7 @@ const CheckoutForm = ({
 
   return (
     <div className="h-full">
-      <h2 className=" font-bold">Checkout</h2>
+      <h2 className=" font-bold text-xl">Checkout</h2>
       <div className="flex flex-col h-full justify-between">
         <div className="overflow-y-auto">
           <div className="grid overflow-hidden gap-4 py-4">
@@ -146,7 +146,7 @@ const CheckoutForm = ({
                       alt={item.image}
                     />
                     <section className="space-y-1 flex flex-col">
-                      <p className="text-sm">{item.name}</p>
+                      <p className="">{item.name}</p>
                       <div className="flex items-center gap-3">
                         <div className="flex items-center w-fit text-secondary-foreground rounded-md px-2 py-1 bg-secondary gap-3">
                           <span className="text-sm">Size: {item.size}</span>
@@ -166,7 +166,10 @@ const CheckoutForm = ({
 
           {shippingTypes.length > 0 ? (
             <div className="flex flex-col gap-2">
-              <h2 className="font-bold text-xl">Shipping Types: (Required)</h2>
+              <h2 className="font-bold text-xl">
+                Select Shipping:{" "}
+                <span className="text-sm text-foreground/75">(Required)</span>
+              </h2>
               <div className="flex flex-col gap-5">
                 {shippingTypes.map((type: any) => (
                   <div
@@ -180,7 +183,9 @@ const CheckoutForm = ({
                   >
                     <div className="flex flex-col">
                       <span className="font-bold">{type.name}</span>
-                      <span className="text-sm">{type.description}</span>
+                      <span className="text-sm text-foreground/75">
+                        {type.description}
+                      </span>
                     </div>
                     <span className="text-lg">${type.price.amount}</span>
                   </div>
@@ -196,28 +201,30 @@ const CheckoutForm = ({
             </div>
           )}
         </div>
-        <section className="flex gap-2 border-t p-2 flex-col">
+        <section className="flex gap-2 border-t py-5 flex-col">
           <div className="flex justify-between ">
             <p className="text-sm flex-1">
               * The shipping fee includes both production and shipping costs.
             </p>
             <div className="flex flex-3 flex-col gap-1 items-end">
               <div className="flex gap-5">
-                <span className="">Subtotal:</span>
+                <span className="text-foreground/75">Subtotal:</span>
                 <span className="font-bold">${subtotal}</span>
               </div>
               <div className="flex gap-5 ">
-                <span className="text-left">Sales Tax:</span>
+                <span className="text-left text-foreground/75">Sales Tax:</span>
                 <span className="text-right font-bold">${salesTax}</span>
               </div>
               <div className="flex gap-5 ">
-                <span className="text-left">Shipping Fee:</span>
+                <span className="text-left text-foreground/75">
+                  Shipping Fee:
+                </span>
                 <span className="text-right font-bold">
                   ${selectedType.price?.amount}
                 </span>
               </div>
               <div className="flex gap-2 items-end">
-                <span className="text-lg ">Total:</span>
+                <span className="text-lg text-foreground/75">Total:</span>
                 {selectedType.price?.amount ? (
                   <span className="text-2xl font-bold">
                     $
@@ -236,7 +243,7 @@ const CheckoutForm = ({
           <Button
             disabled={isPaying}
             onClick={handlePayment}
-            className="w-full text-base text-primary-foreground font-bold gap-3"
+            className="w-full text-base text-white font-bold gap-3"
             type="submit"
           >
             Pay with Stripe
@@ -252,7 +259,7 @@ const CheckoutForm = ({
             disabled={isPaying}
             variant={"outline"}
             onClick={() => setShowCancelAlert(true)}
-            className="w-full text-base border-red-200"
+            className="w-full text-base"
             type="button"
           >
             Cancel Checkout

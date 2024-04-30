@@ -27,12 +27,11 @@ export default async function Home() {
   const products = await fetchAllProducts();
 
   return (
-    <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-36 px-4">
+    <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-28 md:px-20 px-4">
       <Hero />
 
       <Reviews />
       <OurProducts products={products} />
-
       <Mission />
       <Connect />
       <Newsletter />

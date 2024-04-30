@@ -46,6 +46,7 @@ const formSchema = z.object({
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(0);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("M");
   const [stockAmount, setStockAmount] = useState(
     singleProduct.variants[1].stock
   );
@@ -119,13 +120,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   return (
     <div>
       <div className="flex flex-col gap-0">
-        <h1 className="text-2xl  font-bold">{singleProduct.title}</h1>
-
-        <p className="w-full lg:w-2/3 dark:text-gray-400">
-          {parse(singleProduct.description)}
-        </p>
+        <h1 className="text-2xl sm:hidden lg:flex hidden font-bold">
+          {singleProduct.title}
+        </h1>
         <section className="flex items-center justify-between lg:justify-normal gap-2">
-          <span className="text-2xl font-medium text-primary">
+          <span className="text-3xl font-medium text-primary">
             ${singleProduct.variants[0].d2cPrice}
           </span>
           {stockAmount == 0 ? (
@@ -133,7 +132,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               Out of Stock. Check back later
             </span>
           ) : (
-            <span className="underline underline-offset-2">
+            <span className="underline underline-offset-2 text-foreground/75">
               Available in Stock: {stockAmount}
             </span>
           )}
@@ -145,7 +144,9 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               name="size"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-semibold">Size:</FormLabel>
+                  <FormLabel className=" text-lg">
+                    Size: <span className="font-bold">{field.value}</span>
+                  </FormLabel>
                   <div className="flex items-center gap-5">
                     <FormControl>
                       <RadioGroup
@@ -154,34 +155,89 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                         className="flex items-center  gap-3"
                       >
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl onClick={() => onRadioChange("S")}>
-                            <RadioGroupItem value="S" />
+                          <FormControl
+                            onClick={() => {
+                              setSelectedSize("S");
+                              onRadioChange("S");
+                            }}
+                          >
+                            <RadioGroupItem
+                              className={
+                                selectedSize == "S"
+                                  ? "bg-primary text-white"
+                                  : ""
+                              }
+                              value="S"
+                            />
                           </FormControl>
-                          <FormLabel className="font-normal">S</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl onClick={() => onRadioChange("M")}>
-                            <RadioGroupItem value="M" />
+                          <FormControl
+                            onClick={() => {
+                              setSelectedSize("M");
+                              onRadioChange("M");
+                            }}
+                          >
+                            <RadioGroupItem
+                              className={
+                                selectedSize == "M"
+                                  ? "bg-primary text-white"
+                                  : ""
+                              }
+                              value="M"
+                            />
                           </FormControl>
-                          <FormLabel className="font-normal">M</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl onClick={() => onRadioChange("L")}>
-                            <RadioGroupItem value="L" />
+                          <FormControl
+                            onClick={() => {
+                              setSelectedSize("L");
+                              onRadioChange("L");
+                            }}
+                          >
+                            <RadioGroupItem
+                              className={
+                                selectedSize == "L"
+                                  ? "bg-primary text-white"
+                                  : ""
+                              }
+                              value="L"
+                            />
                           </FormControl>
-                          <FormLabel className="font-normal">L</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl onClick={() => onRadioChange("XL")}>
-                            <RadioGroupItem value="XL" />
+                          <FormControl
+                            onClick={() => {
+                              setSelectedSize("XL");
+                              onRadioChange("XL");
+                            }}
+                          >
+                            <RadioGroupItem
+                              className={
+                                selectedSize == "XL"
+                                  ? "bg-primary text-white"
+                                  : ""
+                              }
+                              value="XL"
+                            />
                           </FormControl>
-                          <FormLabel className="font-normal">XL</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-1 space-y-0">
-                          <FormControl onClick={() => onRadioChange("2XL")}>
-                            <RadioGroupItem value="2XL" />
+                          <FormControl
+                            onClick={() => {
+                              setSelectedSize("2XL");
+                              onRadioChange("2XL");
+                            }}
+                          >
+                            <RadioGroupItem
+                              className={
+                                selectedSize == "2XL"
+                                  ? "bg-primary text-white"
+                                  : ""
+                              }
+                              value="2XL"
+                            />
                           </FormControl>
-                          <FormLabel className="font-normal">2XL</FormLabel>
                         </FormItem>
                       </RadioGroup>
                     </FormControl>
@@ -192,7 +248,9 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
             />
 
             <div className="flex flex-col gap-1">
-              <p className="font-semibold">Quantity:</p>
+              <p className=" text-lg">
+                Quantity: <span className="font-bold">{quantity}</span>
+              </p>
               <section className="flex items-center gap-2">
                 <FormControl
                   onClick={() => {
@@ -206,7 +264,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                 >
                   <Minus />
                 </FormControl>
-                <div className="border flex items-center justify-center w-10 h-10">
+                <div className="border flex items-center justify-center w-12 h-12">
                   <span className="font-semibold text-lg">{quantity}</span>
                 </div>
 
@@ -232,7 +290,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
 
             <Button
               disabled={stockAmount == 0 ? true : false}
-              className="lg:w-44 gap-3 text-base font-bold md:w-52 w-full"
+              className="lg:w-44 gap-3 text-base text-white font-bold md:w-52 w-full"
               type="submit"
             >
               Add To Cart

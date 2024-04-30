@@ -93,13 +93,13 @@ const Product = ({ item }: { item: Item }) => {
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="relative"
+          className="relative flex items-center justify-center"
         >
           <Image
             src={itemImage.imageUrl}
-            className=""
-            width={1000}
-            height={1000}
+            className="p-5"
+            width={500}
+            height={500}
             alt={`Prayse ${itemImage.appearanceName} Shirt`}
           />
           <div
@@ -116,10 +116,12 @@ const Product = ({ item }: { item: Item }) => {
           </div>
         </div>
         <div className="bg-background flex-col flex border-t gap-4 px-4 py-2">
-          <h3 className="font-semibold">{item.title}</h3>
+          <h3 className="font-bold text-foreground text-lg lg:text-base">
+            {item.title}
+          </h3>
           <div className="flex justify-between">
             <section>
-              <p className="font-normal text-accent-foreground/50">Price:</p>
+              <p className="font-normal text-accent-foreground/75">Price:</p>
               <span className="text-2xl text-primary font-semibold">
                 ${item.variants[0].d2cPrice}
               </span>
@@ -133,7 +135,7 @@ const Product = ({ item }: { item: Item }) => {
                 View
               </Button>
               <Button onClick={handleClick}>
-                <ShoppingCart />
+                <ShoppingCart className="text-white" />
               </Button>
             </section>
           </div>

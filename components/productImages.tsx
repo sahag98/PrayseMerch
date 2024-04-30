@@ -3,6 +3,7 @@
 import { Item } from "@/app/our-products";
 import Image from "next/image";
 import React, { useState } from "react";
+import { Button } from "./ui/button";
 
 const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
   console.log(singleProduct.id);
@@ -26,14 +27,12 @@ const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
         className="lg:hidden text-primary self-end underline underline-offset-4 text-sm  md:hidden flex items-center justify-center mt-1"
       >
         {isViewingMoreImgs ? "Less" : "More"} Images
-      </p> */}
-      {/* <Button
+      </p>
+      <Button
         onClick={() => setIsViewingMoreImgs(!isViewingMoreImgs)}
         variant={"link"}
         className="lg:hidden bg-red-300 m-0 p-0 md:hidden flex"
-      >
-       
-      </Button> */}
+      ></Button> */}
       {/* {singleProduct.id === 2803251 && isViewingMoreImgs && (
         <section className="flex lg:hidden md:hidden items-center gap-3">
           <Image
