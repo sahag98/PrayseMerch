@@ -17,7 +17,7 @@ const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
     <>
       <Image
         alt="image"
-        className="lg:w-full object-contain lg:mb-0 mb-2 bg-accent z-20 md:w-1/2 w-full lg:hover:scale-105 lg:transition-all border rounded-lg"
+        className="lg:w-full object-contain p-5 lg:mb-0 mb-2 bg-accent z-20 md:w-1/2 w-full lg:hover:scale-105 lg:transition-all border rounded-lg"
         src={selectedImg}
         width={1000}
         height={1000}
