@@ -13,13 +13,12 @@ const Hero = () => {
         <h1 id="stagger" className="lg:text-7xl  text-5xl font-bold ">
           Prayse Merch
         </h1>
-
-        <p className=" text-foreground/75 lg:w-2/3 w-full" id="stagger">
+        <p className=" text-foreground/75 text-lg lg:w-2/3 w-full" id="stagger">
           Perfect for everyday wear, reminding us of the power of{" "}
           <span className="text-primary"> prayer </span> and
           <span className="text-primary"> praise </span> in our walk with God.
         </p>
-        <Link className="lg:w-1/3 md:w-1/2 w-full" href="#chip">
+        <Link className="lg:w-1/3 md:w-1/2 w-full mb-2" href="#chip">
           <Button
             id="stagger"
             className="w-full mt-3  text-base text-white bg-primary font-bold"
@@ -27,6 +26,9 @@ const Hero = () => {
             Shop Now
           </Button>
         </Link>
+        <p className="text-foreground/75">
+          Christian t-shirts, crewnecks and more!
+        </p>
       </section>
       <section
         id="hero-img"
