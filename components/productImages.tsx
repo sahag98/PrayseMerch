@@ -17,7 +17,7 @@ const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
     <>
       <Image
         alt="image"
-        className="lg:w-full object-contain p-5 lg:mb-0 mb-2 bg-accent z-20 md:w-1/2 w-full border rounded-lg"
+        className="lg:w-full object-contain bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/35 via-background to-background p-5 lg:mb-0 mb-2 z-20 md:w-1/2 w-full"
         src={selectedImg}
         width={1000}
         height={1000}

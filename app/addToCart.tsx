@@ -262,7 +262,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                   }}
                   className="cursor-pointer rounded-full"
                 >
-                  <Minus />
+                  <Minus className="text-primary" />
                 </FormControl>
                 <div className="border flex items-center justify-center w-12 h-12">
                   <span className="font-semibold text-lg">{quantity}</span>
@@ -278,7 +278,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                   }}
                   className="cursor-pointer rounded-full"
                 >
-                  <Plus />
+                  <Plus className="text-primary" />
                 </FormControl>
               </section>
               {quantityErrorMsg && (
