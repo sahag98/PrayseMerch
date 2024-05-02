@@ -9,8 +9,8 @@ const AccordionBox = () => {
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger>Return Policy</AccordionTrigger>
-        <AccordionContent>
+        <AccordionTrigger className="font-bold">Return Policy</AccordionTrigger>
+        <AccordionContent className="text-base">
           If you receive an order with a defect or an issue, please take a
           picture of the item, laying flat and send it to{" "}
           <span className="font-bold">prayse@gmail.com</span> with the Order ID

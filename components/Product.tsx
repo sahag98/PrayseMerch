@@ -85,7 +85,7 @@ const Product = ({ item }: { item: Item }) => {
     cart.openCart();
   }
   return (
-    <div className="opacity-0">
+    <div className="">
       <div
         className="flex relative flex-col bg-accent rounded-lg justify-center border overflow-hidden duration-500 transition-all"
         key={item.id}

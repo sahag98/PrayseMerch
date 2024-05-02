@@ -18,7 +18,7 @@ const Hero = () => {
           <span className="text-primary"> prayer </span> and
           <span className="text-primary"> praise </span> in our walk with God.
         </p>
-        <Link className="lg:w-1/3 md:w-1/2 w-full mb-2" href="#chip">
+        <Link className="lg:w-1/3 md:w-1/2 w-full mb-2" href="#products">
           <Button
             id="stagger"
             className="lg:w-2/3 w-full mt-3 animate-buttonheartbeat  text-base text-white bg-primary font-bold"

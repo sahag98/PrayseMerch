@@ -58,7 +58,6 @@ const Cart = () => {
   const updateSku = async (item: CartItem, sizeName: any) => {
     const singleProduct = await fetchSingleProduct(item.articleId);
 
-    console.log("single product: ", singleProduct);
     // let sku: string;
     singleProduct.variants.map((variant: any) => {
       // console.log(variant.sizeName, formValues.size);
@@ -67,8 +66,6 @@ const Cart = () => {
       }
     });
   };
-
-  console.log("all cart items: ", cart.items);
 
   return (
     <Sheet open={isCartOpen} onOpenChange={cart.closeCart}>

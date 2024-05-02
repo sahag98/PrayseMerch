@@ -21,12 +21,7 @@ const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
     Autoplay({ delay: 4000, stopOnInteraction: false })
   );
 
-  console.log(singleProduct.id);
-  const img1 = "/black-1.jpg";
-  const img2 = "/black-2.jpg";
   const singleProductImg = singleProduct.images[0].imageUrl;
-
-  console.log("all images: ", singleProduct.images);
 
   const [selectedImg, setSelectedImg] = useState(singleProductImg);
   const [isViewingMoreImgs, setIsViewingMoreImgs] = useState(false);

@@ -15,14 +15,14 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
 const Reviews = () => {
-  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: false }));
   const router = useRouter();
   const reviewsArray = [
     {
       id: 1,
       name: "Jonathan",
       content:
-        "This praye shirt isn't just a piece of clothing; it's a heartfelt expression of faith and worship...",
+        "This prayse shirt isn't just a piece of clothing; it's a heartfelt expression of faith and worship...",
     },
     {
       id: 2,

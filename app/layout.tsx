@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { ViewTransitions } from "next-view-transitions";
+import UnderConstruction from "./under-construction";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -78,7 +79,8 @@ export default function RootLayout({
     <ViewTransitions>
       <html suppressHydrationWarning={true} lang="en">
         <body suppressHydrationWarning={true} className={josefin.className}>
-          <ThemeProvider
+          <UnderConstruction />
+          {/* <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
@@ -91,7 +93,7 @@ export default function RootLayout({
             <Footer />
             <Toaster />
             <Analytics />
-          </ThemeProvider>
+          </ThemeProvider> */}
         </body>
       </html>
     </ViewTransitions>
