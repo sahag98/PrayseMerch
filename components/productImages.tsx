@@ -5,23 +5,88 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 
+import Autoplay from "embla-carousel-autoplay";
+
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { Circle } from "lucide-react";
+
 const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false })
+  );
+
   console.log(singleProduct.id);
   const img1 = "/black-1.jpg";
   const img2 = "/black-2.jpg";
   const singleProductImg = singleProduct.images[0].imageUrl;
 
+  console.log("all images: ", singleProduct.images);
+
   const [selectedImg, setSelectedImg] = useState(singleProductImg);
   const [isViewingMoreImgs, setIsViewingMoreImgs] = useState(false);
+
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
   return (
-    <>
-      <Image
+    <div className="flex flex-col items-center">
+      <Carousel
+        setApi={setApi}
+        plugins={[plugin.current]}
+        className="w-full"
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
+      >
+        <CarouselContent className="">
+          {singleProduct.images.map((images, index) => (
+            <CarouselItem
+              className="relative flex items-center justify-center"
+              key={index}
+            >
+              <Image
+                alt="image"
+                loading="eager"
+                className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/35 via-background to-background"
+                src={images.imageUrl}
+                width={1000}
+                height={1000}
+              />
+              {/* {singleProduct.images.map((images, index) => (
+                <Circle key={index} fill="red" className="bg-red-300" />
+              ))} */}
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      <div className="pt-2 text-center text-muted-foreground">
+        Image {current} of {count}
+      </div>
+      {/* <Image
         alt="image"
         className="lg:w-full object-contain bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/35 via-background to-background p-5 lg:mb-0 mb-2 z-20 md:w-1/2 w-full"
         src={selectedImg}
         width={1000}
         height={1000}
-      />
+      /> */}
       {/* <p
         onClick={() => setIsViewingMoreImgs(!isViewingMoreImgs)}
         className="lg:hidden text-primary self-end underline underline-offset-4 text-sm  md:hidden flex items-center justify-center mt-1"
@@ -121,7 +186,7 @@ const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
           />
         </section>
       )} */}
-    </>
+    </div>
   );
 };
 
