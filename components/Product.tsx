@@ -66,21 +66,36 @@ const Product = ({ item }: { item: Item }) => {
     // }
 
     const customerPrice = {
-      amount: item.variants[1].d2cPrice,
+      amount: item.variants[0].d2cPrice,
     };
 
     const CartItem: CartItem = {
       id: uuidv4(),
       articleId: item.id,
       name: item.title,
-      size: item.variants[1].sizeName,
+      size:
+        item.id === 2862612 ||
+        item.id === 2862594 ||
+        item.id === 2862654 ||
+        item.id === 2862646 ||
+        item.id === 2862748 ||
+        item.id === 2862752
+          ? item.variants[0].sizeName
+          : item.variants[1].sizeName,
       image: item.images[0].imageUrl,
-      sku: item.variants[1].deprecatedSku,
+      sku:
+        item.id === 2862612 ||
+        item.id === 2862594 ||
+        item.id === 2862654 ||
+        item.id === 2862646 ||
+        item.id === 2862748 ||
+        item.id === 2862752
+          ? item.variants[0].deprecatedSku
+          : item.variants[1].deprecatedSku,
       quantity: 1,
       customerPrice,
     };
 
-    console.log("Cart Item: ", CartItem);
     cart.addItem(CartItem);
     cart.openCart();
   }
@@ -106,13 +121,48 @@ const Product = ({ item }: { item: Item }) => {
             ref={viewProductRef}
             className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0"
           >
-            <Button
+            {item.id === 2862594 ? (
+              <Button
+                variant={"outline"}
+                className="font-bold text-accent-foreground"
+                onClick={() => router.push(`/product/cap/${item.id}`)}
+              >
+                View
+              </Button>
+            ) : item.id === 2862646 ||
+              item.id === 2862654 ||
+              item.id === 2862748 ? (
+              <Button
+                variant={"outline"}
+                className="font-bold text-accent-foreground"
+                onClick={() => router.push(`/product/bag/${item.id}`)}
+              >
+                View
+              </Button>
+            ) : item.id === 2862752 || item.id === 2862757 ? (
+              <Button
+                variant={"outline"}
+                className="font-bold text-accent-foreground"
+                onClick={() => router.push(`/product/more/${item.id}`)}
+              >
+                View
+              </Button>
+            ) : (
+              <Button
+                variant={"outline"}
+                className="font-bold text-accent-foreground"
+                onClick={() => router.push(`/product/${item.id}`)}
+              >
+                View
+              </Button>
+            )}
+            {/* <Button
               variant={"outline"}
               className="font-bold text-accent-foreground"
               onClick={() => router.push(`/product/${item.id}`)}
             >
               View
-            </Button>
+            </Button> */}
           </div>
         </div>
         <div className="bg-background flex-col flex border-t gap-4 px-4 py-2">
@@ -127,13 +177,48 @@ const Product = ({ item }: { item: Item }) => {
               </span>
             </section>
             <section className="flex items-center gap-3">
-              <Button
+              {item.id === 2862594 ? (
+                <Button
+                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
+                  variant={"outline"}
+                  onClick={() => router.push(`/product/cap/${item.id}`)}
+                >
+                  View
+                </Button>
+              ) : item.id === 2862646 ||
+                item.id === 2862654 ||
+                item.id === 2862748 ? (
+                <Button
+                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
+                  variant={"outline"}
+                  onClick={() => router.push(`/product/bag/${item.id}`)}
+                >
+                  View
+                </Button>
+              ) : item.id === 2862752 || item.id === 2862757 ? (
+                <Button
+                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
+                  variant={"outline"}
+                  onClick={() => router.push(`/product/more/${item.id}`)}
+                >
+                  View
+                </Button>
+              ) : (
+                <Button
+                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
+                  variant={"outline"}
+                  onClick={() => router.push(`/product/${item.id}`)}
+                >
+                  View
+                </Button>
+              )}
+              {/* <Button
                 className="lg:hidden md:hidden font-bold text-base sm:flex flex"
                 variant={"outline"}
                 onClick={() => router.push(`/product/${item.id}`)}
               >
                 View
-              </Button>
+              </Button> */}
               <Button onClick={handleClick}>
                 <ShoppingCart className="text-white" />
               </Button>

@@ -56,8 +56,9 @@ const Cart = () => {
   const [showCancelAlert, setShowCancelAlert] = useState(false);
 
   const updateSku = async (item: CartItem, sizeName: any) => {
+    console.log("trying to update sku ", sizeName);
     const singleProduct = await fetchSingleProduct(item.articleId);
-
+    console.log("in cart single: ", singleProduct.variants);
     // let sku: string;
     singleProduct.variants.map((variant: any) => {
       // console.log(variant.sizeName, formValues.size);
@@ -67,6 +68,7 @@ const Cart = () => {
     });
   };
 
+  console.log("cart items: ", cart.items);
   return (
     <Sheet open={isCartOpen} onOpenChange={cart.closeCart}>
       <SheetTrigger asChild>
@@ -120,7 +122,7 @@ const Cart = () => {
                               />
                               <section className="space-y-3 flex w-full  flex-col">
                                 <section className="flex items-center w-full  justify-between">
-                                  <p className="text-wrap font-medium">
+                                  <p className="text-wrap font-bold">
                                     {item.name}
                                   </p>
 
@@ -142,7 +144,42 @@ const Cart = () => {
                                     <SelectTrigger className="w-[100px]">
                                       <SelectValue placeholder={item.size} />
                                     </SelectTrigger>
-                                    <SelectContent
+                                    {item.articleId === 2862594 ? (
+                                      <SelectContent
+                                        defaultValue={`${item.size}`}
+                                      >
+                                        <SelectItem value="S/M Cap">
+                                          S/M Cap
+                                        </SelectItem>
+                                        <SelectItem value="L/XL Cap">
+                                          L/XL Cap
+                                        </SelectItem>
+                                      </SelectContent>
+                                    ) : item.articleId === 2862612 ||
+                                      item.articleId === 2862646 ||
+                                      item.articleId === 2862654 ||
+                                      item.articleId === 2862748 ||
+                                      item.articleId === 2862752 ||
+                                      item.articleId === 2862757 ? (
+                                      <SelectContent
+                                        defaultValue={`${item.size}`}
+                                      >
+                                        <SelectItem value="One Size">
+                                          One Size
+                                        </SelectItem>
+                                      </SelectContent>
+                                    ) : (
+                                      <SelectContent
+                                        defaultValue={`${item.size}`}
+                                      >
+                                        <SelectItem value="S">S</SelectItem>
+                                        <SelectItem value="M">M</SelectItem>
+                                        <SelectItem value="L">L</SelectItem>
+                                        <SelectItem value="XL">XL</SelectItem>
+                                        <SelectItem value="2XL">2XL</SelectItem>
+                                      </SelectContent>
+                                    )}
+                                    {/* <SelectContent
                                       defaultValue={`${item.size}`}
                                     >
                                       <SelectItem value="S">S</SelectItem>
@@ -150,7 +187,7 @@ const Cart = () => {
                                       <SelectItem value="L">L</SelectItem>
                                       <SelectItem value="XL">XL</SelectItem>
                                       <SelectItem value="2XL">2XL</SelectItem>
-                                    </SelectContent>
+                                    </SelectContent> */}
                                   </Select>
 
                                   <section className="flex items-center">

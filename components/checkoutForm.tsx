@@ -183,7 +183,7 @@ const CheckoutForm = ({
                   >
                     <div className="flex flex-col">
                       <span className="font-bold">{type.name}</span>
-                      <span className="text-sm text-foreground/75">
+                      <span className="text-sm dark:text-foreground/75">
                         {type.description}
                       </span>
                     </div>

@@ -39,19 +39,40 @@ export type CartItem = {
 };
 
 const formSchema = z.object({
-  size: z.enum(["S", "M", "L", "XL", "2XL", "S/M Cap"], {
-    required_error: "You need to select a size.",
-  }),
+  size: z.enum(
+    ["S", "M", "L", "XL", "2XL", "S/M Cap", "L/XL Cap", "One Size"],
+    {
+      required_error: "You need to select a size.",
+    }
+  ),
 });
 
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(0);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
   const [selectedSize, setSelectedSize] = useState(
-    singleProduct.id === 2862594 ? "S/M Cap" : "M"
+    singleProduct.id === 2862594
+      ? "S/M Cap"
+      : singleProduct.id === 2862612 ||
+        singleProduct.id === 2862646 ||
+        singleProduct.id === 2862654 ||
+        singleProduct.id === 2862748 ||
+        singleProduct.id === 2862752 ||
+        singleProduct.id === 2862757
+      ? "One Size"
+      : "M"
   );
+
   const [stockAmount, setStockAmount] = useState(
-    singleProduct.variants[1].stock
+    singleProduct.id === 2862612 ||
+      singleProduct.id === 2862594 ||
+      singleProduct.id === 2862646 ||
+      singleProduct.id === 2862654 ||
+      singleProduct.id === 2862748 ||
+      singleProduct.id === 2862752 ||
+      singleProduct.id === 2862757
+      ? singleProduct?.variants[0]?.stock
+      : singleProduct?.variants[1]?.stock
   );
   const cart = useCart();
   const { toast } = useToast();
@@ -59,7 +80,17 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      size: singleProduct.id === 2862594 ? "S/M Cap" : "M",
+      size:
+        singleProduct.id === 2862594
+          ? "S/M Cap"
+          : singleProduct.id === 2862612 ||
+            singleProduct.id === 2862646 ||
+            singleProduct.id === 2862654 ||
+            singleProduct.id === 2862748 ||
+            singleProduct.id === 2862752 ||
+            singleProduct.id === 2862757
+          ? "One Size"
+          : "M",
     },
   });
 
@@ -217,7 +248,12 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                           </RadioGroup>
                         </FormControl>
                       )}
-                      {singleProduct.id !== 2862594 && (
+                      {(singleProduct.id === 2862612 ||
+                        singleProduct.id === 2862646 ||
+                        singleProduct.id === 2862654 ||
+                        singleProduct.id === 2862748 ||
+                        singleProduct.id === 2862752 ||
+                        singleProduct.id === 2862757) && (
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
@@ -226,92 +262,126 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                           >
                             <FormItem className="flex items-center space-x-1 space-y-0">
                               <FormControl
+                                className=" w-36"
                                 onClick={() => {
-                                  setSelectedSize("S");
-                                  onRadioChange("S");
+                                  setSelectedSize("One Size");
+                                  onRadioChange("One Size");
                                 }}
                               >
                                 <RadioGroupItem
                                   className={
-                                    selectedSize == "S"
+                                    selectedSize == "One Size"
                                       ? "bg-primary text-white"
                                       : ""
                                   }
-                                  value="S"
-                                />
-                              </FormControl>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl
-                                onClick={() => {
-                                  setSelectedSize("M");
-                                  onRadioChange("M");
-                                }}
-                              >
-                                <RadioGroupItem
-                                  className={
-                                    selectedSize == "M"
-                                      ? "bg-primary text-white"
-                                      : ""
-                                  }
-                                  value="M"
-                                />
-                              </FormControl>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl
-                                onClick={() => {
-                                  setSelectedSize("L");
-                                  onRadioChange("L");
-                                }}
-                              >
-                                <RadioGroupItem
-                                  className={
-                                    selectedSize == "L"
-                                      ? "bg-primary text-white"
-                                      : ""
-                                  }
-                                  value="L"
-                                />
-                              </FormControl>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl
-                                onClick={() => {
-                                  setSelectedSize("XL");
-                                  onRadioChange("XL");
-                                }}
-                              >
-                                <RadioGroupItem
-                                  className={
-                                    selectedSize == "XL"
-                                      ? "bg-primary text-white"
-                                      : ""
-                                  }
-                                  value="XL"
-                                />
-                              </FormControl>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-1 space-y-0">
-                              <FormControl
-                                onClick={() => {
-                                  setSelectedSize("2XL");
-                                  onRadioChange("2XL");
-                                }}
-                              >
-                                <RadioGroupItem
-                                  className={
-                                    selectedSize == "2XL"
-                                      ? "bg-primary text-white"
-                                      : ""
-                                  }
-                                  value="2XL"
+                                  value="One Size"
                                 />
                               </FormControl>
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
                       )}
+                      {singleProduct.id !== 2862594 &&
+                        singleProduct.id !== 2862612 &&
+                        singleProduct.id !== 2862654 &&
+                        singleProduct.id !== 2862646 &&
+                        singleProduct.id !== 2862748 &&
+                        singleProduct.id !== 2862752 &&
+                        singleProduct.id !== 2862757 && (
+                          <FormControl>
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              className="flex items-center  gap-3"
+                            >
+                              <FormItem className="flex items-center space-x-1 space-y-0">
+                                <FormControl
+                                  onClick={() => {
+                                    setSelectedSize("S");
+                                    onRadioChange("S");
+                                  }}
+                                >
+                                  <RadioGroupItem
+                                    className={
+                                      selectedSize == "S"
+                                        ? "bg-primary text-white"
+                                        : ""
+                                    }
+                                    value="S"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                              <FormItem className="flex items-center space-x-1 space-y-0">
+                                <FormControl
+                                  onClick={() => {
+                                    setSelectedSize("M");
+                                    onRadioChange("M");
+                                  }}
+                                >
+                                  <RadioGroupItem
+                                    className={
+                                      selectedSize == "M"
+                                        ? "bg-primary text-white"
+                                        : ""
+                                    }
+                                    value="M"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                              <FormItem className="flex items-center space-x-1 space-y-0">
+                                <FormControl
+                                  onClick={() => {
+                                    setSelectedSize("L");
+                                    onRadioChange("L");
+                                  }}
+                                >
+                                  <RadioGroupItem
+                                    className={
+                                      selectedSize == "L"
+                                        ? "bg-primary text-white"
+                                        : ""
+                                    }
+                                    value="L"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                              <FormItem className="flex items-center space-x-1 space-y-0">
+                                <FormControl
+                                  onClick={() => {
+                                    setSelectedSize("XL");
+                                    onRadioChange("XL");
+                                  }}
+                                >
+                                  <RadioGroupItem
+                                    className={
+                                      selectedSize == "XL"
+                                        ? "bg-primary text-white"
+                                        : ""
+                                    }
+                                    value="XL"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                              <FormItem className="flex items-center space-x-1 space-y-0">
+                                <FormControl
+                                  onClick={() => {
+                                    setSelectedSize("2XL");
+                                    onRadioChange("2XL");
+                                  }}
+                                >
+                                  <RadioGroupItem
+                                    className={
+                                      selectedSize == "2XL"
+                                        ? "bg-primary text-white"
+                                        : ""
+                                    }
+                                    value="2XL"
+                                  />
+                                </FormControl>
+                              </FormItem>
+                            </RadioGroup>
+                          </FormControl>
+                        )}
                     </div>
                     <FormMessage />
                   </FormItem>

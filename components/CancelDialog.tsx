@@ -25,7 +25,7 @@ const CancelDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className="text-white text-base font-bold"
+            className=" text-base font-bold"
             onClick={() => setShowCancelAlert(false)}
           >
             No

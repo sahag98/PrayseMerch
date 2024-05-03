@@ -79,8 +79,8 @@ export default function RootLayout({
     <ViewTransitions>
       <html suppressHydrationWarning={true} lang="en">
         <body suppressHydrationWarning={true} className={josefin.className}>
-          <UnderConstruction />
-          {/* <ThemeProvider
+          {/* <UnderConstruction /> */}
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
@@ -93,7 +93,7 @@ export default function RootLayout({
             <Footer />
             <Toaster />
             <Analytics />
-          </ThemeProvider> */}
+          </ThemeProvider>
         </body>
       </html>
     </ViewTransitions>

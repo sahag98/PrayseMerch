@@ -15,8 +15,8 @@ const AccordionBox = () => {
           picture of the item, laying flat and send it to{" "}
           <span className="font-bold">prayse@gmail.com</span> with the Order ID
           and Order Reference numbers. At this moment we are not able to fully
-          refund you the amount, but we will resubmit a new order for that item
-          that will ship to your provided address.
+          refund you the amount, but we will resubmit a new order with the same
+          item that will ship to your provided address.
         </AccordionContent>
       </AccordionItem>
     </Accordion>

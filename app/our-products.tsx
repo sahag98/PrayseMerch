@@ -76,9 +76,17 @@ const OurProducts = ({ products }: { products: any }) => {
           Crewnecks
         </Button>
         <Button
+          className="font-medium dark:text-white"
+          onClick={() => setSelectedCategory("Tank")}
+          variant={selectedCategory == "Tank" ? "default" : "outline"}
+          size={"sm"}
+        >
+          Tank tops
+        </Button>
+        <Button
           className="font-medium relative dark:text-white"
-          onClick={() => setSelectedCategory("Hats")}
-          variant={selectedCategory == "Hats" ? "default" : "outline"}
+          onClick={() => setSelectedCategory("Cap")}
+          variant={selectedCategory == "Cap" ? "default" : "outline"}
           size={"sm"}
         >
           <p>Hats</p>
@@ -86,19 +94,19 @@ const OurProducts = ({ products }: { products: any }) => {
         </Button>
         <Button
           className="font-medium dark:text-white"
-          onClick={() => setSelectedCategory("Bags")}
-          variant={selectedCategory == "Bags" ? "default" : "outline"}
+          onClick={() => setSelectedCategory("Bag")}
+          variant={selectedCategory == "Bag" ? "default" : "outline"}
           size={"sm"}
         >
           Bags
         </Button>
         <Button
           className="font-medium dark:text-white"
-          onClick={() => setSelectedCategory("Tank")}
-          variant={selectedCategory == "Tank" ? "default" : "outline"}
+          onClick={() => setSelectedCategory("Mug")}
+          variant={selectedCategory == "Mug" ? "default" : "outline"}
           size={"sm"}
         >
-          Tank tops
+          More
         </Button>
       </div>
       <section

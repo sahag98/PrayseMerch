@@ -28,13 +28,13 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col bg-background overflow-hidden min-h-screen items-center justify-center lg:px-28 md:px-20 px-4">
-      {/* <Hero />
+      <Hero />
 
       <Reviews />
       <OurProducts products={products} />
       <Mission />
       <Connect />
-      <Newsletter /> */}
+      <Newsletter />
     </main>
   );
 }
