@@ -1,7 +1,8 @@
 import React from "react";
 import OurProducts from "../our-products";
 import { useSearchParams } from "next/navigation";
-
+import { Suspense } from "react";
+import Productsloading from "./loading";
 const ProductsPage = async () => {
   // console.log("params: ", searchParams?.filter);
 
@@ -25,7 +26,9 @@ const ProductsPage = async () => {
 
   return (
     <main className="flex relative bg-background overflow-hidden items-center justify-center lg:px-28 md:px-20 mt-24 lg:mt-24 md:mt-24 px-4">
-      <OurProducts products={products} />
+      <Suspense fallback={<Productsloading />}>
+        <OurProducts products={products} />
+      </Suspense>
     </main>
   );
 };
