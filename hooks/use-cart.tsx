@@ -37,7 +37,7 @@ const useCart = create(
       orderItems: { products: [] },
       order_id: 0,
       isCartOpen: false,
-      isNavOpen: true,
+      isNavOpen: false,
       dismissModal: () => {
         set({ isShowingAppModal: false });
       },
