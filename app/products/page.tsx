@@ -14,7 +14,7 @@ const ProductsPage = async () => {
         "Content-Type": "application/json",
         "X-SPOD-ACCESS-TOKEN": process.env.SPOD_ACCESS_TOKEN as string,
       },
-      cache: "no-store",
+      // cache: "no-store",
     });
 
     const products = await res.json();
