@@ -7,13 +7,17 @@ import { CartItem } from "@/app/addToCart";
 interface CartStore {
   items: CartItem[];
   isCartOpen: boolean;
+  isNavOpen: boolean;
   order_id: number;
+  isShowingAppModal: boolean;
   openCart: () => void;
+  dismissModal: () => void;
   orderItems: { products: any[] };
   setOrderId: (data: number) => void;
   addToOrderInfo: (data: any) => void;
   updateSize: (data: CartItem, newSize: string, newSku: number) => void;
   closeCart: () => void;
+  closeNav: () => void;
   addItem: (data: CartItem) => void;
   decreaseQty: (data: any) => void;
   removeItem: (id: number) => void;
@@ -29,9 +33,18 @@ const useCart = create(
   persist<CartStore>(
     (set, get) => ({
       items: [],
+      isShowingAppModal: true,
       orderItems: { products: [] },
       order_id: 0,
       isCartOpen: false,
+      isNavOpen: true,
+      dismissModal: () => {
+        set({ isShowingAppModal: false });
+      },
+      closeNav: () => {
+        const isOpen = get().isNavOpen;
+        set({ isNavOpen: !isOpen });
+      },
       closeCart: () => {
         const isOpen = get().isCartOpen;
         set({ isCartOpen: !isOpen });

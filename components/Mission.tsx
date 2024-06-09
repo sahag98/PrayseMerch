@@ -47,44 +47,36 @@ const Mission = () => {
   return (
     <section
       ref={scrollRef}
-      className="w-full mb-10 flex-1 rounded-md flex flex-col  justify-center items-center"
+      id="mission"
+      className="w-full my-10 flex-1 rounded-md flex flex-col  justify-center items-center"
     >
-      <h2
-        id="stagger"
-        className="font-bold text-3xl mb-5 opacity-0 text-center"
-      >
-        Our Mission
-      </h2>
+      <h2 className="font-bold text-3xl mb-5 text-center">Our Mission</h2>
       <div className="flex items-center justify-between lg:flex-row flex-col gap-5">
         <div ref={missionRef} className="space-y-3">
-          <p id="stagger" className="lg:w-3/4 opacity-0 w-full dark:font-light">
+          <p className="lg:w-3/4 w-full dark:font-light">
             Prayse&apos;s main mission has always been to elevate the importance
             of prayer in a Christian&apos;s walk with God. One of our favorite
-            chapter from the Bible is in the book of Philippians where we are
-            told to always be in prayer and how through prayer, God will always
-            provide peace both to our heart and mind.
+            chapter from the Bible is in the book of Philippians, where we are
+            told to always be in prayer and thanksgiving, and how through
+            prayer, God will always provide peace both to our heart and mind.
           </p>
-          <p id="stagger" className="lg:w-3/4 opacity-0 font-semibold w-full">
+          <p className="lg:w-3/4 font-semibold w-full">
             Philippians 4:6-7: &quot;Be careful for nothing; but in every thing
             by prayer and supplication with thanksgiving let your requests be
             made known unto God. And the peace of God, which passeth all
             understanding, shall keep your hearts and minds through Christ
             Jesus.&quot;
           </p>
-          <p id="stagger" className="lg:w-3/4 opacity-0 dark:font-light w-full">
+          <p className="lg:w-3/4 dark:font-light w-full">
             Our prayer is that wearing our merch can create faith-based and
-            fruitful conversations surrounding the topic of prayer and that
+            fruitful conversations surrounding the topic of prayer, and that
             people who don&apos;t know Christ would come to know Him through
-            your conversations. God bless you and we&apos;re praying for every
-            single one of you!
+            your conversations. God bless you and we&apos;re praying for you!
           </p>
         </div>
-        <div
-          id="stagger"
-          className="w-full opacity-0  dark:bg-white rounded-lg border flex items-center justify-center"
-        >
+        <div className="w-full  dark:bg-white rounded-lg border flex items-center justify-center">
           <Image
-            src={"/prayseLogo.png"}
+            src={"/newLogo3.png"}
             width={500}
             height={500}
             alt="Prayse Logo"

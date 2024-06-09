@@ -126,7 +126,7 @@ const Cart = () => {
                                     {item.name}
                                   </p>
 
-                                  <p className="font-medium">
+                                  <p className="font-medium text-lg">
                                     ${item.customerPrice.amount * item.quantity}
                                   </p>
                                 </section>

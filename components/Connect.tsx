@@ -48,7 +48,7 @@ const Connect = () => {
   return (
     <section
       ref={scrollRef}
-      className="w-full mb-10 flex-1 rounded-md flex flex-col  justify-center items-center"
+      className="w-full my-10 flex-1 rounded-md flex flex-col  justify-center items-center"
     >
       <h2
         id="stagger"

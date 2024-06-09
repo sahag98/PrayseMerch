@@ -1,10 +1,11 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Product from "@/components/Product";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { Button } from "@/components/ui/button";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,7 +18,12 @@ export type Item = {
 };
 const OurProducts = ({ products }: { products: any }) => {
   const scrollRef = useRef(null);
-
+  const params = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const search = searchParams.get("filter");
+  // console.log("params: ", search);
   // useGSAP(() => {
   //   // @ts-ignore: Unreachable code error
   //   const boxes = gsap.utils.toArray(scrollRef.current?.children);
@@ -38,7 +44,29 @@ const OurProducts = ({ products }: { products: any }) => {
   // }, []);
 
   const [productsToShow, setPoductsToShow] = useState(products);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(
+    search == "tees"
+      ? "T-Shirt"
+      : search == "tanktops"
+      ? "Tank"
+      : search == "sweatshirts"
+      ? "Crewneck"
+      : search == "accessories"
+      ? "Cap"
+      : ""
+  );
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  console.log("category: ", selectedCategory);
 
   const list = productsToShow.items.filter((item: Item) =>
     selectedCategory !== ""
@@ -48,11 +76,14 @@ const OurProducts = ({ products }: { products: any }) => {
 
   return (
     <div id="products" className="pb-10 w-full overflow-x-hidden opacity-1">
-      <h2 className="text-3xl font-semibold text-center mb-2">Our Products</h2>
+      <h2 className="text-3xl font-semibold text-center mb-2">All Products</h2>
 
       <div className="flex lg:items-center lg:justify-center md:items-center md:justify-center no-scrollbar overflow-x-scroll gap-3 mb-5">
         <Button
-          onClick={() => setSelectedCategory("")}
+          onClick={() => {
+            setSelectedCategory("");
+            router.push(pathname + "?" + createQueryString("filter", "none"));
+          }}
           className="font-medium dark:text-white"
           variant={selectedCategory == "" ? "default" : "outline"}
           size={"sm"}
@@ -61,7 +92,10 @@ const OurProducts = ({ products }: { products: any }) => {
         </Button>
         <Button
           className="font-medium dark:text-white"
-          onClick={() => setSelectedCategory("T-Shirt")}
+          onClick={() => {
+            setSelectedCategory("T-Shirt");
+            router.push(pathname + "?" + createQueryString("filter", "tees"));
+          }}
           variant={selectedCategory == "T-Shirt" ? "default" : "outline"}
           size={"sm"}
         >
@@ -69,7 +103,12 @@ const OurProducts = ({ products }: { products: any }) => {
         </Button>
         <Button
           className="font-medium dark:text-white"
-          onClick={() => setSelectedCategory("Crewneck")}
+          onClick={() => {
+            setSelectedCategory("Crewneck");
+            router.push(
+              pathname + "?" + createQueryString("filter", "sweatshirts")
+            );
+          }}
           variant={selectedCategory == "Crewneck" ? "default" : "outline"}
           size={"sm"}
         >
@@ -77,7 +116,12 @@ const OurProducts = ({ products }: { products: any }) => {
         </Button>
         <Button
           className="font-medium dark:text-white"
-          onClick={() => setSelectedCategory("Tank")}
+          onClick={() => {
+            setSelectedCategory("Tank");
+            router.push(
+              pathname + "?" + createQueryString("filter", "tanktops")
+            );
+          }}
           variant={selectedCategory == "Tank" ? "default" : "outline"}
           size={"sm"}
         >
@@ -85,7 +129,12 @@ const OurProducts = ({ products }: { products: any }) => {
         </Button>
         <Button
           className="font-medium relative dark:text-white"
-          onClick={() => setSelectedCategory("Cap")}
+          onClick={() => {
+            setSelectedCategory("Cap");
+            router.push(
+              pathname + "?" + createQueryString("filter", "accessories")
+            );
+          }}
           variant={selectedCategory == "Cap" ? "default" : "outline"}
           size={"sm"}
         >

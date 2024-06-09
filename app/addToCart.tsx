@@ -180,7 +180,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
           </span>
           <div className="flex flex-col">
             {stockAmount == 0 ? (
-              <span className="underline underline-offset-2">
+              <span className="underline text-destructive underline-offset-2">
                 Out of Stock. Check back later
               </span>
             ) : (

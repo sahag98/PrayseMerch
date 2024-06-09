@@ -30,7 +30,8 @@ export type Variant = {
 };
 
 const Product = ({ item }: { item: Item }) => {
-  const itemImage = item.images[0];
+  const itemImage =
+    item.id === 2862748 ? item.images[0] : item.images[1] ?? item.images[0];
   const cart = useCart();
   const viewProductRef = useRef(null);
   const [isMouseHovering, setIsMouseHovering] = useState("");
@@ -102,7 +103,7 @@ const Product = ({ item }: { item: Item }) => {
   return (
     <div className="">
       <div
-        className="flex relative flex-col bg-accent rounded-lg justify-center border overflow-hidden duration-500 transition-all"
+        className="flex relative flex-col bg-[#EBEBEB] dark:bg-accent rounded-lg justify-center border overflow-hidden duration-500 transition-all"
         key={item.id}
       >
         <div
@@ -112,7 +113,7 @@ const Product = ({ item }: { item: Item }) => {
         >
           <Image
             src={itemImage.imageUrl}
-            className="p-5"
+            className=""
             width={500}
             height={500}
             alt={`Prayse ${itemImage.appearanceName} Shirt`}
@@ -165,7 +166,7 @@ const Product = ({ item }: { item: Item }) => {
             </Button> */}
           </div>
         </div>
-        <div className="bg-background flex-col flex border-t gap-4 px-4 py-2">
+        <div className="bg-background flex-col flex border-t gap-1 px-4 py-2">
           <h3 className="font-bold text-foreground text-lg lg:text-base">
             {item.title}
           </h3>

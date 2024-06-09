@@ -18,10 +18,10 @@ import { Circle } from "lucide-react";
 
 const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: false })
+    Autoplay({ delay: 3000, stopOnInteraction: false })
   );
 
-  const singleProductImg = singleProduct.images[0].imageUrl;
+  const singleProductImg = singleProduct.images[1].imageUrl;
 
   const [selectedImg, setSelectedImg] = useState(singleProductImg);
   const [isViewingMoreImgs, setIsViewingMoreImgs] = useState(false);
