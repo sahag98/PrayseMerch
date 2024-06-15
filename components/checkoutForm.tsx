@@ -28,7 +28,7 @@ const CheckoutForm = ({
   const cart = useCart();
   const cartProducts = useCart((state) => state.items);
   const subtotal = cart.calculateTotal().subTotal.toFixed(2);
-  const salesTax = cart.calculateTotal().salesTaxNum;
+  // const salesTax = cart.calculateTotal().salesTaxNum;
 
   // const testTypes = [
   //   {
@@ -101,7 +101,7 @@ const CheckoutForm = ({
         products: cartProducts,
         orderId: cart.order_id,
         shippingFee: selectedType.price?.amount,
-        salesTax: salesTax,
+        // salesTax: salesTax,
       });
 
       cart.closeCart();
@@ -204,17 +204,17 @@ const CheckoutForm = ({
         <section className="flex gap-2 border-t py-5 flex-col">
           <div className="flex justify-between ">
             <p className="text-sm flex-1">
-              * The shipping fee includes both production and shipping costs.
+              * Sales tax will be determined on stripe payment page.
             </p>
             <div className="flex flex-3 flex-col gap-1 items-end">
               <div className="flex gap-5">
                 <span className="text-foreground/75">Subtotal:</span>
                 <span className="font-bold">${subtotal}</span>
               </div>
-              <div className="flex gap-5 ">
+              {/* <div className="flex gap-5 ">
                 <span className="text-left text-foreground/75">Sales Tax:</span>
                 <span className="text-right font-bold">${salesTax}</span>
-              </div>
+              </div> */}
               <div className="flex gap-5 ">
                 <span className="text-left text-foreground/75">
                   Shipping Fee:
@@ -238,6 +238,9 @@ const CheckoutForm = ({
                   </span>
                 )}
               </div>
+              <span className="font-medium text-foreground/75">
+                + Sales tax
+              </span>
             </div>
           </div>
           <Button

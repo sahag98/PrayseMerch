@@ -5,7 +5,7 @@ import { stripe } from "@/lib/stripe";
 import { CartItem } from "@/app/addToCart";
 
 export async function POST(req: Request) {
-  const { products, orderId, shippingFee, salesTax } = await req.json();
+  const { products, orderId, shippingFee } = await req.json();
 
   if (!products || products.length === 0) {
     return new NextResponse("Products are required", { status: 400 });
@@ -43,19 +43,19 @@ export async function POST(req: Request) {
   }
 
   // Add sales tax as line item
-  if (salesTax > 0) {
-    const salesTaxAmount = (salesTax * 100).toFixed(0);
-    line_items.push({
-      quantity: 1,
-      price_data: {
-        currency: "USD",
-        product_data: {
-          name: "Sales Tax",
-        },
-        unit_amount: parseInt(salesTaxAmount),
-      },
-    });
-  }
+  // if (salesTax > 0) {
+  //   const salesTaxAmount = (salesTax * 100).toFixed(0);
+  //   line_items.push({
+  //     quantity: 1,
+  //     price_data: {
+  //       currency: "USD",
+  //       product_data: {
+  //         name: "Sales Tax",
+  //       },
+  //       unit_amount: parseInt(salesTaxAmount),
+  //     },
+  //   });
+  // }
 
   // const intent = await stripe.paymentIntents.create({
 

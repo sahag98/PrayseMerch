@@ -246,29 +246,27 @@ const Cart = () => {
                 </div>
                 <section className="flex gap-2 border-t p-2 flex-col">
                   <div className="flex flex-col gap-1 items-end">
-                    <div className="flex gap-5">
+                    <div className="flex gap-5 items-center">
                       <span className="text-foreground/75">Subtotal:</span>
-                      <span className="font-bold">
+                      <span className=" text-2xl font-bold">
                         ${cart.calculateTotal().subTotal.toFixed(2)}
                       </span>
                     </div>
-                    <div className="flex gap-5 ">
+                    {/* <div className="flex gap-5 ">
                       <span className="text-left text-foreground/75">
                         Sales Tax:
                       </span>
                       <span className="text-right font-bold">
-                        ${cart.calculateTotal().salesTaxNum.toFixed(2)}
+                        Determined on Checkout
                       </span>
-                    </div>
-                    <div className="flex gap-2 items-end">
-                      <span className="text-lg text-foreground/75">Total:</span>
-                      <span className="text-2xl font-bold">
-                        ${cart.calculateTotal().total.toFixed(2)}
-                      </span>
-                    </div>
+                    </div> */}
+
                     <span className="font-medium text-foreground/75">
-                      + plus shipping
+                      + shipping and sales tax
                     </span>
+                    {/* <span className="font-medium text-foreground/75">
+                      + plus sales tax
+                    </span> */}
                   </div>
 
                   <Button
