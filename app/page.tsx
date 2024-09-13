@@ -34,16 +34,16 @@ export default async function Home() {
   return (
     <main className="flex flex-col relative bg-background overflow-hidden min-h-screen items-center justify-center">
       <Hero />
-      <WhatsNew />
-      <PopularProducts products={products} />
-      <BentoDemo />
+      {/* <WhatsNew /> */}
+      {/* <PopularProducts products={products} /> */}
+      {/* <BentoDemo />
       <ShopByCategory />
       <Reviews />
-      {/* <OurProducts products={products} /> */}
-      <Mission />
+    
+      <Mission /> */}
       {/* <Connect /> */}
       {/* <Newsletter /> */}
-      <AppModal />
+      {/* <AppModal /> */}
     </main>
   );
 }
