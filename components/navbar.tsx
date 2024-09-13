@@ -57,11 +57,7 @@ const Navbar = () => {
         </Link>
       </ul>
       <section className="flex items-center gap-4">
-        {/* <ModeToggle /> */}
         <Cart />
-        <div className="flex lg:hidden">
-          <MobileNav />
-        </div>
       </section>
     </header>
   );

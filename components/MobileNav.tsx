@@ -27,16 +27,16 @@ const MobileNav = () => {
       </SheetTrigger>
 
       <SheetContent className="w-4/5 flex items-center flex-col">
-        <SheetHeader>
+        {/* <SheetHeader>
           <SheetTitle>Menu</SheetTitle>
-        </SheetHeader>
+        </SheetHeader> */}
         <SheetClose className="absolute right-5 top-5">
           <X className="h-8 w-8" />
         </SheetClose>
-        <ul className="flex flex-col flex-1 justify-center gap-32">
+        <ul className="flex flex-col flex-1 items-center justify-center gap-32">
           <Link
             onClick={cart.closeNav}
-            className="text-xl text-foreground font-bold"
+            className="text-xl text-primary font-bold"
             href={"/"}
           >
             Home
@@ -44,15 +44,15 @@ const MobileNav = () => {
 
           <Link
             onClick={cart.closeNav}
-            className="text-xl text-foreground font-bold"
+            className="text-xl text-primary font-bold"
             href={"/products"}
           >
-            All Products
+            Products
           </Link>
 
           <Link
             onClick={cart.closeNav}
-            className="text-xl text-foreground font-bold"
+            className="text-xl text-primary font-bold"
             href={"/#mission"}
           >
             Mission
