@@ -35,7 +35,7 @@ const ShopByCategory = () => {
     },
   ];
   return (
-    <div className="">
+    <div className="lg:px-28 md:px-20 px-4">
       <h2 className="text-3xl font-semibold text-center mb-4">
         Shop By Category
       </h2>

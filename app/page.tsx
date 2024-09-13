@@ -9,6 +9,8 @@ import Reviews from "@/components/reviews";
 import AppModal from "@/components/AppModal";
 import PopularProducts from "./popular-products";
 import ShopByCategory from "@/components/ShopByCategory";
+import WhatsNew from "@/components/whatsnew";
+import { BentoDemo } from "@/components/PopularBento";
 
 export default async function Home() {
   async function fetchAllProducts() {
@@ -30,17 +32,18 @@ export default async function Home() {
   const products = await fetchAllProducts();
 
   return (
-    <main className="flex flex-col relative bg-background overflow-hidden min-h-screen items-center justify-center lg:px-28 md:px-20 px-4">
+    <main className="flex flex-col relative bg-background overflow-hidden min-h-screen items-center justify-center">
       <Hero />
-
-      <Reviews />
+      {/* <WhatsNew />
       <PopularProducts products={products} />
+      <BentoDemo /> */}
       <ShopByCategory />
+      <Reviews />
       {/* <OurProducts products={products} /> */}
       <Mission />
-      <Connect />
+      {/* <Connect /> */}
       {/* <Newsletter /> */}
-      <AppModal />
+      {/* <AppModal /> */}
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
@@ -9,6 +9,7 @@ import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { ViewTransitions } from "next-view-transitions";
 import UnderConstruction from "./under-construction";
+import { cn } from "@/lib/utils";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -68,6 +69,10 @@ export const metadata: Metadata = {
   category: "Apparel",
 };
 
+export const viewport: Viewport = {
+  maximumScale: 1, //disables autozoom on ios
+};
+
 export const revalidate = 3600;
 
 export default function RootLayout({
@@ -78,22 +83,25 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html suppressHydrationWarning={true} lang="en">
-        <body suppressHydrationWarning={true} className={josefin.className}>
+        <body
+          suppressHydrationWarning={true}
+          className={cn(josefin.className, "antialiased")}
+        >
           {/* <UnderConstruction /> */}
-          <ThemeProvider
+          {/* <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          >
-            <NextTopLoader />
-            <Navbar />
-            {children}
+          > */}
+          <NextTopLoader />
+          <Navbar />
+          {children}
 
-            <Footer />
-            <Toaster />
-            <Analytics />
-          </ThemeProvider>
+          <Footer />
+          <Toaster />
+          <Analytics />
+          {/* </ThemeProvider> */}
         </body>
       </html>
     </ViewTransitions>

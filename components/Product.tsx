@@ -103,7 +103,7 @@ const Product = ({ item }: { item: Item }) => {
   return (
     <div className="">
       <div
-        className="flex relative flex-col bg-[#EBEBEB] dark:bg-accent rounded-lg justify-center border overflow-hidden duration-500 transition-all"
+        className="flex relative flex-col bg-[#EBEBEB] dark:bg-accent rounded-lg justify-center overflow-hidden duration-500 transition-all"
         key={item.id}
       >
         <div
@@ -167,7 +167,7 @@ const Product = ({ item }: { item: Item }) => {
           </div>
         </div>
         <div className="bg-background flex-col flex border-t gap-1 px-4 py-2">
-          <h3 className="font-bold text-foreground text-lg lg:text-base">
+          <h3 className="font-semibold text-foreground text-lg">
             {item.title}
           </h3>
           <div className="flex justify-between">

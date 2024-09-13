@@ -59,6 +59,11 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         buttonheartbeat: {
           "0%": {
             "box-shadow": '0 0 0 0 theme("colors.blue.500")',
@@ -81,9 +86,20 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
       },
       animation: {
-        buttonheartbeat: "buttonheartbeat 2s infinite ease-in-out",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        buttonheartbeat: "buttonheartbeat 3s infinite ease-in-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "spin-slow": "spin 8s linear infinite",

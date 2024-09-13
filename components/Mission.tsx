@@ -48,7 +48,7 @@ const Mission = () => {
     <section
       ref={scrollRef}
       id="mission"
-      className="w-full my-10 flex-1 rounded-md flex flex-col  justify-center items-center"
+      className="w-full my-10 lg:px-28 md:px-20 px-4 flex-1 rounded-md flex flex-col  justify-center items-center"
     >
       <h2 className="font-bold text-3xl mb-5 text-center">Our Mission</h2>
       <div className="flex items-center justify-between lg:flex-row flex-col gap-5">
