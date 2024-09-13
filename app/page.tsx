@@ -25,18 +25,18 @@ export default async function Home() {
   const products = await res.json();
 
   return (
-    <main className="flex flex-col relative bg-background overflow-hidden min-h-screen items-center justify-center">
+    <main className="flex flex-col relative bg-background overflow-hidden min-h-screen items-center  justify-center">
       <Hero />
       {/* <WhatsNew /> */}
-      {/* <PopularProducts products={products} /> */}
-      {/* <BentoDemo />
-      <ShopByCategory />
       <Reviews />
-    
-      <Mission /> */}
-      {/* <Connect /> */}
+      <PopularProducts products={products} />
+      {/* <BentoDemo /> */}
+      <ShopByCategory />
+
+      <Mission />
+      <Connect />
       {/* <Newsletter /> */}
-      {/* <AppModal /> */}
+      <AppModal />
     </main>
   );
 }

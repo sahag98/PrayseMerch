@@ -48,15 +48,15 @@ const ShopByCategory = () => {
         }}
         render={(item, idx) => (
           <div
-            className="border overflow-hidden relative rounded-md flex items-center justify-center"
+            className="border overflow-hidden [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] relative rounded-md flex items-center justify-center"
             // style={{ height: item.height }}
             key={idx}
           >
             <div
               className={
                 theme == "light"
-                  ? "absolute inset-0 bg-black opacity-50"
-                  : "absolute inset-0 bg-black opacity-30"
+                  ? "absolute inset-0 bg-black opacity-20"
+                  : "absolute inset-0 bg-black opacity-20"
               }
             ></div>
             <Button
