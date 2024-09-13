@@ -34,9 +34,9 @@ const WhatsNew = () => {
             in between.
           </p>
           <p className="italic mt-4 text-sm md:text-base">
-            "Confess your faults one to another, and pray one for another, that
-            ye may be healed. The effectual fervent prayer of a righteous man
-            availeth much."
+            &ldquo;Confess your faults one to another, and pray one for another,
+            that ye may be healed. The effectual fervent prayer of a righteous
+            man availeth much.&rdquo;
           </p>
           <p className="italic">- James 5:16</p>
           <button className="text-base  bg-primary flex items-center justify-between rounded-lg overflow-hidden font-bold mt-4">
