@@ -73,8 +73,6 @@ export const viewport: Viewport = {
   maximumScale: 1, //disables autozoom on ios
 };
 
-export const revalidate = 3600;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -100,7 +98,7 @@ export default function RootLayout({
 
           <Footer />
           <Toaster />
-          <Analytics />
+          {/* <Analytics /> */}
           {/* </ThemeProvider> */}
         </body>
       </html>
