@@ -98,7 +98,7 @@ export default function RootLayout({
 
           <Footer />
           <Toaster />
-          {/* <Analytics /> */}
+          <Analytics />
           {/* </ThemeProvider> */}
         </body>
       </html>
