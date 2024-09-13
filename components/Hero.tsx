@@ -37,21 +37,21 @@ const Hero = () => {
     <div
       ref={heroRef}
       suppressHydrationWarning={true}
-      className="relative flex w-full lg:px-28 md:px-20 px-4 lg:flex-row flex-col lg:gap-0 gap-6 h-screen  bg-cover bg-center justify-end md:justify-center lg:items-center items-start pt-16 lg:mt-0"
+      className="relative flex w-full lg:px-28 md:px-20 px-4 lg:flex-row flex-col lg:gap-0 gap-6 h-screen bg-[url('https://images.pexels.com/photos/3063478/pexels-photo-3063478.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center justify-end md:justify-center lg:items-center items-start pt-16 lg:mt-0"
     >
       {/* Background Image */}
-      {/* <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0')] bg-cover bg-center" /> */}
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0')] bg-cover bg-center" />
       {/* Dark Overlay for Contrast */}
-      {/* <div className="absolute inset-0 bg-black opacity-60" /> */}
+      <div className="absolute inset-0 bg-black opacity-60" />
       {/* Adjust opacity here for darkness */}
       <section
         id="stagger"
         className="flex flex-col mb-10 relative w-full lg:w-1/2 z-10"
       >
-        <h1 className="lg:text-7xl text-7xl text-primary font-bold">
+        <h1 className="lg:text-7xl text-7xl text-primary-foreground font-bold">
           Pray for Everyone
         </h1>
-        <p className="text-primary md:text-2xl text-lg lg:w-3/4 w-full relative">
+        <p className="text-primary-foreground md:text-2xl text-lg lg:w-3/4 w-full relative">
           Reminding us to pray for our
           <span className="text-primary"> neighbors </span>,
           <span className="text-primary"> leaders </span> and
