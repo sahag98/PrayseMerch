@@ -26,7 +26,7 @@ const WhatsNew = () => {
       <div className="bg-secondary [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] p-5 rounded-lg flex md:flex-row flex-col-reverse items-center md:justify-between justify-center">
         <section className="md:w-1/2">
           <h2 className="font-bold mb-4 text-primary md:text-5xl text-4xl">
-            What's new
+            What&apos;s new
           </h2>
           <p className="text-lg">
             This t-shirt brings an opportunity to pray for those we often forget
