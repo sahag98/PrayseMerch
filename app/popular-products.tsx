@@ -57,8 +57,8 @@ const PopularProducts = ({ products }: { products: any }) => {
         ref={scrollRef}
         className="grid lg:grid-cols-3 md:grid-cols-2 gap-10"
       >
-        {list?.map((item: Item) => (
-          <>
+        {list?.map((item: Item, idx: number) => (
+          <React.Fragment key={idx}>
             {item.id === 2803251 ||
             item.id === 2809325 ||
             item.id === 2809328 ? (
@@ -76,7 +76,7 @@ const PopularProducts = ({ products }: { products: any }) => {
                 <Product key={item.id} item={item} />
               </div>
             ) : null}
-          </>
+          </React.Fragment>
         ))}
       </section>
     </div>

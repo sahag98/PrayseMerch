@@ -5,32 +5,42 @@ import { Link } from "next-view-transitions";
 
 const Hero = () => {
   return (
-    <div
-      suppressHydrationWarning={true}
-      className="flex w-full lg:flex-row lg:px-28 md:px-20 px-4 flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background to-background lg:gap-0 gap-6 h-screen justify-center lg:items-center items-start mt-20 lg:mt-0 relative lg:justify-between"
-    >
-      <section className="flex flex-col">
-        <h1 id="stagger" className="lg:text-7xl  text-5xl font-bold ">
-          Prayse Merch
+    <div className="flex w-full lg:flex-row lg:px-28 md:px-20 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background to-background lg:gap-0 gap-6 h-screen lg:items-center items-start mt-0 lg:mt-0 relative lg:justify-between">
+      <div className="absolute inset-0 w-full h-full bg-black/25 z-10" />
+      <Image
+        alt="Hero banner"
+        className="absolute inset-0 object-top w-full h-full object-cover"
+        src={
+          "https://utfs.io/f/aZ7NTMjk7uDevTIzwqH8hCDjkHqOMPcr1ogNJ2Ksyl5zxXfb"
+        }
+        width={2000}
+        height={2000}
+      />
+      <section className="flex z-20 md:self-auto md:mb-0 mb-10 self-end flex-col">
+        <h1
+          id="stagger"
+          className="lg:text-7xl flex flex-col text-background text-6xl font-bold "
+        >
+          <span>Rejoice</span>
+          <span>Pray</span>
+          <span>Praise</span>
         </h1>
-        <p className=" text-foreground/75 text-lg lg:w-3/4 w-full" id="stagger">
-          Reminding us of the power of{" "}
-          <span className="text-primary"> prayer </span> and
-          <span className="text-primary"> praise </span> in our walk with God.
+        <p className=" text-background/75 text-xl" id="stagger">
+          Hoodies available now.
         </p>
-        <Link className="lg:w-1/3 md:w-1/2 w-full mb-2" href="/products">
+        <Link className="mt-3 w-full" href="/products">
           <Button
             id="stagger"
-            className="lg:w-2/3 w-full mt-3 animate-buttonheartbeat  text-base text-white bg-primary font-bold"
+            className=" w-full animate-buttonheartbeat  text-base text-white bg-primary font-bold"
           >
             Shop Now
           </Button>
         </Link>
-        <p className="text-foreground/75">
+        {/* <p className="text-foreground/75">
           Christian t-shirts, crewnecks and more!
-        </p>
+        </p> */}
       </section>
-      <section
+      {/* <section
         id="hero-img"
         className="w-full grid grid-cols-2 place-items-center h-fit lg:w-fit gap-3 place-content-center rounded-lg"
       >
@@ -63,7 +73,7 @@ const Hero = () => {
           height={800}
           alt="Prayse T-Shirt"
         />
-      </section>
+      </section> */}
     </div>
   );
 };

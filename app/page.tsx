@@ -1,16 +1,9 @@
-import { ChevronDown } from "lucide-react";
-import OurProducts from "./our-products";
-
 import Hero from "@/components/Hero";
 import Mission from "@/components/Mission";
-import Newsletter from "@/components/Newsletter";
-import Connect from "@/components/Connect";
 import Reviews from "@/components/reviews";
 import AppModal from "@/components/AppModal";
 import PopularProducts from "./popular-products";
 import ShopByCategory from "@/components/ShopByCategory";
-import WhatsNew from "@/components/whatsnew";
-import { BentoDemo } from "@/components/PopularBento";
 
 export default async function Home() {
   const res = await fetch("https://rest.spod.com/articles", {
@@ -34,7 +27,6 @@ export default async function Home() {
       <ShopByCategory />
 
       <Mission />
-      <Connect />
       {/* <Newsletter /> */}
       <AppModal />
     </main>

@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "image.spreadshirtmedia.com",
       },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+      },
     ],
   },
 };
