@@ -1,24 +1,57 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React from "react";
+import CountdownTimer from "@/components/countdown-timer";
 
-const UnderConstruction = () => {
+export default function UnderConstruction() {
   return (
-    <div className="h-[100dvh] lg:px-28 md:px-20 px-4 flex flex-col justify-center items-center">
-      <Image
-        alt="under construction"
-        src="/under-construction.gif"
-        className="lg:w-96 w-48"
-        width={1000}
-        height={1000}
-      />
-      <h1 className="lg:text-5xl text-3xl text-center mb-2 text-foreground font-bold">
-        Prayse Merch is <span className="text-primary">Under Construction</span>
-      </h1>
-      <p className="underline w-4/5 text-center underline-offset-2">
-        Stay tuned for our accessories release tomorrow!
-      </p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 flex flex-col items-center justify-center p-4">
+      <Card className="w-full max-w-4xl bg-white shadow-xl rounded-2xl overflow-hidden">
+        <CardContent className="p-0">
+          <div className="grid md:grid-cols-2 gap-0">
+            <div className="relative h-64 bg-gray-300 md:h-full">
+              <Image
+                src={
+                  "https://utfs.io/f/aZ7NTMjk7uDevTIzwqH8hCDjkHqOMPcr1ogNJ2Ksyl5zxXfb"
+                }
+                // width={2000}
+                // height={2000}
+                alt="Stylish hoodies coming soon"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none"
+              />
+            </div>
+            <div className="p-6 md:p-8 flex flex-col justify-between">
+              <div className="flex justify-between items-start">
+                <section>
+                  <h1
+                    id="stagger"
+                    className="lg:text-7xl flex flex-col text-primary text-6xl font-bold "
+                  >
+                    <span>Rejoice</span>
+                    <span>Pray</span>
+                    <span>Praise</span>
+                  </h1>
+                  <p className="text-gray-600 italic mb-6">
+                    1 Thessalonians 5:16-18
+                  </p>
+                </section>
+                <Image
+                  className="w-14 dark:bg-white dark:rounded-full"
+                  src={"/newLogo3.png"}
+                  width={500}
+                  height={500}
+                  alt="Prayse Logo"
+                />
+              </div>
+              <div className="space-y-6">
+                <CountdownTimer />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
-};
-
-export default UnderConstruction;
+}

@@ -20,10 +20,10 @@ const Navbar = () => {
 
   return (
     <header
-      className={`flex fixed top-0 w-full  z-30 justify-between md:justify-normal  transition-all items-center py-2 lg:px-28 md:px-20 px-4 ${
+      className={`flex fixed  top-0 w-full  z-30 justify-between md:justify-normal  transition-all items-center py-2 lg:px-28 md:px-20 px-4 ${
         isScrolled
           ? "bg-opacity-25 backdrop-filter backdrop-blur-sm"
-          : "bg-background"
+          : "bg-opacity-25 backdrop-filter backdrop-blur-sm"
       }`}
     >
       <Link className="flex items-center gap-3" href={"/"}>
