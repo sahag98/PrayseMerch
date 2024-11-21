@@ -28,7 +28,7 @@ const Hero = () => {
         <p className=" text-background/75 text-xl" id="stagger">
           Hoodies available now.
         </p>
-        <Link className="mt-3 w-full" href="/products">
+        <Link className="mt-3 w-full" href="/products?filter=hoodies">
           <Button
             id="stagger"
             className=" w-full animate-buttonheartbeat  text-base text-white bg-primary font-bold"
