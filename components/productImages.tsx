@@ -143,9 +143,9 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
   }
 
   return (
-    <div className="flex gap-4 sticky top-0">
+    <div className="flex gap-4 flex-col-reverse md:flex-row overflow-x-hidden sticky top-0">
       {/* Thumbnails column */}
-      <div className="flex flex-col gap-2 w-24">
+      <div className="flex sm:flex-col no-scrollbar overflow-x-scroll flex-row gap-2 md:w-24 w-full">
         {images?.map((image, index) => (
           <Image
             key={index}
