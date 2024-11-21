@@ -2,185 +2,193 @@
 
 import { Item } from "@/app/our-products";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-
 import Autoplay from "embla-carousel-autoplay";
-
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Circle } from "lucide-react";
 
-const ProductImages = ({ singleProduct }: { singleProduct: Item }) => {
+const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: false })
+    Autoplay({ delay: 8000, stopOnInteraction: true })
   );
-
-  const singleProductImg = singleProduct.images[1].imageUrl;
-
-  const [selectedImg, setSelectedImg] = useState(singleProductImg);
-  const [isViewingMoreImgs, setIsViewingMoreImgs] = useState(false);
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) {
       return;
     }
 
     setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap());
 
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
+      setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  const handleThumbnailClick = (index: number) => {
+    if (api) {
+      api.scrollTo(index);
+    }
+  };
+  let images;
+
+  const forestGreenHoodieImgs = [
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeZSpNx545Xz68YDiI1FM29KOHcV7ZLUpa3BRh",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDehBcQDfJmYIBdriuMobJcWAEj7LhUQy4DN5SH",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDe3yK19CsqNU9ZTXHEtR382QP4uYdownvr1cIe",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDepIYlSQGLdQU6DWeytEBnoMG5SxJHlCPgmjA2",
+    },
+  ];
+  const DeepBlueHoodieImgs = [
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeBZS5Sz3U2XYlhDSzH9NAG13Tjx4F7be65PEZ",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeX6knhRAnD3PuKU7WZf8wgxCA5hMmBN4yLsa0",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeYL5rSaXvaW9nhskc2D5yMTEZQL7Gopr0HISB",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeRNdcnppliKNaOhgqlJFHpotnykUxvI4csZD3",
+    },
+  ];
+
+  const OffWhiteHoodieImgs = [
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeTzswRSb70K6dCrwVQvBFnJ4bWPGzoTMeIf3D",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDe206T2xZtHXa9jznNi07QC3ZLYycRAgOIFvT8",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeb7JAMGBkFUg9GY4nZAwBdmL62lHR5KP3XpoT",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDe5SPpuYcU3wHCxiXVtpk4eBNbPZ1vQ9ynch0m",
+    },
+  ];
+  const NavyGreyHoodieImgs = [
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDe75yo2emrYPlv4i6F0joh3dLR1xy2ZnSp58fU",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeC4YbUghQa7WpeJZEjBwXM9ugTvnol2H6KDkf",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDeCxaCjo1hQa7WpeJZEjBwXM9ugTvnol2H6KDk",
+    },
+    {
+      imageUrl:
+        "https://utfs.io/f/aZ7NTMjk7uDej21k1S4urw4kIgUDBWXYbzMQuEqSm87eAVJl",
+    },
+  ];
+
+  switch (singleProduct?.id) {
+    case 2995762:
+      images = forestGreenHoodieImgs.concat(singleProduct.images);
+      break;
+    case 3045844:
+      images = DeepBlueHoodieImgs.concat(singleProduct.images);
+      break;
+    case 2995765:
+      images = OffWhiteHoodieImgs.concat(singleProduct.images);
+      break;
+    case 2995767:
+      images = NavyGreyHoodieImgs.concat(singleProduct.images);
+      break;
+    default:
+      images = singleProduct?.images;
+      break;
+  }
+
+  // Check if singleProduct and images exist
+  if (
+    !singleProduct ||
+    !singleProduct.images ||
+    singleProduct.images.length === 0
+  ) {
+    return <div>No product images available</div>;
+  }
+
   return (
-    <div className="flex flex-col items-center">
-      <Carousel
-        setApi={setApi}
-        plugins={[plugin.current]}
-        className="w-full"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
-        <CarouselContent className="">
-          {singleProduct.images.map((images, index) => (
-            <CarouselItem
-              className="relative flex items-center justify-center"
-              key={index}
-            >
-              <Image
-                alt="image"
-                loading="eager"
-                className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/35 via-background to-background"
-                src={images.imageUrl}
-                width={1000}
-                height={1000}
-              />
-              {/* {singleProduct.images.map((images, index) => (
-                <Circle key={index} fill="red" className="bg-red-300" />
-              ))} */}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="pt-2 text-center text-muted-foreground">
-        Image {current} of {count}
+    <div className="flex gap-4 sticky top-0">
+      {/* Thumbnails column */}
+      <div className="flex flex-col gap-2 w-24">
+        {images?.map((image, index) => (
+          <Image
+            key={index}
+            src={image.imageUrl}
+            alt={`Thumbnail ${index + 1}`}
+            width={96}
+            height={96}
+            className={`cursor-pointer bg-[#E3E0DF] object-cover w-full h-24 rounded ${
+              index === current ? "border-2 border-primary" : ""
+            }`}
+            onClick={() => handleThumbnailClick(index)}
+          />
+        ))}
       </div>
-      {/* <Image
-        alt="image"
-        className="lg:w-full object-contain bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/35 via-background to-background p-5 lg:mb-0 mb-2 z-20 md:w-1/2 w-full"
-        src={selectedImg}
-        width={1000}
-        height={1000}
-      /> */}
-      {/* <p
-        onClick={() => setIsViewingMoreImgs(!isViewingMoreImgs)}
-        className="lg:hidden text-primary self-end underline underline-offset-4 text-sm  md:hidden flex items-center justify-center mt-1"
-      >
-        {isViewingMoreImgs ? "Less" : "More"} Images
-      </p>
-      <Button
-        onClick={() => setIsViewingMoreImgs(!isViewingMoreImgs)}
-        variant={"link"}
-        className="lg:hidden bg-red-300 m-0 p-0 md:hidden flex"
-      ></Button> */}
-      {/* {singleProduct.id === 2803251 && isViewingMoreImgs && (
-        <section className="flex lg:hidden md:hidden items-center gap-3">
-          <Image
-            onClick={() => {
-              if (selectedImg == img1) {
-                setSelectedImg(singleProductImg);
-              } else if (selectedImg == img2) {
-                setSelectedImg(img1);
-              } else {
-                setSelectedImg(img1);
-              }
-            }}
-            src={
-              selectedImg != singleProductImg && selectedImg != img2
-                ? singleProductImg
-                : img1
-            }
-            width={1125}
-            height={1125}
-            className="w-1/4 rounded-md hover:scale-105 transition-all cursor-pointer"
-            alt="black shirt"
-          />
-          <Image
-            onClick={() => {
-              if (selectedImg == img2) {
-                setSelectedImg(singleProductImg);
-              } else if (selectedImg == img1) {
-                setSelectedImg(img2);
-              } else {
-                setSelectedImg(img2);
-              }
-            }}
-            src={
-              selectedImg != singleProductImg && selectedImg != img1
-                ? singleProductImg
-                : img2
-            }
-            width={1125}
-            height={1125}
-            className="w-1/4 rounded-md hover:scale-105 transition-all cursor-pointer"
-            alt="black shirt"
-          />
-        </section>
-      )}
-      {singleProduct.id === 2803251 && (
-        <section className="lg:flex md:flex hidden items-center gap-3">
-          <Image
-            onClick={() => {
-              if (selectedImg == img1) {
-                setSelectedImg(singleProductImg);
-              } else if (selectedImg == img2) {
-                setSelectedImg(img1);
-              } else {
-                setSelectedImg(img1);
-              }
-            }}
-            src={
-              selectedImg != singleProductImg && selectedImg != img2
-                ? singleProductImg
-                : img1
-            }
-            width={1125}
-            height={1125}
-            className="w-1/4 rounded-md hover:scale-105 transition-all cursor-pointer"
-            alt="black shirt"
-          />
-          <Image
-            onClick={() => {
-              if (selectedImg == img2) {
-                setSelectedImg(singleProductImg);
-              } else if (selectedImg == img1) {
-                setSelectedImg(img2);
-              } else {
-                setSelectedImg(img2);
-              }
-            }}
-            src={
-              selectedImg != singleProductImg && selectedImg != img1
-                ? singleProductImg
-                : img2
-            }
-            width={1125}
-            height={1125}
-            className="w-1/4 rounded-md hover:scale-105 transition-all cursor-pointer"
-            alt="black shirt"
-          />
-        </section>
-      )} */}
+
+      {/* Main carousel */}
+      <div className="flex-1">
+        <Carousel
+          setApi={setApi}
+          plugins={[plugin.current]}
+          className="w-full"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
+          <CarouselContent>
+            {images?.map((image, index) => (
+              <CarouselItem
+                key={index}
+                className="relative flex rounded-lg items-start justify-start"
+              >
+                <Image
+                  alt={`Product image ${index + 1}`}
+                  loading="eager"
+                  className="bg-[#E3E0DF] aspect-auto object-cover rounded-lg"
+                  src={image.imageUrl}
+                  width={1000}
+                  height={1000}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
     </div>
   );
 };

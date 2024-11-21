@@ -23,6 +23,7 @@ export async function POST(req: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+  // console.log(session.metadata)
 
   if (event.type === "checkout.session.completed") {
     console.log("checking out!");
@@ -49,7 +50,7 @@ export async function POST(req: Request) {
       cc: "prayse.app@gmail.com",
       subject: `Your order was placed successfully! ✅`,
       text: `Hey ${session?.customer_details?.name} 👋, thank you so much for placing an order.`,
-      html: `<h4>Hey ${session?.customer_details?.name} 👋,</h4><p>Thank you so much for placing your order. Our prayer is that wearing our merch would provide fruitful and meaningfull conversations on the topics of prayer and praise.</p> <p>You can check any shipment updates for your order by clicking the check shipment updates button on the <a href=${session?.success_url}>Success page</a>.</p> <p>If you have any questions, please email us at prayse.app@gmail.com.</p> <h4>Praying for you!<br/>Prayse</h4>`,
+      html: `<h4>Hey ${session?.customer_details?.name} 👋,</h4><p>Thank you so much for placing your order. Our prayer is that wearing our merch would provide fruitful and meaningfull conversations on the topics of prayer and praise.</p> <p>You can check any shipment updates for your order using this link <a href=${session?.metadata?.shipment_url}>shipment link</a>.</p> <p>We would love to hear your thoughts! If you have a moment, please send us a review of your experience or feedback to this email. Your input helps us improve and continue serving you better.</p> <h4>Praying for you!<br/>Prayse</h4>`,
     };
 
     // return NextResponse.json({ message: "Email sent" });

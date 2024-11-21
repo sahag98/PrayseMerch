@@ -46,7 +46,7 @@ export const BentoGridItem = ({
       <div className="group-hover/bento:translate-x-2 flex flex-col justify-between transition duration-200">
         {icon}
         <section className="flex items-center mb-3 justify-between">
-          <div className="font-sans font-bold">{title}</div>
+          <div className="text-lg font-bold">{title}</div>
           <span className="flex  gap-2">
             <Star stroke="#C4AB72" fill="#C4AB72" />
             <Star stroke="#C4AB72" fill="#C4AB72" />
@@ -55,11 +55,11 @@ export const BentoGridItem = ({
             <Star stroke="#C4AB72" fill="#C4AB72" />
           </span>
         </section>
-        <div className="font-sans font-normal text-foreground/75 ">
+        <div className=" font-normal mt-2 text-foreground/75 ">
           {description}
         </div>
       </div>
-      <div className="font-sans font-normal">{date}</div>
+      <div className=" italic text-sm font-normal">{date}</div>
     </div>
   );
 };

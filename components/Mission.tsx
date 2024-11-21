@@ -56,11 +56,11 @@ const Mission = () => {
           <p className="lg:w-3/4 w-full dark:font-light">
             Prayse&apos;s main mission has always been to elevate the importance
             of prayer in a Christian&apos;s walk with God. One of our favorite
-            chapter from the Bible is in the book of Philippians, where we are
+            chapters from the Bible is in the book of Philippians, where we are
             told to always be in prayer and thanksgiving, and how through
             prayer, God will always provide peace both to our heart and mind.
           </p>
-          <p className="lg:w-3/4 font-semibold w-full">
+          <p className="lg:w-3/4 font-semibold italic w-full">
             Philippians 4:6-7: &quot;Be careful for nothing; but in every thing
             by prayer and supplication with thanksgiving let your requests be
             made known unto God. And the peace of God, which passeth all

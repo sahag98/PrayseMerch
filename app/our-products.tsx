@@ -47,10 +47,14 @@ const OurProducts = ({ products }: { products: any }) => {
   const [selectedCategory, setSelectedCategory] = useState(
     search == "tees"
       ? "T-Shirt"
+      : search == "hoodies"
+      ? "Hoodie"
+      : search == "beanies"
+      ? "Beanie"
       : search == "tanktops"
       ? "Tank"
       : search == "sweatshirts"
-      ? "Crewneck"
+      ? "Sweatshirt"
       : search == "accessories"
       ? "Cap"
       : ""
@@ -65,8 +69,6 @@ const OurProducts = ({ products }: { products: any }) => {
     },
     [searchParams]
   );
-
-  console.log("category: ", selectedCategory);
 
   const list = productsToShow.items.filter((item: Item) =>
     selectedCategory !== ""
@@ -104,12 +106,25 @@ const OurProducts = ({ products }: { products: any }) => {
         <Button
           className="font-medium dark:text-white"
           onClick={() => {
-            setSelectedCategory("Crewneck");
+            setSelectedCategory("Hoodie");
+            router.push(
+              pathname + "?" + createQueryString("filter", "hoodies")
+            );
+          }}
+          variant={selectedCategory == "Hoodie" ? "default" : "outline"}
+          size={"sm"}
+        >
+          Hoodies
+        </Button>
+        <Button
+          className="font-medium dark:text-white"
+          onClick={() => {
+            setSelectedCategory("Sweatshirt");
             router.push(
               pathname + "?" + createQueryString("filter", "sweatshirts")
             );
           }}
-          variant={selectedCategory == "Crewneck" ? "default" : "outline"}
+          variant={selectedCategory == "Sweatshirt" ? "default" : "outline"}
           size={"sm"}
         >
           Crewnecks
@@ -142,6 +157,18 @@ const OurProducts = ({ products }: { products: any }) => {
           {/* <p className="absolute top-0 right-0 text-destructive">New</p> */}
         </Button>
         <Button
+          className="font-medium relative dark:text-white"
+          onClick={() => {
+            setSelectedCategory("Beanie");
+            router.push(pathname + "?" + createQueryString("filter", "Beanie"));
+          }}
+          variant={selectedCategory == "Beanie" ? "default" : "outline"}
+          size={"sm"}
+        >
+          <p>Beanies</p>
+          {/* <p className="absolute top-0 right-0 text-destructive">New</p> */}
+        </Button>
+        <Button
           className="font-medium dark:text-white"
           onClick={() => setSelectedCategory("Bag")}
           variant={selectedCategory == "Bag" ? "default" : "outline"}
@@ -160,10 +187,15 @@ const OurProducts = ({ products }: { products: any }) => {
       </div>
       <section
         ref={scrollRef}
-        className="grid lg:grid-cols-4 md:grid-cols-2 gap-10"
+        className="grid lg:grid-cols-4 md:grid-cols-2 gap-5"
       >
         {list.map((item: Item) => (
-          <Product key={item.id} item={item} />
+          <div
+            key={item.id}
+            className="flex [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] rounded-lg overflow-hidden relative"
+          >
+            <Product key={item.id} item={item} />
+          </div>
         ))}
       </section>
     </div>

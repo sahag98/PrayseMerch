@@ -71,9 +71,11 @@ export async function POST(req: Request) {
     automatic_tax: {
       enabled: true,
     },
-
     success_url: `https://shop.prayse.app/success/${orderId}`,
     cancel_url: `https://shop.prayse.app/cancel/${orderId}`,
+    metadata: {
+      shipment_url: `https://shop.prayse.app/shipments/${orderId}`,
+    },
   });
 
   return NextResponse.json(
