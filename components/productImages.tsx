@@ -153,7 +153,7 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
             alt={`Thumbnail ${index + 1}`}
             width={96}
             height={96}
-            className={`cursor-pointer bg-[#E3E0DF] object-cover w-full h-24 rounded ${
+            className={`cursor-pointer bg-[#E3E0DF] object-cover sm:w-full w-1/4 h-24 rounded ${
               index === current ? "border-2 border-primary" : ""
             }`}
             onClick={() => handleThumbnailClick(index)}

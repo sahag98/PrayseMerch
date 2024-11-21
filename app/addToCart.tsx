@@ -51,6 +51,8 @@ const formSchema = z.object({
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(1);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
+
+  console.log("single product id: ", singleProduct.id);
   const [selectedSize, setSelectedSize] = useState(
     singleProduct.id === 2862594
       ? "S/M Cap"
@@ -59,7 +61,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
         singleProduct.id === 2862654 ||
         singleProduct.id === 2862748 ||
         singleProduct.id === 2862752 ||
-        singleProduct.id === 2862757
+        singleProduct.id === 2862757 ||
+        singleProduct.id === 3041663 ||
+        singleProduct.id === 3041661 ||
+        singleProduct.id === 3025621 ||
+        singleProduct.id === 3046955
       ? "One Size"
       : "M"
   );
@@ -71,7 +77,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
       singleProduct.id === 2862654 ||
       singleProduct.id === 2862748 ||
       singleProduct.id === 2862752 ||
-      singleProduct.id === 2862757
+      singleProduct.id === 2862757 ||
+      singleProduct.id === 3041663 ||
+      singleProduct.id === 3041661 ||
+      singleProduct.id === 3025621 ||
+      singleProduct.id === 3046955
       ? singleProduct?.variants[0]?.stock
       : singleProduct?.variants[1]?.stock
   );
@@ -89,7 +99,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
             singleProduct.id === 2862654 ||
             singleProduct.id === 2862748 ||
             singleProduct.id === 2862752 ||
-            singleProduct.id === 2862757
+            singleProduct.id === 2862757 ||
+            singleProduct.id === 3041663 ||
+            singleProduct.id === 3041661 ||
+            singleProduct.id === 3025621 ||
+            singleProduct.id === 3046955
           ? "One Size"
           : "M",
     },
@@ -257,7 +271,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                         singleProduct.id === 2862654 ||
                         singleProduct.id === 2862748 ||
                         singleProduct.id === 2862752 ||
-                        singleProduct.id === 2862757) && (
+                        singleProduct.id === 2862757 ||
+                        singleProduct.id === 3041663 ||
+                        singleProduct.id === 3041661 ||
+                        singleProduct.id === 3025621 ||
+                        singleProduct.id === 3046955) && (
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
@@ -291,7 +309,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                         singleProduct.id !== 2862646 &&
                         singleProduct.id !== 2862748 &&
                         singleProduct.id !== 2862752 &&
-                        singleProduct.id !== 2862757 && (
+                        singleProduct.id !== 2862757 &&
+                        singleProduct.id !== 3041663 &&
+                        singleProduct.id !== 3041661 &&
+                        singleProduct.id !== 3025621 &&
+                        singleProduct.id !== 3046955 && (
                           <FormControl>
                             <RadioGroup
                               onValueChange={field.onChange}
