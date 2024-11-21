@@ -1,16 +1,9 @@
-"use client";
 import { Item } from "@/app/our-products";
-import Image from "next/image";
 
-import React, { useRef, useState } from "react";
-import { Button } from "./ui/button";
-import { ShoppingCart } from "lucide-react";
-// @ts-ignore: Unreachable code error
-import { v4 as uuidv4 } from "uuid";
-import useCart from "@/hooks/use-cart";
-import { CartItem } from "@/app/addToCart";
-import { useRouter } from "next/navigation";
-import gsap from "gsap";
+import CustomImage from "./custom-image";
+import { Badge } from "./ui/badge";
+import HoodieImage from "./hoodie-image";
+import AddToCart from "./add-to-cart";
 
 export type Variant = {
   id: number;
@@ -30,201 +23,47 @@ export type Variant = {
 };
 
 const Product = ({ item }: { item: Item }) => {
-  const itemImage =
+  const itemImage: { imageUrl: string; appearanceName: string } =
     item.id === 2862748 ? item.images[0] : item.images[1] ?? item.images[0];
-  const cart = useCart();
-  const viewProductRef = useRef(null);
-  const [isMouseHovering, setIsMouseHovering] = useState("");
-  const variants = item.variants;
-  const router = useRouter();
-  const handleClick = (event: any) => {
-    addToCart(); // Calls the addToCart function
-  };
 
-  const handleMouseEnter = () => {
-    gsap.to(viewProductRef.current, {
-      opacity: 1,
-      duration: 0.5,
-      ease: "power1.inOut",
-    });
-  };
+  const hoodieIds = [2995762, 3045844, 2995765, 2995767];
+  const beanieIds = [3025621, 3041661, 3041663, 3046955];
+  const NewBadgeIds = hoodieIds.concat(beanieIds);
 
-  const handleMouseLeave = () => {
-    gsap.to(viewProductRef.current, {
-      opacity: 0,
-      duration: 0.5,
-      ease: "power1.inOut",
-    });
-  };
-
-  async function addToCart() {
-    const id = uuidv4();
-    console.log("item to add: ", item);
-    // const correctSku = await checkSkuMatch(values);
-
-    // if (!correctSku) {
-    //   return;
-    // }
-
-    const customerPrice = {
-      amount: item.variants[0].d2cPrice,
-    };
-
-    const CartItem: CartItem = {
-      id: uuidv4(),
-      articleId: item.id,
-      name: item.title,
-      size:
-        item.id === 2862612 ||
-        item.id === 2862594 ||
-        item.id === 2862654 ||
-        item.id === 2862646 ||
-        item.id === 2862748 ||
-        item.id === 2862752
-          ? item.variants[0].sizeName
-          : item.variants[1].sizeName,
-      image: item.images[0].imageUrl,
-      sku:
-        item.id === 2862612 ||
-        item.id === 2862594 ||
-        item.id === 2862654 ||
-        item.id === 2862646 ||
-        item.id === 2862748 ||
-        item.id === 2862752
-          ? item.variants[0].deprecatedSku
-          : item.variants[1].deprecatedSku,
-      quantity: 1,
-      customerPrice,
-    };
-
-    cart.addItem(CartItem);
-    cart.openCart();
-  }
+  const capIds = [2862594];
+  const bagIds = [2862646, 2862654, 2862748];
+  const moreIds = [2862752, 2862757];
   return (
     <div className="">
       <div
-        className="flex relative flex-col bg-[#EBEBEB] dark:bg-accent rounded-lg justify-center overflow-hidden duration-500 transition-all"
+        className="flex relative flex-col bg-background dark:bg-accent justify-center overflow-hidden duration-500 transition-all"
         key={item.id}
       >
-        <div
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className="relative flex items-center justify-center"
-        >
-          <Image
-            src={itemImage.imageUrl}
-            className=""
-            width={500}
-            height={500}
-            alt={`Prayse ${itemImage.appearanceName} Shirt`}
-          />
-          <div
-            ref={viewProductRef}
-            className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 opacity-0"
+        {NewBadgeIds.includes(item.id) && (
+          <Badge
+            variant={"outline"}
+            className="w-fit absolute top-2 left-2 z-10 bg-background text-primary pt-1 flex items-center justify-center font-semibold"
           >
-            {item.id === 2862594 ? (
-              <Button
-                variant={"outline"}
-                className="font-bold text-accent-foreground"
-                onClick={() => router.push(`/product/cap/${item.id}`)}
-              >
-                View
-              </Button>
-            ) : item.id === 2862646 ||
-              item.id === 2862654 ||
-              item.id === 2862748 ? (
-              <Button
-                variant={"outline"}
-                className="font-bold text-accent-foreground"
-                onClick={() => router.push(`/product/bag/${item.id}`)}
-              >
-                View
-              </Button>
-            ) : item.id === 2862752 || item.id === 2862757 ? (
-              <Button
-                variant={"outline"}
-                className="font-bold text-accent-foreground"
-                onClick={() => router.push(`/product/more/${item.id}`)}
-              >
-                View
-              </Button>
-            ) : (
-              <Button
-                variant={"outline"}
-                className="font-bold text-accent-foreground"
-                onClick={() => router.push(`/product/${item.id}`)}
-              >
-                View
-              </Button>
-            )}
-            {/* <Button
-              variant={"outline"}
-              className="font-bold text-accent-foreground"
-              onClick={() => router.push(`/product/${item.id}`)}
-            >
-              View
-            </Button> */}
-          </div>
+            NEW
+          </Badge>
+        )}
+        <div className="relative flex items-center justify-center">
+          {hoodieIds.includes(item.id) ? (
+            <HoodieImage itemId={item.id} />
+          ) : (
+            <CustomImage image={itemImage} />
+          )}
         </div>
-        <div className="bg-background flex-col flex border-t gap-1 px-4 py-2">
-          <h3 className="font-semibold text-foreground text-lg">
-            {item.title}
-          </h3>
-          <div className="flex justify-between">
-            <section>
-              <p className="font-normal text-accent-foreground/75">Price:</p>
-              <span className="text-2xl text-primary font-semibold">
-                ${item.variants[0].d2cPrice}
-              </span>
-            </section>
-            <section className="flex items-center gap-3">
-              {item.id === 2862594 ? (
-                <Button
-                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
-                  variant={"outline"}
-                  onClick={() => router.push(`/product/cap/${item.id}`)}
-                >
-                  View
-                </Button>
-              ) : item.id === 2862646 ||
-                item.id === 2862654 ||
-                item.id === 2862748 ? (
-                <Button
-                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
-                  variant={"outline"}
-                  onClick={() => router.push(`/product/bag/${item.id}`)}
-                >
-                  View
-                </Button>
-              ) : item.id === 2862752 || item.id === 2862757 ? (
-                <Button
-                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
-                  variant={"outline"}
-                  onClick={() => router.push(`/product/more/${item.id}`)}
-                >
-                  View
-                </Button>
-              ) : (
-                <Button
-                  className="lg:hidden md:hidden font-bold text-base sm:flex flex"
-                  variant={"outline"}
-                  onClick={() => router.push(`/product/${item.id}`)}
-                >
-                  View
-                </Button>
-              )}
-              {/* <Button
-                className="lg:hidden md:hidden font-bold text-base sm:flex flex"
-                variant={"outline"}
-                onClick={() => router.push(`/product/${item.id}`)}
-              >
-                View
-              </Button> */}
-              <Button onClick={handleClick}>
-                <ShoppingCart className="text-white" />
-              </Button>
-            </section>
-          </div>
+      </div>
+      <div className="bg-background flex-col flex border-t gap-1 px-4 py-2">
+        <h3 className="font-semibold text-foreground text-lg">{item.title}</h3>
+        <div className="flex items-center mt-2 mb-1 justify-between">
+          <section>
+            <span className="text-2xl text-primary font-semibold">
+              ${item.variants[0].d2cPrice}
+            </span>
+          </section>
+          <AddToCart item={item} />
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import Hero from "@/components/Hero";
 import Mission from "@/components/Mission";
 import Reviews from "@/components/reviews";
-import AppModal from "@/components/AppModal";
 import PopularProducts from "./popular-products";
 import ShopByCategory from "@/components/ShopByCategory";
+import NewArrivals from "@/components/new-arrivals";
 
 export default async function Home() {
   const res = await fetch("https://rest.spod.com/articles", {
@@ -22,13 +22,13 @@ export default async function Home() {
       <Hero />
       {/* <WhatsNew /> */}
       <Reviews />
+      <NewArrivals products={products} />
       <PopularProducts products={products} />
       {/* <BentoDemo /> */}
       <ShopByCategory />
 
       <Mission />
       {/* <Newsletter /> */}
-      <AppModal />
     </main>
   );
 }

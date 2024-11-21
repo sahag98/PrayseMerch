@@ -17,6 +17,7 @@ import ProductImages from "@/components/productImages";
 import { Metadata } from "next";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import PairWith from "@/components/pair-with";
 
 type Props = {
   params: { productId: any };
@@ -70,50 +71,18 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
 
   const singleProduct: Item = await res.json();
 
-  const reviewsArray = [
-    {
-      id: 1,
-      name: "Elisabeth",
-      content:
-        "Love the shirt and crewneck! Perfect fit and soft material. Absolutely love the message behind them and can't wait to wear them!",
-      date: "4/11/2024",
-    },
-    {
-      id: 2,
-      name: "David",
-      content:
-        "Great attention grabber and conversation starter which is perfect for sharing its message!",
-      date: "4/17/2024",
-    },
-    {
-      id: 3,
-      name: "Sarona",
-      content:
-        "I got the white shirt from Prayse and I absolutely love it! It's very soft and light. It feels comfortable to wear and has a great design on it! A great conversation starter to tell others about Jesus! I will be buying more apparel from Prayse!",
-      date: "4/17/2024",
-    },
-    {
-      id: 4,
-      name: "Jonathan",
-      content:
-        "This praye shirt isn't just a piece of clothing; it's a heartfelt expression of faith and worship. Knowing the person behind it adds even more depth and meaning to the message. I'm proud to wear it, and it's a testament to their talent and spirit. A true 5 star creation!",
-      date: "4/19/2024",
-    },
-    {
-      id: 5,
-      name: "Richard",
-      content:
-        "I love my prayse shirt! Good quality, fits just right, great message, prayer and praise Amen!",
-      date: "4/18/2024",
-    },
-    {
-      id: 6,
-      name: "Maral",
-      content:
-        "The shirt was of good quality and true to size. A good reminder to praise God!",
-      date: "4/19/2024",
-    },
-  ];
+  const productPairings: any = {
+    3045844: 3025621,
+    2995762: 3041661,
+    2995765: 3041663,
+    2995767: 3025621,
+    3041663: 2995765,
+    3025621: 3045844,
+    3041661: 2995762,
+    3046955: 2995765,
+  };
+
+  const pairedProductId = productPairings[singleProduct.id];
 
   return (
     <div className="lg:px-28 mt-24 lg:mt-24 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-5 gap-3 items-start px-4">
@@ -125,11 +94,13 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
           <BreadcrumbSeparator />
 
           <BreadcrumbItem>
-            <BreadcrumbPage>{singleProduct.title}</BreadcrumbPage>
+            <BreadcrumbPage className="font-medium">
+              {singleProduct.title}
+            </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="flex lg:flex-row flex-col md:gap-5 lg:gap-5">
+      <div className="flex relative lg:flex-row flex-col md:gap-5 lg:gap-5">
         <h1 className="text-2xl lg:hidden w-fit font-bold">
           {singleProduct.title}
         </h1>
@@ -142,26 +113,27 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
             <Star size={15} stroke="#daa520" fill="#daa520" />
           </span>
           <Link
-            href="#reviews"
+            href="/reviews"
             className="text-sm cursor-pointer hover:underline transition-all"
           >
             6 Reviews
           </Link>
         </div>
-        <div className="flex flex-col md:gap-3 gap-0 lg:gap-3 w-full">
+        <div className="flex  flex-1 flex-col  md:gap-3 gap-0 lg:gap-3 w-full">
           <ProductImages singleProduct={singleProduct} />
         </div>
-        <section className="flex flex-col gap-5">
+        <section className="flex flex-1 flex-col gap-5">
           <AddToCart singleProduct={singleProduct} />
-          <p className="w-full lg:w-2/3 dark:text-gray-400">
-            <h2 className="text-foreground font-semibold text-lg">Details:</h2>
+          <PairWith productId={pairedProductId} />
+          <div className="w-full border-b pb-5 dark:text-gray-400">
+            <h2 className="text-foreground font-bold text-lg">DETAILS</h2>
             {singleProduct.description}
-          </p>
+          </div>
           <SizeChart variants={singleProduct.variants} />
         </section>
       </div>
-      <AccordionBox />
-      <h3 id="reviews" className="text-lg font-bold">
+      {/* <AccordionBox /> */}
+      {/* <h3 id="reviews" className="text-lg font-bold">
         Reviews (6)
       </h3>
       <p>
@@ -187,7 +159,7 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
             <p className="text-foreground/60">{review.content}</p>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

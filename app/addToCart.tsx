@@ -25,6 +25,7 @@ import useCart from "@/hooks/use-cart";
 
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 export type CartItem = {
   id: number;
   articleId: number;
@@ -48,7 +49,7 @@ const formSchema = z.object({
 });
 
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
   const [selectedSize, setSelectedSize] = useState(
     singleProduct.id === 2862594
@@ -155,27 +156,29 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   console.log("variants: ", singleProduct.variants);
   return (
     <div>
-      <div className="flex flex-col gap-0">
-        <h1 className="text-2xl sm:hidden lg:flex hidden font-bold">
-          {singleProduct.title}
-        </h1>
-        <div className="lg:flex sm:hidden hidden items-center gap-2">
-          <span className="flex mb-1 gap-2">
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-          </span>
-          <Link
-            href="#reviews"
-            className="text-sm cursor-pointer hover:underline transition-all"
-          >
-            6 Reviews
-          </Link>
-        </div>
-        <section className="flex items-center justify-between lg:justify-normal gap-2">
-          <span className="text-3xl font-medium text-primary">
+      <div className="flex flex-col gap-5">
+        <section>
+          <h1 className="text-2xl sm:hidden lg:flex hidden font-bold">
+            {singleProduct.title}
+          </h1>
+          <div className="lg:flex sm:hidden hidden items-center gap-2">
+            <span className="flex mb-1 gap-2">
+              <Star size={15} stroke="#daa520" fill="#daa520" />
+              <Star size={15} stroke="#daa520" fill="#daa520" />
+              <Star size={15} stroke="#daa520" fill="#daa520" />
+              <Star size={15} stroke="#daa520" fill="#daa520" />
+              <Star size={15} stroke="#daa520" fill="#daa520" />
+            </span>
+            <Link
+              href="/reviews"
+              className="text-sm cursor-pointer hover:underline transition-all"
+            >
+              6 Reviews
+            </Link>
+          </div>
+        </section>
+        <section className="flex items-center border-b pb-3 justify-between lg:justify-normal gap-2">
+          <span className="text-2xl font-medium text-primary">
             ${singleProduct.variants[0].d2cPrice}
           </span>
           <div className="flex flex-col">
@@ -184,23 +187,24 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                 Out of Stock. Check back later
               </span>
             ) : (
-              <span className="underline underline-offset-2 text-foreground/75">
+              <span className="underline underline-offset-2 text-sm text-foreground/75">
                 Available in Stock: {stockAmount}
               </span>
             )}
           </div>
         </section>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 border-b pb-6"
+          >
             {singleProduct.variants.length > 0 && (
               <FormField
                 control={form.control}
                 name="size"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className=" text-lg">
-                      Size: <span className="font-bold">{field.value}</span>
-                    </FormLabel>
+                    <FormLabel className="font-bold text-lg">SIZE</FormLabel>
                     <div className="flex items-center gap-5">
                       {singleProduct.id === 2862594 && (
                         <FormControl>
@@ -390,9 +394,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
             )}
 
             <div className="flex flex-col gap-1">
-              <p className=" text-lg">
-                Quantity: <span className="font-bold">{quantity}</span>
-              </p>
+              <p className="font-bold text-lg">QUANTITY</p>
               <section className="flex items-center gap-2">
                 <FormControl
                   onClick={() => {
@@ -404,7 +406,12 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                   }}
                   className="cursor-pointer rounded-full"
                 >
-                  <Minus className="text-primary" />
+                  <Minus
+                    className={cn(
+                      "text-primary",
+                      quantity === 0 && "text-secondary"
+                    )}
+                  />
                 </FormControl>
                 <div className="border flex items-center justify-center w-12 h-12">
                   <span className="font-semibold text-lg">{quantity}</span>
@@ -432,11 +439,11 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
 
             <Button
               disabled={stockAmount == 0 ? true : false}
-              className="lg:w-44 gap-3 text-base text-white font-bold md:w-52 w-full"
+              className="lg:w-44 flex items-center rounded-none justify-center gap-3 text-base text-white font-bold md:w-52 w-full"
               type="submit"
             >
-              Add To Cart
-              <ShoppingCart />
+              <span>ADD TO CART</span>
+              <ShoppingCart className="pb-1" />
             </Button>
           </form>
         </Form>

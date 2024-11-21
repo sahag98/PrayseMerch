@@ -42,7 +42,7 @@ const ShopByCategory = () => {
       <Masonry
         items={items}
         config={{
-          columns: [1, 2, 3],
+          columns: [1, 2, 4],
           gap: [24, 12, 30],
           media: [640, 768, 1024],
         }}

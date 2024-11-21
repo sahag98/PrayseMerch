@@ -6,7 +6,6 @@ export async function POST(req: Request) {
   if (!order_id) {
     throw new Error("order id is required to cancel.");
   }
-  console.log("order id from cancel route: ", order_id);
   try {
     await fetch(`https://rest.spod.com/orders/${order_id}/cancel`, {
       method: "POST",

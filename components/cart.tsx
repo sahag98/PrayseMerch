@@ -35,6 +35,7 @@ import ShippingForm from "./shippingForm";
 import CheckoutForm from "./checkoutForm";
 import CancelDialog from "./CancelDialog";
 import { fetchSingleProduct } from "@/app/actions";
+import { Link } from "next-view-transitions";
 
 const Cart = () => {
   const cart = useCart();
@@ -90,20 +91,28 @@ const Cart = () => {
             {cart.items.length === 0 ? (
               <div className="h-full flex flex-col gap-8 items-center justify-center">
                 <Image
-                  className="lg:w-40 w-1/2"
+                  className="lg:w-48 w-1/2"
                   src={"/empty-cart.svg"}
                   width={896}
                   height={748}
                   alt="empty shopping cart"
                 />
-                <p className="text-xl">Your cart is Empty.</p>
+                <p className="text-lg font-medium">Your cart is Empty.</p>
+                <Link href={"/products"}>
+                  <Button
+                    onClick={cart.closeCart}
+                    className="text-base font-bold"
+                  >
+                    Shop All Products
+                  </Button>
+                </Link>
               </div>
             ) : (
               <>
                 <div className="flex flex-1 flex-col overflow-hidden">
                   <SheetHeader>
-                    <SheetTitle className="text-xl font-bold">
-                      Shopping Cart
+                    <SheetTitle className="text-xl uppercase font-bold">
+                      Your Shopping Cart
                     </SheetTitle>
                   </SheetHeader>
 
@@ -155,7 +164,11 @@ const Cart = () => {
                                           L/XL Cap
                                         </SelectItem>
                                       </SelectContent>
-                                    ) : item.articleId === 2862612 ||
+                                    ) : item.articleId === 3041663 ||
+                                      item.articleId === 3041661 ||
+                                      item.articleId === 3025621 ||
+                                      item.articleId === 3046955 ||
+                                      item.articleId === 2862612 ||
                                       item.articleId === 2862646 ||
                                       item.articleId === 2862654 ||
                                       item.articleId === 2862748 ||
