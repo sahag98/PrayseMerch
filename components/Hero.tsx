@@ -5,7 +5,7 @@ import { Link } from "next-view-transitions";
 
 const Hero = () => {
   return (
-    <div className="flex w-full lg:flex-row lg:px-28 md:px-20 px-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background to-background lg:gap-0 gap-6 h-screen lg:items-center items-start mt-0 lg:mt-0 relative lg:justify-between">
+    <div className="flex w-full lg:flex-row lg:px-28 md:px-20 px-4 lg:gap-0 gap-6 h-screen lg:items-center items-start mt-0 lg:mt-0 relative lg:justify-between">
       <div className="absolute inset-0 w-full h-full bg-black/25 z-10" />
       <Image
         alt="Hero banner"
@@ -13,6 +13,7 @@ const Hero = () => {
         src={
           "https://utfs.io/f/aZ7NTMjk7uDevTIzwqH8hCDjkHqOMPcr1ogNJ2Ksyl5zxXfb"
         }
+        priority
         width={2000}
         height={2000}
       />
@@ -31,7 +32,7 @@ const Hero = () => {
         <Link className="mt-3 w-full" href="/products?filter=hoodies">
           <Button
             id="stagger"
-            className=" w-full animate-buttonheartbeat  text-base text-white bg-primary font-bold"
+            className=" w-full uppercase animate-buttonheartbeat  text-base text-white bg-primary font-bold"
           >
             Shop Now
           </Button>
