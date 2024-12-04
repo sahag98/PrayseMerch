@@ -85,6 +85,8 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
       ? singleProduct?.variants[0]?.stock
       : singleProduct?.variants[1]?.stock
   );
+
+  console.log("stock amount: ", singleProduct);
   const cart = useCart();
   const { toast } = useToast();
   console.log("stock amount: ", stockAmount);
