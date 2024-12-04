@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="flex w-full lg:flex-row lg:px-28 md:px-20 px-4 lg:gap-0 gap-6 h-screen lg:items-center items-start mt-0 lg:mt-0 relative lg:justify-between">
       <div className="absolute inset-0 w-full h-full bg-black/25 z-10" />
-      {/* <Image
+      <Image
         alt="Hero banner"
         className="absolute sm:flex hidden inset-0 object-top w-full h-full object-cover"
         src={
@@ -24,12 +24,15 @@ const Hero = () => {
         }
         width={600}
         height={600}
-      /> */}
+      />
       <section className="flex z-20 md:self-auto md:mb-0 mb-10 self-end flex-col">
-        <h1 className="lg:text-7xl flex flex-col text-background text-6xl font-bold ">
-          Rejoice
-          {/* <span>Pray</span>
-          <span>Praise</span> */}
+        <h1
+          id="stagger"
+          className="lg:text-7xl flex flex-col text-background text-6xl font-bold "
+        >
+          <span>Rejoice</span>
+          <span>Pray</span>
+          <span>Praise</span>
         </h1>
         <p className=" text-background/75 text-xl" id="stagger">
           Hoodies available now.
