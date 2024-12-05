@@ -170,6 +170,8 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
 
   console.log("single product: ", singleProduct.id);
   console.log("variants: ", singleProduct.variants);
+
+  const hoodieIds = [2995762, 3045844, 2995765, 2995767];
   return (
     <div>
       <div className="flex flex-col gap-5">
@@ -194,9 +196,20 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
           </div>
         </section>
         <section className="flex items-center border-b pb-3 justify-between lg:justify-normal gap-2">
-          <span className="text-2xl font-medium text-primary">
-            ${singleProduct.variants[0].d2cPrice}
-          </span>
+          {hoodieIds.includes(singleProduct.id) ? (
+            <div className="space-x-2">
+              <span className="text-sm font-medium line-through text-primary">
+                $45.99
+              </span>
+              <span className="text-xl font-medium text-primary">
+                ${singleProduct.variants[0].d2cPrice}
+              </span>
+            </div>
+          ) : (
+            <span className="text-xl font-medium text-primary">
+              ${singleProduct.variants[0].d2cPrice}
+            </span>
+          )}
           <div className="flex flex-col">
             {stockAmount == 0 ? (
               <span className="underline text-destructive underline-offset-2">
