@@ -9,7 +9,7 @@ const CustomImage = ({
   return (
     <Image
       src={image.imageUrl}
-      className="aspect-square"
+      className="aspect-square bg-[#E2E0DF]"
       width={500}
       height={500}
       alt={`Prayse ${image.appearanceName} Shirt`}
