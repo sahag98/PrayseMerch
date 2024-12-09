@@ -59,7 +59,7 @@ const Reviews = () => {
   ];
 
   return (
-    <div className="flex flex-col lg:px-28 md:px-20 px-4 mb-10 mt-5 justify-center items-center w-full">
+    <div className="flex flex-col lg:px-28 md:px-20 px-4 mb-0 mt-5 justify-center items-center w-full">
       <Carousel
         plugins={[plugin.current]}
         opts={{

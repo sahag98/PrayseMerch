@@ -42,9 +42,9 @@ const Product = ({ item }: { item: Item }) => {
         {NewBadgeIds.includes(item.id) && hoodieIds.includes(item.id) && (
           <Badge
             variant={"outline"}
-            className="w-fit absolute top-2 text-base left-2 z-10 bg-background text-primary pt-1 flex items-center justify-center font-semibold"
+            className="w-fit absolute top-2 text-sm left-2 z-10 bg-background text-primary pt-1 flex items-center justify-center font-semibold"
           >
-            15% OFF
+            NEW
           </Badge>
         )}
         <div className="relative flex items-center justify-center">
@@ -59,20 +59,9 @@ const Product = ({ item }: { item: Item }) => {
         <h3 className="font-semibold text-foreground text-lg">{item.title}</h3>
         <div className="flex items-center mt-2 mb-1 justify-between">
           <section>
-            {hoodieIds.includes(item.id) ? (
-              <div className="space-x-2">
-                <span className="text-sm text-primary line-through font-semibold">
-                  $45.99
-                </span>
-                <span className="text-2xl text-primary font-semibold">
-                  ${item.variants[0].d2cPrice}
-                </span>
-              </div>
-            ) : (
-              <span className="text-2xl text-primary font-semibold">
-                ${item.variants[0].d2cPrice}
-              </span>
-            )}
+            <span className="text-xl text-primary font-semibold">
+              ${item.variants[0].d2cPrice}
+            </span>
           </section>
           <AddToCart item={item} />
         </div>
