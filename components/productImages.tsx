@@ -178,7 +178,6 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
               >
                 <Image
                   alt={`Product image ${index + 1}`}
-                  loading="eager"
                   className="bg-[#E3E0DF] h-full aspect-auto object-cover rounded-lg"
                   src={image.imageUrl}
                   width={1000}
