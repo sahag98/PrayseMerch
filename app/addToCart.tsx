@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { Item } from "./our-products";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +26,10 @@ import useCart from "@/hooks/use-cart";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 export type CartItem = {
   id: number;
   articleId: number;
@@ -47,12 +51,65 @@ const formSchema = z.object({
     }
   ),
 });
+gsap.registerPlugin(ScrollTrigger);
 
 const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(1);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
 
   console.log("single product id: ", singleProduct.id);
+
+  useEffect(() => {
+    // GSAP ScrollTrigger to handle switching between the two buttons
+
+    gsap.fromTo(
+      "#fixed-button",
+      {
+        opacity: 1, // Make sure the fixed button is initially visible
+        y: 0,
+      },
+      {
+        opacity: 0, // Fade out the fixed button when it reaches its place
+        y: 50, // Optional: Smooth transition (can tweak or remove)
+
+        scrollTrigger: {
+          trigger: "#button-container", // Container of both buttons
+          start: "top bottom", // When the trigger is reached
+          end: "top top", // Stop when the trigger reaches the top
+          scrub: false,
+          markers: false,
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    gsap.fromTo(
+      "#relative-button",
+      {
+        opacity: 0, // Start with the relative button invisible
+        y: 50, // Start below the screen
+      },
+      {
+        opacity: 1, // Fade in the relative button when it's in place
+        y: 0, // Move it to its regular position
+        duration: 0,
+        scrollTrigger: {
+          trigger: "#button-container", // Container of both buttons
+          start: "bottom bottom", // When the container reaches the top of the screen
+          end: "top top", // Stop when the bottom reaches the top
+          scrub: false,
+          markers: false,
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    return () => {
+      // Clean up scroll triggers on component unmount
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   const [selectedSize, setSelectedSize] = useState(
     singleProduct.id === 2862594
       ? "S/M Cap"
@@ -172,6 +229,10 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   console.log("variants: ", singleProduct.variants);
 
   const hoodieIds = [2995762, 3045844, 2995765, 2995767];
+
+  const buttonClass =
+    "lg:w-44 z-10 flex items-center justify-center gap-3 text-base text-white font-bold md:w-52 w-full";
+
   return (
     <div>
       <div className="flex flex-col gap-5">
@@ -464,14 +525,32 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               )}
             </div>
 
-            <Button
-              disabled={stockAmount == 0 ? true : false}
-              className="lg:w-44 fixed h-14 sm:relative bottom-0 z-10 flex items-center rounded-none justify-center gap-3 text-base text-white font-bold md:w-52 w-full"
-              type="submit"
+            <div
+              id="button-container"
+              className="relative flex items-center md:justify-start  justify-center"
             >
-              <span>ADD TO CART</span>
-              <ShoppingCart className="pb-1" />
-            </Button>
+              {/* Fixed Button */}
+              <Button
+                id="fixed-button"
+                disabled={stockAmount === 0}
+                className="lg:w-44 h-14 flex rounded-none z-10 md:hidden items-center justify-center gap-3 text-base text-white font-bold md:w-52 w-full fixed bottom-0 left-0 transform transition-all ease-out"
+                type="submit"
+              >
+                <span className="text-base">ADD TO CART</span>
+                <ShoppingCart className="pb-1" />
+              </Button>
+
+              {/* Relative Button */}
+              <Button
+                id="relative-button"
+                disabled={stockAmount === 0}
+                className="lg:w-44 h-14 z-10 md:rounded-none flex items-center justify-center gap-3 text-base text-white font-bold md:w-52 w-11/12 relative transform transition-all ease-out"
+                type="submit"
+              >
+                <span className="text-base">ADD TO CART</span>
+                <ShoppingCart className="pb-1" />
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
