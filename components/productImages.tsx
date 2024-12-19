@@ -145,7 +145,7 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
   return (
     <div className="flex gap-4 flex-col-reverse md:flex-row overflow-x-hidden sticky top-0">
       {/* Thumbnails column */}
-      <div className="flex sm:flex-col no-scrollbar overflow-x-scroll flex-row gap-2 md:w-24 w-full">
+      <div className="sm:flex sm:flex-col hidden no-scrollbar overflow-x-scroll flex-row gap-2 md:w-24 w-full">
         {images?.map((image, index) => (
           <Image
             key={index}
@@ -174,12 +174,12 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
             {images?.map((image, index) => (
               <CarouselItem
                 key={index}
-                className="relative flex rounded-lg items-start justify-start"
+                className="relative flex  rounded-lg items-start justify-start"
               >
                 <Image
                   alt={`Product image ${index + 1}`}
                   loading="eager"
-                  className="bg-[#E3E0DF] aspect-auto object-cover rounded-lg"
+                  className="bg-[#E3E0DF] h-full aspect-auto object-cover rounded-lg"
                   src={image.imageUrl}
                   width={1000}
                   height={1000}
@@ -188,6 +188,17 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
             ))}
           </CarouselContent>
         </Carousel>
+        <div className="absolute flex items-center gap-2 justify-center bottom-5 w-full">
+          {images?.map((_, index) => (
+            <div
+              key={index}
+              className={`w-2 h-2 rounded-full bg-gray-300 cursor-pointer ${
+                index === current ? "bg-white" : "bg-opacity-50"
+              }`}
+              onClick={() => handleThumbnailClick(index)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

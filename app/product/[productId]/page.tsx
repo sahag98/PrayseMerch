@@ -18,6 +18,7 @@ import { Metadata } from "next";
 import { Star } from "lucide-react";
 import Link from "next/link";
 import PairWith from "@/components/pair-with";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   params: { productId: any };
@@ -85,8 +86,8 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
   const pairedProductId = productPairings[singleProduct.id];
 
   return (
-    <div className="lg:px-28 mt-24 lg:mt-24 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-5 gap-3 items-start px-4">
-      <Breadcrumb>
+    <div className="lg:px-28 mt-24 lg:mt-24 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-5 gap-3 items-start">
+      <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -100,38 +101,32 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="flex relative lg:flex-row flex-col md:gap-5 lg:gap-5">
-        <h1 className="text-2xl lg:hidden w-fit font-bold">
+      <div className="flex relative gap-3 lg:flex-row flex-col md:gap-5 lg:gap-5">
+        <h1 className="text-2xl md:px-0 px-4 lg:hidden w-fit font-semibold">
           {singleProduct.title}
         </h1>
-        <div className="flex lg:hidden items-center gap-2">
-          <span className="flex mb-1 gap-2">
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-            <Star size={15} stroke="#daa520" fill="#daa520" />
-          </span>
-          <Link
-            href="/reviews"
-            className="text-sm cursor-pointer hover:underline transition-all"
-          >
-            6 Reviews
-          </Link>
-        </div>
-        <div className="flex  flex-1 flex-col  md:gap-3 gap-0 lg:gap-3 w-full">
+
+        <div className="flex md:px-0 px-4  flex-1 flex-col  md:gap-3 gap-0 lg:gap-3 w-full">
           <ProductImages singleProduct={singleProduct} />
         </div>
         <section className="flex flex-1 flex-col gap-5">
           <AddToCart singleProduct={singleProduct} />
-          <PairWith productId={pairedProductId} />
-          <div className="w-full border-b pb-5 dark:text-gray-400">
+          <div className="md:px-0 px-4">
+            <PairWith productId={pairedProductId} />
+          </div>
+          <div className="w-full md:px-0 px-4 border-b pb-5 dark:text-gray-400">
             <h2 className="text-foreground font-bold text-lg">DETAILS</h2>
             {singleProduct.description}
           </div>
           <SizeChart variants={singleProduct.variants} />
         </section>
       </div>
+      {/* <Button
+        size={"lg"}
+        className="fixed h-14 font-bold text-base uppercase bottom-0 w-full rounded-none"
+      >
+        Add To Cart
+      </Button> */}
       {/* <AccordionBox /> */}
       {/* <h3 id="reviews" className="text-lg font-bold">
         Reviews (6)

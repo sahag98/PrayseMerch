@@ -156,7 +156,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
       cart.addItem(CartItem);
       cart.openCart();
 
-      setQuantity(0);
+      setQuantity(1);
     }
   }
 
@@ -176,7 +176,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
     <div>
       <div className="flex flex-col gap-5">
         <section>
-          <h1 className="text-2xl sm:hidden lg:flex hidden font-bold">
+          <h1 className="text-2xl md:px-0 px-4 sm:hidden lg:flex hidden font-bold">
             {singleProduct.title}
           </h1>
           <div className="lg:flex sm:hidden hidden items-center gap-2">
@@ -195,7 +195,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
             </Link>
           </div>
         </section>
-        <section className="flex items-center border-b pb-3 justify-between lg:justify-normal gap-2">
+        <section className="flex md:px-0 px-4 items-center border-b pb-3 justify-between lg:justify-normal gap-2">
           <span className="text-xl font-medium text-primary">
             ${singleProduct.variants[0].d2cPrice}
           </span>
@@ -222,7 +222,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
                 control={form.control}
                 name="size"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="md:px-0 px-4">
                     <FormLabel className="font-bold text-lg">SIZE</FormLabel>
                     <div className="flex items-center gap-5">
                       {singleProduct.id === 2862594 && (
@@ -420,7 +420,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
               />
             )}
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col md:px-0 px-4 gap-1">
               <p className="font-bold text-lg">QUANTITY</p>
               <section className="flex items-center gap-2">
                 <FormControl
@@ -466,7 +466,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
 
             <Button
               disabled={stockAmount == 0 ? true : false}
-              className="lg:w-44 flex items-center rounded-none justify-center gap-3 text-base text-white font-bold md:w-52 w-full"
+              className="lg:w-44 fixed h-14 sm:relative bottom-0 z-10 flex items-center rounded-none justify-center gap-3 text-base text-white font-bold md:w-52 w-full"
               type="submit"
             >
               <span>ADD TO CART</span>
