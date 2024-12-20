@@ -104,10 +104,10 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
       }
     );
 
-    return () => {
-      // Clean up scroll triggers on component unmount
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    // return () => {
+    //   // Clean up scroll triggers on component unmount
+    //   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    // };
   }, []);
 
   const [selectedSize, setSelectedSize] = useState(

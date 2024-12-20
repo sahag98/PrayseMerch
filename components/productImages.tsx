@@ -174,11 +174,13 @@ const ProductImages = ({ singleProduct }: { singleProduct?: Item }) => {
             {images?.map((image, index) => (
               <CarouselItem
                 key={index}
-                className="relative flex  rounded-lg items-start justify-start"
+                className="relative flex rounded-lg items-start justify-start"
               >
                 <Image
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ev9qPQAIJAMKrJuTawAAAABJRU5ErkJggg=="
                   alt={`Product image ${index + 1}`}
-                  className="bg-[#E3E0DF] h-full aspect-auto object-cover rounded-lg"
+                  className="bg-[#E3E0DF] md:h-full h-[600px] aspect-auto object-cover rounded-lg"
                   src={image.imageUrl}
                   width={1000}
                   height={1000}
