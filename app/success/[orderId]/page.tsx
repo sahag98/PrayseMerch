@@ -45,16 +45,27 @@ const SuccessPage = async ({ params: { orderId } }: any) => {
     <div className="h-screen lg:px-36 px-4 flex flex-col items-center justify-center">
       <CheckCircle className="text-green-600 w-24 h-24 mb-2" />
       <h3 className="font-bold text-xl mb-3">
-        Thank you for placing your order!
+        Thank you for placing an order!
       </h3>
       <h1 className="text-2xl underline font-bold">Order ID: {orderInfo.id}</h1>
       <h2 className="">Order Reference: {orderInfo.externalOrderReference}</h2>
       <h3 className="font-bold"></h3>
-      <p className="mt-5 mb-2 text-center">
+      <p className="mt-5 mb-2 md:w-1/2 text-lg w-full text-center">
         If you have any questions please email us at
         <span className="font-bold"> prayse.app@gmail.com</span>, and we&apos;ll
-        get back to you shortly :)
+        get back to you shortly. In the mean time, check out our free prayer
+        list template!
       </p>
+
+      <Link
+        className="bg-secondary my-2 font-semibold text-base rounded-lg p-3"
+        href={
+          "https://www.canva.com/design/DAGRcSB6DCs/QN5T89e5Jops_-PQ_B1f4g/view?utm_content=DAGRcSB6DCs&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
+        }
+        target="_blank"
+      >
+        FREE PRAYER LIST TEMPLATE
+      </Link>
 
       <Button size={"lg"} className="gap-2 mt-3">
         <Link
