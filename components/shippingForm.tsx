@@ -214,15 +214,18 @@ const ShippingForm = ({
           className="flex flex-col flex-grow"
         >
           <div className="flex flex-col gap-2 ">
-            <section className="flex items-center lg:flex-row flex-col w-full gap-2">
+            <section className="flex items-center mb-2  lg:flex-row flex-col w-full gap-4">
               <FormField
                 control={form.control}
                 name="first_name"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>First Name*</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your first name" {...field} />
+                      <Input
+                        className="text-base"
+                        placeholder="First Name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -233,24 +236,30 @@ const ShippingForm = ({
                 name="last_name"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Last Name*</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your last name" {...field} />
+                      <Input
+                        className="text-base"
+                        placeholder="Last Name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </section>
-            <section className="flex items-center lg:flex-row flex-col w-full gap-2">
+            <section className="flex items-center mb-2 lg:flex-row flex-col w-full gap-4">
               <FormField
                 control={form.control}
                 name="phone_number"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Phone Number*</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your phone number" {...field} />
+                      <Input
+                        className="text-base"
+                        placeholder="Phone Number"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -261,9 +270,12 @@ const ShippingForm = ({
                 name="email"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Email*</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input
+                        className="text-base"
+                        placeholder="Email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -274,11 +286,12 @@ const ShippingForm = ({
               control={form.control}
               name="street"
               render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Street Address*</FormLabel>
+                <FormItem className="w-full mb-2">
+                  {/* <FormLabel>Street Address*</FormLabel> */}
                   <FormControl>
                     <Input
-                      placeholder="Enter a valid street address"
+                      className="text-base"
+                      placeholder="Street Address"
                       {...field}
                     />
                   </FormControl>
@@ -291,10 +304,10 @@ const ShippingForm = ({
               name="streetAnnex"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Apartment no., floor, etc. (optional)</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter apartment or floor number"
+                      className="text-base"
+                      placeholder="Apartment/Floor Number (If Applicable)"
                       {...field}
                     />
                   </FormControl>
@@ -302,13 +315,12 @@ const ShippingForm = ({
                 </FormItem>
               )}
             />
-            <section className="flex items- lg:flex-row flex-col w-full gap-2">
+            <section className="flex lg:flex-row mt-1 flex-col w-full gap-3">
               <FormField
                 control={form.control}
                 name="country"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col pt-2 gap-1 w-full">
-                    <FormLabel>Country*</FormLabel>
+                  <FormItem className="flex flex-col pt-0 mb-0 gap-1 w-full">
                     <Popover onOpenChange={setPopoverOpen} open={popoverOpen}>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -317,7 +329,7 @@ const ShippingForm = ({
                             variant="outline"
                             role="combobox"
                             className={cn(
-                              "justify-between h-12 mt-1",
+                              "justify-between text-base h-12 mt-1",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -341,6 +353,7 @@ const ShippingForm = ({
                             <ScrollArea className="h-72 w-48 rounded-md border">
                               {CountryData.map((country) => (
                                 <CommandItem
+                                  className="text-base"
                                   value={country.name}
                                   key={country.id}
                                   onSelect={() => {
@@ -376,8 +389,7 @@ const ShippingForm = ({
                   control={form.control}
                   name="state"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col pt-2 gap-1 w-full">
-                      <FormLabel>State*</FormLabel>
+                    <FormItem className="flex flex-col pt-0 mb-2 gap-1 w-full">
                       <Popover
                         onOpenChange={setStatePopoverOpen}
                         open={statePopoverOpen}
@@ -389,7 +401,7 @@ const ShippingForm = ({
                               variant="outline"
                               role="combobox"
                               className={cn(
-                                "justify-between h-12 mt-1",
+                                "justify-between text-base h-12 mt-1",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -413,6 +425,7 @@ const ShippingForm = ({
                               <ScrollArea className="h-72 w-48 rounded-md border">
                                 {USstates.map((state) => (
                                   <CommandItem
+                                    className="text-base"
                                     value={state.name}
                                     key={state.code}
                                     onSelect={() => {
@@ -448,8 +461,7 @@ const ShippingForm = ({
                   control={form.control}
                   name="state"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col pt-2 gap-1 w-full">
-                      <FormLabel>Province*</FormLabel>
+                    <FormItem className="flex flex-col pt-0 mb-2 gap-1 w-full">
                       <Popover
                         onOpenChange={setProvincePopoverOpen}
                         open={provincePopoverOpen}
@@ -477,7 +489,7 @@ const ShippingForm = ({
                         <PopoverContent className="w-full p-0">
                           <Command>
                             <CommandInput
-                              placeholder="Search State..."
+                              placeholder="Search Province..."
                               className="h-9"
                             />
                             <CommandEmpty>No Province found.</CommandEmpty>
@@ -485,6 +497,7 @@ const ShippingForm = ({
                               <ScrollArea className="h-72 w-48 rounded-md border">
                                 {CanadianProvinces.map((province) => (
                                   <CommandItem
+                                    className="text-base"
                                     value={province.name}
                                     key={province.code}
                                     onSelect={() => {
@@ -516,15 +529,18 @@ const ShippingForm = ({
                 />
               )}
             </section>
-            <section className="flex items-center lg:flex-row flex-col w-full gap-2">
+            <section className="flex items-center mt-2 lg:flex-row flex-col w-full gap-4 mb-3">
               <FormField
                 control={form.control}
                 name="city"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>City*</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter city" {...field} />
+                      <Input
+                        className="text-base"
+                        placeholder="City"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -535,9 +551,12 @@ const ShippingForm = ({
                 name="zipCode"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Zip Code (If applicable)</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter zip code" {...field} />
+                      <Input
+                        className="text-base"
+                        placeholder="Zip Code (If Applicable)"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

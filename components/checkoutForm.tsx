@@ -166,10 +166,7 @@ const CheckoutForm = ({
 
           {shippingTypes.length > 0 ? (
             <div className="flex flex-col gap-2">
-              <h2 className="font-bold text-xl">
-                Select Shipping:{" "}
-                <span className="text-sm text-foreground/75">(Required)</span>
-              </h2>
+              <h2 className="font-bold text-xl">Select Shipping</h2>
               <div className="flex flex-col gap-5">
                 {shippingTypes.map((type: any) => (
                   <div
@@ -182,7 +179,7 @@ const CheckoutForm = ({
                     key={type.id}
                   >
                     <div className="flex flex-col">
-                      <span className="font-bold">{type.name}</span>
+                      <span className="font-bold text-xl">{type.name}</span>
                       <span className="text-sm dark:text-foreground/75">
                         {type.description}
                       </span>
