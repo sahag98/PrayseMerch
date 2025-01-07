@@ -52,6 +52,7 @@ export const metadata: Metadata = {
     "christian crewneck",
     "tshirt",
     "tanktops",
+    "hoodies",
     "tee",
     "crewneck",
     "apparel",

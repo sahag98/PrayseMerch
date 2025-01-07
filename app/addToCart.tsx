@@ -57,8 +57,6 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   const [quantity, setQuantity] = useState(1);
   const [quantityErrorMsg, setQuantityErrorMsg] = useState(false);
 
-  console.log("single product id: ", singleProduct.id);
-
   useEffect(() => {
     // GSAP ScrollTrigger to handle switching between the two buttons
 
@@ -183,7 +181,7 @@ const AddToCart = ({ singleProduct }: { singleProduct: Item }) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const id = uuidv4();
-    console.log("id: ", id);
+
     if (quantity == 0) {
       setQuantityErrorMsg(true);
       return;

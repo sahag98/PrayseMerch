@@ -36,8 +36,6 @@ export default async function PairWith({
 
   const mug: Item = await mugRes.json();
 
-  console.log("mug: ", mug);
-
   return (
     <div className="border-b pb-6">
       <h2 className="text-xl font-bold">Pair it With</h2>

@@ -85,6 +85,8 @@ const SingleProductPage = async ({ params: { productId } }: any) => {
 
   const pairedProductId = productPairings[singleProduct.id];
 
+  console.log("single product: ", singleProduct);
+
   return (
     <div className="lg:px-28 mt-24 lg:mt-24 md:mt-24 flex lg:flex-col md:flex-row flex-col lg:justify-start lg:items-start md:justify-start justify-start md:items-start lg:gap-5 gap-3 items-start">
       <Breadcrumb className="hidden md:flex">
