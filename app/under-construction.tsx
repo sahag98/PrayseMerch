@@ -1,25 +1,31 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import CountdownTimer from "@/components/countdown-timer";
+// import CountdownTimer from "@/components/countdown-timer";
 
 export default function UnderConstruction() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-4xl bg-white shadow-xl rounded-2xl overflow-hidden">
         <CardContent className="p-0">
-          <div className="grid md:grid-cols-2 gap-0">
-            <div className="relative h-64 bg-gray-300 md:h-full">
+          <div className=" gap-0">
+            <div className="relative flex md:flex-row flex-col items-center w-full md:h-full">
               <Image
-                src={
-                  "https://utfs.io/f/aZ7NTMjk7uDevTIzwqH8hCDjkHqOMPcr1ogNJ2Ksyl5zxXfb"
-                }
-                // width={2000}
-                // height={2000}
+                src={"/pbr-hoodie.png"}
+                width={700}
+                height={700}
                 alt="Stylish hoodies coming soon"
-                layout="fill"
                 objectFit="cover"
-                className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none"
+                className="rounded-t-2xl md:w-1/2 md:rounded-l-2xl md:rounded-tr-none"
+              />
+
+              <Image
+                src={"/pbr-crewneck.png"}
+                width={700}
+                height={700}
+                alt="Stylish hoodies coming soon"
+                objectFit="cover"
+                className="rounded-t-2xl md:w-1/2 md:rounded-l-2xl md:rounded-tr-none"
               />
             </div>
             <div className="p-6 md:p-8 flex flex-col justify-between">
@@ -29,13 +35,11 @@ export default function UnderConstruction() {
                     id="stagger"
                     className="lg:text-7xl flex flex-col text-primary text-6xl font-bold "
                   >
-                    <span>Rejoice</span>
-                    <span>Pray</span>
-                    <span>Praise</span>
+                    <span>PRAY</span>
+                    <span>BELIEVE</span>
+                    <span>RECEIVE</span>
                   </h1>
-                  <p className="text-gray-600 italic mb-6">
-                    1 Thessalonians 5:16-18
-                  </p>
+                  <p className="text-gray-600 italic mb-6">Mark 11:24</p>
                 </section>
                 <Image
                   className="w-14 dark:bg-white dark:rounded-full"
@@ -45,9 +49,9 @@ export default function UnderConstruction() {
                   alt="Prayse Logo"
                 />
               </div>
-              <div className="space-y-6">
-                <CountdownTimer />
-              </div>
+              <h2 className="font-bold text-center text-xl">
+                LAUNCHING TOMORROW 12 PM PST
+              </h2>
             </div>
           </div>
         </CardContent>
