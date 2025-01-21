@@ -19,7 +19,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col relative bg-background overflow-hidden min-h-screen items-center  justify-center">
-      <Hero />
+      <Hero products={products} />
       {/* <WhatsNew /> */}
       <Reviews />
       <NewArrivals products={products} />

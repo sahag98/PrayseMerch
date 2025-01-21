@@ -15,22 +15,21 @@ const josefin = Josefin_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://shop.prayse.app"),
   title: {
-    default: "Prayse Merch",
-    template: `%s | Prayse Merch`,
+    default: "PRAY BELIEVE RECEIVE",
+    template: `%s | PRAY BELIEVE RECEIVE`,
   },
   description:
-    "Check out our first release of merchandise with a message of elavating the importance of prayer and praise in our walk with God.",
+    "This hoodie is a reminder of asking prayerfully, believing in God's promises and receiving the best God has for us according to His perfect will. We hope this hoodie is an encouraging piece of clothing to wear, not only to you but to those who see it and ask questions about it.",
   openGraph: {
     type: "website",
     url: "https://shop.prayse.app/",
-    title: "Prayse Merch",
+    title: "PRAY BELIEVE RECEIVE",
     description:
-      "Check out our first release of merchandise with a message of elavating the importance of prayer in a Christian's walk with God.",
-    siteName: "Prayse Merch",
+      "This hoodie is a reminder of asking prayerfully, believing in God's promises and receiving the best God has for us according to His perfect will. We hope this hoodie is an encouraging piece of clothing to wear, not only to you but to those who see it and ask questions about it.",
+    siteName: "PRAY BELIEVE RECEIVE",
     images: [
-      "https://cdn.glitch.global/1948cbef-f54d-41c2-acf7-6548a208aa97/hoer-shirt-2.png?v=1711145774428",
-      "https://cdn.glitch.global/1948cbef-f54d-41c2-acf7-6548a208aa97/hoer-shirt-3.png?v=1711145776403",
-      "https://cdn.glitch.global/1948cbef-f54d-41c2-acf7-6548a208aa97/hero-shirt.png?v=1711145778059",
+      "https://5mwuqb1r2k.ufs.sh/f/aZ7NTMjk7uDerzzuOTeSM3iqWkay8fmupEwKOGQBzP6nvrCs",
+      "https://5mwuqb1r2k.ufs.sh/f/aZ7NTMjk7uDepzQSKFGLdQU6DWeytEBnoMG5SxJHlCPgmjA2",
     ],
   },
   robots: {
@@ -48,6 +47,8 @@ export const metadata: Metadata = {
     "prayse merch",
     "christian",
     "christian tshirts",
+    "christian apparel",
+    "christian hoodies",
     "christian tanktops",
     "christian crewneck",
     "tshirt",
@@ -86,20 +87,20 @@ export default function RootLayout({
           suppressHydrationWarning={true}
           className={cn(josefin.className, "antialiased")}
         >
-          <UnderConstruction />
+          {/* <UnderConstruction /> */}
           {/* <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           > */}
-          {/* <NextTopLoader color="#3D72ED" />
+          <NextTopLoader color="#3D72ED" />
           <Navbar />
           {children}
 
           <Footer />
           <Toaster />
-          <Analytics /> */}
+          <Analytics />
           {/* </ThemeProvider> */}
         </body>
       </html>

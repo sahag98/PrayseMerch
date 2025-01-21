@@ -4,11 +4,19 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { ShoppingCart } from "lucide-react";
 import { Badge } from "./ui/badge";
+import { Item } from "@/app/popular-products";
+import HeroGrid from "./hero-grid";
 
-const Hero = () => {
+const Hero = ({ products }: { products: { items: [] } }) => {
+  const pbrHoodie = products.items.find(
+    (product: Item) => product.id === 3073661
+  );
+  const pbrCrewneck = products.items.find(
+    (product: Item) => product.id === 3092580
+  );
   return (
     <div className="flex w-full md:flex-row flex-col lg:px-28 py-20 md:px-20 px-4 md:gap-5 gap-6 md:h-screen min-h-screen lg:items-center items-start mt-0 lg:mt-0 relative lg:justify-between">
-      <div className="relative rounded-xl overflow-hidden h-full p-4 items-center flex md:flex-[0.8] w-full">
+      <div className="relative rounded-xl overflow-hidden h-full p-4 items-center flex md:flex-[0.7] w-full">
         <div className="absolute inset-0 w-full h-full bg-black/15 z-10" />
         <Image
           alt="Hero banner"
@@ -37,95 +45,19 @@ const Hero = () => {
             <span>Receive</span>
           </h1>
           <p className=" text-background text-xl" id="stagger">
-            Hoodies available now.
+            Hoodie and crewneck available now.
           </p>
-          <Link className="mt-3 w-fit" href="/products?filter=hoodies">
+          {/* <Link className="mt-3 w-fit" href="/products?filter=hoodies">
             <Button
               id="stagger"
-              className=" w-full uppercase animate-buttonheartbeat  text-base text-white bg-primary font-bold"
+              className=" w-full uppercase animate-buttonheartbeat  text-lg text-white bg-primary font-bold"
             >
               Shop Now
             </Button>
-          </Link>
+          </Link> */}
         </section>
       </div>
-      <div className="flex-[0.5] w-full  h-full flex flex-col gap-5 justify-between items-start ">
-        <div className="flex md:flex-row w-full flex-col  gap-5">
-          <div className="bg-[#E6E4E2] aspect-square rounded-2xl">
-            <div className="flex relative flex-col dark:bg-accent justify-center overflow-hidden duration-500 transition-all">
-              <div className="relative flex items-center justify-center">
-                <Image
-                  src={"/pbr-hoodie.png"}
-                  width={300}
-                  height={300}
-                  alt="pbr hoodie"
-                />
-              </div>
-            </div>
-            <div className="flex-col flex border-t gap-2 px-4 py-2">
-              <h3 className="font-semibold text-center text-foreground text-lg">
-                PRAY BELIEVE RECEIVE
-              </h3>
-              <div className="flex items-center gap-2">
-                <Badge variant={"secondary"} className="bg-background">
-                  HOODIE
-                </Badge>
-                <Badge variant={"secondary"} className="bg-background">
-                  UNISEX
-                </Badge>
-              </div>
-              {/* <div className="flex items-center mt-2 mb-1 justify-between">
-                <section>
-                  <span className="text-xl text-primary font-semibold">
-                    $40.99
-                  </span>
-                </section>
-                <Button size={"icon"} className="w-11 h-11">
-                  <ShoppingCart className="text-white" />
-                </Button>
-              </div> */}
-            </div>
-          </div>
-          <div className="bg-[#E6E4E2] aspect-square rounded-2xl">
-            <div className="flex relative flex-col dark:bg-accent justify-center overflow-hidden duration-500 transition-all">
-              <div className="relative flex items-center justify-center">
-                <Image
-                  src={"/pbr-crewneck.png"}
-                  width={300}
-                  height={300}
-                  alt="pbr hoodie"
-                />
-              </div>
-            </div>
-            <div className="flex-col flex border-t gap-2 px-4 py-2">
-              <h3 className="font-semibold text-center text-foreground text-lg">
-                PRAY BELIEVE RECEIVE
-              </h3>
-              <div className="flex items-center gap-2">
-                <Badge variant={"secondary"} className="bg-background">
-                  CREWNECK
-                </Badge>
-                <Badge variant={"secondary"} className="bg-background">
-                  UNISEX
-                </Badge>
-              </div>
-              {/* <div className="flex items-center mt-2 mb-1 justify-between">
-                <section>
-                  <span className="text-xl text-primary font-semibold">
-                    $40.99
-                  </span>
-                </section>
-                <Button size={"icon"} className="w-11 h-11">
-                  <ShoppingCart className="text-white" />
-                </Button>
-              </div> */}
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center bg-[#E6E4E2] justify-center flex-1 rounded-2xl bg-[] w-full">
-          Hoodies
-        </div>
-      </div>
+      <HeroGrid pbrHoodie={pbrHoodie!} pbrCrewNeck={pbrCrewneck!} />
     </div>
   );
 };

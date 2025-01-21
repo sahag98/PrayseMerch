@@ -47,15 +47,15 @@ const OurProducts = ({ products }: { products: any }) => {
   const [selectedCategory, setSelectedCategory] = useState(
     search == "tees"
       ? "T-Shirt"
-      : search == "hoodies"
+      : search === "hoodies"
       ? "Hoodie"
-      : search == "beanies"
+      : search === "beanies"
       ? "Beanie"
-      : search == "tanktops"
+      : search === "tanktops"
       ? "Tank"
-      : search == "sweatshirts"
-      ? "Sweatshirt"
-      : search == "accessories"
+      : search === "crewnecks"
+      ? "Crewneck"
+      : search === "accessories"
       ? "Cap"
       : ""
   );
@@ -119,12 +119,12 @@ const OurProducts = ({ products }: { products: any }) => {
         <Button
           className="font-medium dark:text-white"
           onClick={() => {
-            setSelectedCategory("Sweatshirt");
+            setSelectedCategory("Crewneck");
             router.push(
-              pathname + "?" + createQueryString("filter", "sweatshirts")
+              pathname + "?" + createQueryString("filter", "crewnecks")
             );
           }}
-          variant={selectedCategory == "Sweatshirt" ? "default" : "outline"}
+          variant={selectedCategory == "Crewneck" ? "default" : "outline"}
           size={"sm"}
         >
           Crewnecks
