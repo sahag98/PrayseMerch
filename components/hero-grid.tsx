@@ -17,7 +17,7 @@ const HeroGrid = ({
       <div className="flex md:flex-row w-full flex-col  gap-5">
         <Link
           href={`/product/${pbrHoodie.id}`}
-          className="bg-primary flex flex-col justify-between aspect-square rounded-2xl"
+          className="bg-primary flex flex-col w-full justify-between aspect-square rounded-2xl"
         >
           <section className="flex relative flex-col dark:bg-accent justify-center overflow-hidden duration-500 transition-all">
             <div className="relative flex items-center justify-center">
@@ -58,7 +58,7 @@ const HeroGrid = ({
         </Link>
         <Link
           href={`/product/${pbrCrewNeck.id}`}
-          className="bg-primary flex flex-col justify-between aspect-square rounded-2xl"
+          className="bg-primary flex flex-col w-full justify-between aspect-square rounded-2xl"
         >
           <section className="flex relative flex-col dark:bg-accent justify-center overflow-hidden duration-500 transition-all">
             <div className="relative flex items-center justify-center">
