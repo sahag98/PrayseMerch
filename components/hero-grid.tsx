@@ -17,7 +17,7 @@ const HeroGrid = ({
       <div className="flex md:flex-row w-full flex-col  gap-5">
         <Link
           href={`/product/${pbrHoodie.id}`}
-          className="bg-primary flex flex-col w-full justify-between aspect-square rounded-2xl"
+          className="bg-primary flex flex-col w-full md:w-auto justify-between aspect-square rounded-2xl"
         >
           <section className="flex relative flex-col dark:bg-accent justify-center overflow-hidden duration-500 transition-all">
             <div className="relative flex items-center justify-center">
@@ -36,29 +36,11 @@ const HeroGrid = ({
             <h2 className="font-semibold text-background text-center text-lg">
               PRAY BELIEVE RECEIVE HOODIE | UNISEX
             </h2>
-            {/* <div className="flex items-center gap-2">
-                <Badge variant={"secondary"} className="bg-background">
-                  HOODIE
-                </Badge>
-                <Badge variant={"secondary"} className="bg-background">
-                  UNISEX
-                </Badge>
-              </div> */}
-            {/* <div className="flex items-center mt-2 mb-1 justify-between">
-                <section>
-                  <span className="text-xl text-primary font-semibold">
-                    $40.99
-                  </span>
-                </section>
-                <Button size={"icon"} className="w-11 h-11">
-                  <ShoppingCart className="text-white" />
-                </Button>
-              </div> */}
           </section>
         </Link>
         <Link
           href={`/product/${pbrCrewNeck.id}`}
-          className="bg-primary flex flex-col w-full justify-between aspect-square rounded-2xl"
+          className="bg-primary flex flex-col w-full md:w-auto justify-between aspect-square rounded-2xl"
         >
           <section className="flex relative flex-col dark:bg-accent justify-center overflow-hidden duration-500 transition-all">
             <div className="relative flex items-center justify-center">
@@ -77,24 +59,6 @@ const HeroGrid = ({
             <h2 className="font-semibold text-center text-background text-lg">
               PRAY BELIEVE RECEIVE CREWNECK | UNISEX
             </h2>
-            {/* <div className="flex items-center gap-2">
-                <Badge variant={"secondary"} className="bg-background">
-                  CREWNECK
-                </Badge>
-                <Badge variant={"secondary"} className="bg-background">
-                  UNISEX
-                </Badge>
-              </div> */}
-            {/* <div className="flex items-center mt-2 mb-1 justify-between">
-                <section>
-                  <span className="text-xl text-primary font-semibold">
-                    $40.99
-                  </span>
-                </section>
-                <Button size={"icon"} className="w-11 h-11">
-                  <ShoppingCart className="text-white" />
-                </Button>
-              </div> */}
           </section>
         </Link>
       </div>

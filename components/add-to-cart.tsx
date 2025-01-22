@@ -18,13 +18,6 @@ const AddToCart = ({ item }: { item: Item }) => {
   };
 
   async function addToCart() {
-    console.log("item to add: ", item);
-    // const correctSku = await checkSkuMatch(values);
-
-    // if (!correctSku) {
-    //   return;
-    // }
-
     const customerPrice = {
       amount: item.variants[0].d2cPrice,
     };
@@ -78,7 +71,6 @@ const AddToCart = ({ item }: { item: Item }) => {
           <Button
             className="font-bold w-13 h-11 text-base sm:flex flex"
             variant={"secondary"}
-            // onClick={() => router.push(`/product/cap/${item.id}`)}
           >
             View
           </Button>
@@ -88,7 +80,6 @@ const AddToCart = ({ item }: { item: Item }) => {
           <Button
             className=" font-bold w-13 h-11 text-base sm:flex flex"
             variant={"secondary"}
-            // onClick={() => router.push(`/product/bag/${item.id}`)}
           >
             View
           </Button>
@@ -98,7 +89,6 @@ const AddToCart = ({ item }: { item: Item }) => {
           <Button
             className=" font-bold w-13 h-11 text-base sm:flex flex"
             variant={"secondary"}
-            // onClick={() => router.push(`/product/more/${item.id}`)}
           >
             View
           </Button>
@@ -108,7 +98,6 @@ const AddToCart = ({ item }: { item: Item }) => {
           <Button
             className=" font-bold w-13 h-11 text-base sm:flex flex"
             variant={"secondary"}
-            // onClick={() => router.push(`/product/${item.id}`)}
           >
             View
           </Button>
