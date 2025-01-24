@@ -50,7 +50,7 @@ export default function UnderConstruction() {
                 />
               </div>
               <h2 className="font-bold text-center text-xl">
-                LAUNCHING TOMORROW 12 PM PST
+                The website is under maintenance. Will be back soon.
               </h2>
             </div>
           </div>
