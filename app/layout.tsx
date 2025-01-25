@@ -87,7 +87,7 @@ export default function RootLayout({
           suppressHydrationWarning={true}
           className={cn(josefin.className, "antialiased")}
         >
-          <UnderConstruction />
+          {/* <UnderConstruction /> */}
           {/* <UnderConstruction /> */}
           {/* <ThemeProvider
             attribute="class"
@@ -95,13 +95,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           > */}
-          {/* <NextTopLoader color="#3D72ED" />
+          <NextTopLoader color="#3D72ED" />
           <Navbar />
           {children}
 
           <Footer />
           <Toaster />
-          <Analytics /> */}
+          <Analytics />
           {/* </ThemeProvider> */}
         </body>
       </html>
