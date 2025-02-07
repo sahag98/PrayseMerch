@@ -59,7 +59,8 @@ const PopularProducts = ({ products }: { products: any }) => {
       >
         {list?.map((item: Item, idx: number) => (
           <React.Fragment key={idx}>
-            {item.id === 2823351 ||
+            {item.id === 2995762 ||
+            item.id === 2823351 ||
             item.id === 2809325 ||
             item.id === 2809328 ||
             item.id === 2803251 ? (
